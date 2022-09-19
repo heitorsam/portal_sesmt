@@ -30,13 +30,23 @@
 
     <?php } ?> 
 
-    <!--SESMT ADM-->
-        <?php if(@$_SESSION['papel_sesmt_adm'] == 'S'){ ?>
-        <a href="durabilidade.php" class="botao_home_adm" type="submit"><i class="fa-solid fa-square-plus"></i> Durabilidade</a></td></tr>
-        
-        <span class="espaco_pequeno"></span>
+    <div class='espaco_vertical_medio'></div>
 
-    <?php } ?> 
+    <div class='row'>
+
+        <div class='col-md-3'>
+
+            <!--SESMT ADM-->
+                <?php if(@$_SESSION['papel_sesmt_adm'] == 'S'){ ?>
+                <a href="durabilidade.php" class="botao_home_adm" type="submit"><i class="fa-solid fa-square-plus"></i> Durabilidade</a></td></tr>
+                
+                <span class="espaco_pequeno"></span>
+
+            <?php } ?>
+
+        </div>
+
+    </div>
 
 <?php
     //RODAPE

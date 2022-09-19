@@ -1,0 +1,10 @@
+--CONSULTAS SOLICITACOES
+
+SELECT usu.NM_USUARIO,
+       usu.DS_OBSERVACAO AS DS_FUNCAO
+FROM dbasgu.USUARIOS usu
+WHERE usu.SN_ATIVO = 'S'
+AND usu.CD_USUARIO = --VARIAVEL PHP
+
+
+-----------------------------
