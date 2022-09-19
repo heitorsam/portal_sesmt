@@ -22,7 +22,7 @@ $dbstr1 ="(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =10.200.0.211)(PORT = 1
 (CONNECT_DATA = (SERVICE_NAME = prdmv)))";
 
 //Criar a conexao ORACLE
-if(!@($conn_ora = oci_connect('portal_same','sjc_pepita_ouro_aleixo_440',$dbstr1,'AL32UTF8'))){
+if(!@($conn_ora = oci_connect('portal_sesmt','sjc_2000_50_15_bilolao',$dbstr1,'AL32UTF8'))){
 	echo "Conexão falhou!";	
 } else { 
 	//echo "Conexão OK!";	
