@@ -1,7 +1,7 @@
 <?php
 
-//Se o usuário não for admin
-if($_SESSION['papel_sesmt_adm'] == 'N'){
+//Se o usuário não tiver permissão
+if($_SESSION['papel_sesmt'] == 'N'){
 
 	unset(
 		$_SESSION['usuarioLogin'],

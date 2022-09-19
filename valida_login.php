@@ -26,9 +26,18 @@
 													CASE
 														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
 																			FROM dbasgu.PAPEL_USUARIOS puia
-																			WHERE puia.CD_PAPEL = 389) THEN 'S' --PORTAL_SESMT ACESSO GERAL
+																			WHERE puia.CD_PAPEL = 389) THEN 'S' --PORTAL_SESMT ACESSO GERAL 
 														ELSE 'N'
-													END SN_USUARIO_SESMT
+													END SN_USUARIO_SESMT,
+
+													
+													CASE
+														WHEN :usuario IN (SELECT DISTINCT puia.CD_USUARIO
+																			FROM dbasgu.PAPEL_USUARIOS puia
+																			WHERE puia.CD_PAPEL = 390) THEN 'S' --PORTAL_SESMT_ADM
+														ELSE 'N'
+													END SN_USUARIO_SESMT_ADM
+
 
 												FROM DUAL");																															
 												
@@ -59,6 +68,8 @@
 				if($resultado[0] == 'Login efetuado com sucesso') {
 					$_SESSION['usuarioLogin'] = $usuario;
 					$_SESSION['usuarioNome'] = $resultado[1];
+					$_SESSION['papel_sesmt'] = $resultado[2];
+					$_SESSION['papel_sesmt_adm'] = $resultado[3];
 					header("Location: $pag_apos");
 				} else { 
 					$_SESSION['msgerro'] = $resultado[0] . '!';
