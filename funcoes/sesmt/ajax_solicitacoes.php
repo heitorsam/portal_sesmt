@@ -19,6 +19,8 @@
 
     $row = oci_fetch_array($resultado_con_oracle);
 
+
+
 ?>
 
 <div class="row">
@@ -36,16 +38,8 @@
         <input type="text" readonly value = "<?php echo $row['DS_FUNCAO'] ?>" class="form-control"></input>
     </div>
 
-    <div class = "col-md-3">
-        Centro de Custo:
-        </br>
-        <input type = "text" class="form-control"></input>
-
-    </div>
-
-
     <div class = "col-md-2">
-        Produto: 
+        Centro de Custo:
         </br>
         <input type = "text" class="form-control"></input>
 
@@ -57,6 +51,22 @@
 
 <div class = "row">
 
+    <div class = "col-md-8">
+
+        <?php
+        
+        include '../../filtros/filtro_produtos.php';
+        
+        ?>
+
+    </div>
+
+</div>
+
+<div class="div_br"> </div>  
+
+<div class = "row">
+
     <div class = "col-md-2">
 
         Quantidade: 
@@ -65,8 +75,8 @@
 
     </div>
 
-    
     <div class = "col-md-2">
+
         Descrição:
         </br>
         <input type = "text" class="form-control"></input>
@@ -74,6 +84,7 @@
     </div>
 
     <div class = "col-md-1">
+
         C.A:
         </br>
         <input type = "text" class="form-control"></input>
@@ -82,12 +93,9 @@
 
     <div class = "col-md-1" >
 
-     
-    </br>
-    <button type = "submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+        </br>
+        <button type = "submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
 
     </div>
-
-
 
 </div>

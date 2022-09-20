@@ -9,7 +9,6 @@ AND usu.CD_USUARIO = --VARIAVEL PHP
 ----------------------------------
 --CONSULTAS SOLICITACOES ( C.A ) 
 
-
 SELECT prod.CD_PRODUTO, prod.DS_PRODUTO, 
 SUBSTR( prod.DS_PRODUTO,
     INSTR( prod.DS_PRODUTO, '(CA') + 1,
