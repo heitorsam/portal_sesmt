@@ -10,7 +10,7 @@ $cons_produtos= "SELECT prod.CD_PRODUTO,
                 FROM dbamv.PRODUTO prod
                 WHERE prod.DS_PRODUTO LIKE '%(CA %'
                 AND prod.TP_ATIVO = 'S'
-                ORDER BY 2 ASC";
+                ORDER BY prod.DS_PRODUTO ASC";
 
 $rest_cons_produtos = oci_parse($conn_ora, $cons_produtos);
 
@@ -20,15 +20,27 @@ $row_prod = oci_fetch_array($rest_cons_produtos);
 
 ?>
 
+<!--Produto:
+<select name="frm_cd_produtos" id="frm_id_produtos" class='form-control' onchange="atualiza_ca()">>
+
+        //abrir php //while($row_prod = oci_fetch_array($rest_cons_produtos)){
+
+            //echo '<option value="' . $row_prod['CA'] . '" >' .  $row_prod['DS_PRODUTO'] . '</option>';
+
+        //}
+        //fechar php
+
+</select>-->
+
 Produto:
-<select name = "frm_cd_'produtos" class='form-control'>
+<select name="frm_cd_produtos" id="frm_id_produtos" class='form-control' onchange="exibe_qtd_CA()">>
 
-        <?php while($row_prod = oci_fetch_array($rest_cons_produtos)){
+<?php while($row_prod = oci_fetch_array($rest_cons_produtos)){
 
-            echo '<option value="' . $row_prod['CD_PRODUTO'] . '" >' .  $row_prod['DS_PRODUTO'] . '</option>';
+echo '<option value="' . $row_prod['CD_PRODUTO'] . '" >' .  $row_prod['DS_PRODUTO'] . '</option>';
 
-        }
-        ?>
+}
+?>
 
 </select>
 

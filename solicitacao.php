@@ -31,6 +31,8 @@
 
         </div>
 
+        
+
     </div>
     
     <div class="div_br">
@@ -38,6 +40,8 @@
         <div id="solicitacoes"></div>
 
     </div>
+
+
 
 
 
@@ -53,7 +57,31 @@
 
         }
 
+        function exibe_qtd_CA(){
+
+            var_exibe_qtd_CA = document.getElementById('frm_id_produtos').value;
+            $('#ex_qtd_CA').load('funcoes/sesmt/ajax_exibir_qtd_CA.php?ex_qtd_CA='+ var_exibe_qtd_CA)
+
+        }
+
+        //function atualiza_ca(){
+
+            //var_ca = document.getElementsByName('frm_cd_produtos').value;
+
+            //var select = document.getElementById("frm_id_produtos");
+            //var opcaoTexto = select.options[select.selectedIndex].text; -- NÃO ESTAVA USANDO.
+            //var opcaoValor = select.options[select.selectedIndex].value;
+
+            //alert(opcaoValor);
+
+            //document.getElementById("campo_ca"). value = opcaoValor.substring(3, 10);
+
+        //}
+
     </script>
+
+
+    
 
 
 <?php

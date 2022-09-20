@@ -17,3 +17,31 @@ FROM dbamv.PRODUTO prod
 WHERE prod.DS_PRODUTO LIKE '%(CA %'
 AND prod.TP_ATIVO = 'S'
 ORDER BY 2 ASC
+
+----------------------------------
+--CONSULTAS SETOR 
+
+SELECT st.CD_SETOR,
+       st.NM_SETOR
+FROM dbamv.SETOR st
+WHERE st.SN_ATIVO = 'S'
+ORDER BY st.CD_SETOR ASC, st.NM_SETOR ASC
+----------------------------------
+--INSERINDO DADOS LISTAGEM
+
+INSERT INTO portal_sesmt.ITSOLICITACAO
+SELECT 
+'1'        AS CD_ITSOLICITACAO,
+'12'       AS  CD_SOLICITACAO,
+'123'      AS  CD_PRODUTO_MV,
+'1234'     AS CA_MV,
+'2'        AS QUANTIDADE,
+'LDPGOMES'  AS CD_USUARIO_CADASTRO,
+SYSDATE     AS HR_CADASTRO,
+NULL        AS CD_USUARIO_ULT_ALT,
+SYSDATE     AS HR_ULT_ALT
+FROM DUAL
+
+
+
+ 

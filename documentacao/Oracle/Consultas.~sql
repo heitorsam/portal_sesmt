@@ -9,7 +9,6 @@ AND usu.CD_USUARIO = --VARIAVEL PHP
 ----------------------------------
 --CONSULTAS SOLICITACOES ( C.A ) 
 
-
 SELECT prod.CD_PRODUTO, prod.DS_PRODUTO, 
 SUBSTR( prod.DS_PRODUTO,
     INSTR( prod.DS_PRODUTO, '(CA') + 1,
@@ -18,3 +17,13 @@ FROM dbamv.PRODUTO prod
 WHERE prod.DS_PRODUTO LIKE '%(CA %'
 AND prod.TP_ATIVO = 'S'
 ORDER BY 2 ASC
+
+----------------------------------
+--CONSULTAS SETOR 
+
+SELECT st.CD_SETOR,
+       st.NM_SETOR
+FROM dbamv.SETOR st
+WHERE st.SN_ATIVO = 'S'
+ORDER BY st.CD_SETOR ASC, st.NM_SETOR ASC
+ 
