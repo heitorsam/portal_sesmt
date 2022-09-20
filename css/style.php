@@ -544,19 +544,6 @@ h14{
 	width: 20px;	
 }
 
-.espaco_vertical {
-
-    padding-top: 8px
-
-
-}
-
-.espaco_vertical_medio {
-
-padding-top: 15px
-
-
-}
 
 
 

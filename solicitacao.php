@@ -18,25 +18,23 @@
     <div class='espaco_pequeno'></div>
     <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></h27>
 
-    <div class="div_br"> </div>
-    
+    <div class="div_br"> </div>    
 
     <!-- CONTEUDO -->
-    <div class='espaco_vertical'></div>
     <div class='row'>
 
-        <div class='col-md-3'>
+        <div class='col-md-2'>
        
-             Usuario
-            <div class='espaco_vertical'></div>
-            <input type="text" id="valor_beep" class="form-control" onchange = "pesquisar_usuario()">   
-
-            <a class="botao_home" onclick = "pesquisar_usuario()" type="submit"><i class="fa-solid fa-search"></i></a>
+             Usuário:
+            </br>
+            <input type="text" id="valor_beep" class="form-control" onchange = "pesquisar_usuario()" autocomplete = "off" maxlength="12">  
 
         </div>
 
     </div>
-
+    
+    <div class="div_br">
+        
         <div id="solicitacoes"></div>
 
     </div>
@@ -51,7 +49,7 @@
             
             //alert(var_beep);
 
-            $('#solicitacoes').load('funcoes/sesmt/solicitacoes.php?CD_USUARIO='+ var_beep)
+            $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?CD_USUARIO='+ var_beep)
 
         }
 
