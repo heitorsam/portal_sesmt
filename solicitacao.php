@@ -21,29 +21,49 @@
     <div class="div_br"> </div>    
 
     <!-- CONTEUDO -->
-    <div class='row'>
-
-        <div class='col-md-2'>
-       
-             Usuário:
-            </br>
-            <input type="text" id="valor_beep" class="form-control" onchange = "pesquisar_usuario()" autocomplete = "off" maxlength="12">  
-
-        </div>
-
-        
-
-    </div>
-    
-    <div class="div_br">
-        
-        <div id="solicitacoes"></div>
-
-    </div>
 
 
+            <div class='row'>
+
+                <div class='col-md-2'>
+            
+                    Usuário:
+                    </br>
+                    <input type="text" name="frm_usu_sol" id="valor_beep" class="form-control" onchange = "pesquisar_usuario()" autocomplete = "off" maxlength="12">  
+
+                </div>
+               
+
+            </div>
+                
+            <div class="div_br"></div>
+                
+            <div id="solicitacoes"></div>
+
+            <div class="div_br"></div>
+               
+            <!--CAIXA PARA VALIDACAO DO AJAX -->
+            <input id='msg' style='width: 100%' hidden>
+
+            <div class="div_br"></div>
+            <h11><i class="fa-solid fa-check"></i> Realizadas</h11>
+
+            <div class="div_br"></div>
+
+            <table class="table table-striped" style="text-align: center">
+
+                <thead>
+
+                    <th>Produto </th>
+                    <th>Descrição</th>
+                    <th>C.A</th>
+                    <th>Entrega</th>
+                    <th>Funcionario</th>
+
+                </thead>
 
 
+            </table>
 
     <script>
 
@@ -57,13 +77,60 @@
 
         }
 
-        function exibe_qtd_CA(){
+        function ajax_adicionar_sol(){
 
-            var_exibe_qtd_CA = document.getElementById('frm_id_produtos').value;
-            $('#ex_qtd_CA').load('funcoes/sesmt/ajax_exibir_qtd_CA.php?ex_qtd_CA='+ var_exibe_qtd_CA)
+                var var_beep = document.getElementById('valor_beep').value;
+                var centro_c = document.getElementById('frm_id_cc').value;
+                var cd_produto = document.getElementById('frm_id_produtos').value;
+                var quantidade = document.getElementById('frm_qtd_sol').value;
+
+                $.ajax({
+                url: "funcoes/sesmt/ajax_cad_sol.php",
+                type: "POST",
+                data: {
+                    cd_setor: centro_c,
+                    cd_produto: cd_produto,
+                    quantidade: quantidade,
+                    cd_usuario: var_beep
+                    },
+                cache: false,
+                success: function(dataResult){
+                    //alert(dataResult);
+
+                    //ALIMENTANDO INPUT MSG
+                    document.getElementById('msg').value = dataResult;
+
+                    
+                    //$('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ usuario);
+                }
+            });                    
 
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+        
         //function atualiza_ca(){
 
             //var_ca = document.getElementsByName('frm_cd_produtos').value;
@@ -79,9 +146,6 @@
         //}
 
     </script>
-
-
-    
 
 
 <?php

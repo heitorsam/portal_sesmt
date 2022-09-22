@@ -2,7 +2,7 @@
 <?php
 
     include '../../conexao.php';
-
+    
     $var_usu = $_GET['CD_USUARIO'];
 
 
@@ -17,7 +17,7 @@
 
     oci_execute($resultado_con_oracle);
 
-    $row = oci_fetch_array($resultado_con_oracle);;
+    $row = oci_fetch_array($resultado_con_oracle);
 
 ?>
 
@@ -27,13 +27,13 @@
     <div class="col-md-3">
         Colaborador:
         </br>
-        <input type="text" readonly value = "<?php echo $row['NM_USUARIO'] ?>" class="form-control"></input>
+        <input type="text" id="frm_colab_sol" readonly value = "<?php echo $row['NM_USUARIO'] ?>" class="form-control"></input>
     </div>
 
     <div class="col-md-4">
         Função:
         </br>
-        <input type="text" readonly value = "<?php echo $row['DS_FUNCAO'] ?>" class="form-control"></input>
+        <input type="text" id="frm_func_sol" readonly value = "<?php echo $row['DS_FUNCAO'] ?>" class="form-control"></input>
     </div>
 
     <div class = "col-md-3">
@@ -43,6 +43,7 @@
             include '../../filtros/filtro_centro_custo.php';
             
         ?>
+
     </div>
 
 </div>
@@ -65,3 +66,20 @@
 
     
 </div>
+
+
+<script>
+
+
+
+function exibe_qtd_CA(){
+
+var_exibe_qtd_CA = document.getElementById('frm_id_produtos').value;
+$('#ex_qtd_CA').load('funcoes/sesmt/ajax_exibir_qtd_CA.php?ex_qtd_CA='+ var_exibe_qtd_CA)
+
+}
+
+
+
+
+</script>

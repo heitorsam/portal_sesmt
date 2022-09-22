@@ -4,7 +4,7 @@
 
             Quantidade: 
             </br>
-            <input type = "text" class="form-control"></input>
+            <input type = "text" id="frm_qtd_sol"class="form-control"></input>
 
     </div>
 
@@ -12,16 +12,19 @@
 
             C.A:
             </br>
-            <input id="campo_ca" type="text" class="form-control"></input>
+            <input id="campo_ca" type="text" id="frm_ca_sol" class="form-control"></input>
 
     </div>
 
     <div class = "col-md-1" >
 
             </br>
-            <button type = "submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+            <button type = "submit" class="btn btn-primary" onclick="ajax_adicionar_sol()" ><i class="fa-solid fa-plus"></i></button>
 
     </div>
 
 </div>
+
+
+
 

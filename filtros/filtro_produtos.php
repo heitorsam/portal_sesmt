@@ -18,6 +18,8 @@ oci_execute($rest_cons_produtos);
 
 $row_prod = oci_fetch_array($rest_cons_produtos);
 
+//INCLUIR VALIDA
+
 ?>
 
 <!--Produto:
@@ -36,7 +38,7 @@ Produto:
 <select name="frm_cd_produtos" id="frm_id_produtos" class='form-control' onchange="exibe_qtd_CA()">>
 
 <?php while($row_prod = oci_fetch_array($rest_cons_produtos)){
-
+        
 echo '<option value="' . $row_prod['CD_PRODUTO'] . '" >' .  $row_prod['DS_PRODUTO'] . '</option>';
 
 }
