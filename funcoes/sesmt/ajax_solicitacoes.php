@@ -66,7 +66,7 @@
 
             Quantidade: 
             </br>
-            <input type = "text" id="frm_qtd_sol"class="form-control"></input>
+            <input type = "text" id="frm_qtd_sol"class="form-control" autocomplete="off"></input>
 
     </div>
 

@@ -12,9 +12,7 @@
     <?php
         include 'js/mensagens.php';
         include 'js/mensagens_usuario.php';
-    ?>
-
-    
+    ?>  
 
     <h11><i class="fas fa-file-import"></i> Solicitações</h11>
     <div class='espaco_pequeno'></div>
@@ -58,6 +56,7 @@
             <table class="table table-striped" style="text-align: center">
                 <thead>
 
+                    <th>Solicitação</th>
                     <th>Usuário </th>
                     <th>Entrega</th>
                     <th>Código </th>
@@ -82,15 +81,11 @@
             var_beep = document.getElementById('valor_beep').value;
 
             document.getElementById('valor_beep').value =  var_beep.toUpperCase();
-            
-            //alert(var_beep);
 
             $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep);
 
             //MENSAGEM            
             var_ds_msg = 'Usuário%20encontrado!';
-            //var_tp_msg = 'alert-success';
-            //var_tp_msg = 'alert-danger';
             var_tp_msg = 'alert-primary';
             $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
@@ -104,38 +99,45 @@
                 var cd_produto = document.getElementById('frm_id_produtos').value;
                 var quantidade = document.getElementById('frm_qtd_sol').value;
 
-                //alert(cd_produto);
+                if(quantidade == '' || centro_c == '' || cd_produto == '' ){
 
-                $.ajax({
-                url: "funcoes/sesmt/ajax_cad_sol.php",
-                type: "POST",
-                data: {
-                    cd_setor: centro_c,
-                    cd_produto: cd_produto,
-                    quantidade: quantidade,
-                    cd_usuario: var_beep
-                    },
-                cache: false,
-                success: function(dataResult){
-                    //alert(dataResult);
+                    var_ds_msg = 'Necessário%20preencher%20os%20campos!';
+                    var_tp_msg = 'alert-danger';
+                    $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-                    //ALIMENTANDO INPUT MSG
-                    document.getElementById('msg').value = dataResult;                 
-                    
-                    $('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ var_beep);
+                }else{
+
+                    //alert(cd_produto);
+
+                    $.ajax({
+                        url: "funcoes/sesmt/ajax_cad_sol.php",
+                        type: "POST",
+                        data: {
+                            cd_setor: centro_c,
+                            cd_produto: cd_produto,
+                            quantidade: quantidade,
+                            cd_usuario: var_beep
+                            },
+                        cache: false,
+                        success: function(dataResult){
+                            //alert(dataResult);
+
+                            //ALIMENTANDO INPUT MSG
+                            document.getElementById('msg').value = dataResult;                 
+                            
+                            //MENSAGEM            
+                            var_ds_msg = 'Solicitação%20cadastrada%20com%20sucesso!';
+                            var_tp_msg = 'alert-success';
+                            //var_tp_msg = 'alert-danger';
+                            //var_tp_msg = 'alert-primary';
+                            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
 
-                     //MENSAGEM            
-                     var_ds_msg = 'Solicitação%20cadastrada%20com%20sucesso!';
-                     var_tp_msg = 'alert-success';
-                     //var_tp_msg = 'alert-danger';
-                     //var_tp_msg = 'alert-primary';
-                     $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-
-
-                    corpo_tabela_realizadas();
+                            corpo_tabela_realizadas();
+                        }
+                    }); 
+                
                 }
-            });                    
 
         }
 
@@ -147,6 +149,47 @@
 
             $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
+        }
+
+
+        function ajax_deletar_realizadas(cd_solicitacao){
+
+            //var usuario = document.getElementById('input').value;
+
+            resultado = confirm("Deseja excluir a observação?");
+
+            if(resultado == true){
+                $.ajax({
+                    url: "funcoes/sesmt/ajax_deletar_realizadas.php",
+                    type: "POST",
+                    data: {
+                        solicitacao: cd_solicitacao
+                        },
+                    cache: false,
+                    success: function(dataResult){
+
+                        var_beep = document.getElementById('valor_beep').value;
+
+                        //alert(dataResult);
+
+                        //alert(var_beep);
+                        //MENSAGEM            
+                        var_ds_msg = 'Solicitação%20excluída%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        //var_tp_msg = 'alert-danger';
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+
+
+                        $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
+
+
+                        //$('#div_permissoes').load('funcoes/permissoes/ajax_permissoes.php?cd_usuario='+ usuario);
+                        //$('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ usuario);
+                    }
+                });   
+            }
         }
 
     </script>
