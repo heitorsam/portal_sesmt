@@ -14,6 +14,8 @@
         include 'js/mensagens_usuario.php';
     ?>
 
+    
+
     <h11><i class="fas fa-file-import"></i> Solicitações</h11>
     <div class='espaco_pequeno'></div>
     <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></h27>
@@ -25,7 +27,7 @@
 
             <div class='row'>
 
-                <div class='col-md-2'>
+                <div class='col-md-3'>
             
                     Usuário:
                     </br>
@@ -45,22 +47,30 @@
             <!--CAIXA PARA VALIDACAO DO AJAX -->
             <input id='msg' style='width: 100%' hidden>
 
+            <!--DIV MENSAGEM ACOES-->
+            <div id="mensagem_acoes"></div>      
+
             <div class="div_br"></div>
-            <h11><i class="fa-solid fa-check"></i> Realizadas</h11>
+            <h11><i class="fa-solid fa-list"></i> Realizadas</h11>
 
             <div class="div_br"></div>
 
             <table class="table table-striped" style="text-align: center">
-
                 <thead>
 
-                    <th>Produto </th>
-                    <th>Descrição</th>
-                    <th>C.A</th>
+                    <th>Usuário </th>
                     <th>Entrega</th>
-                    <th>Funcionario</th>
+                    <th>Código </th>
+                    <th>Produto </th>
+                    <th>C.A</th>
+                    <th>Quantidade</th>
+                    <th>Funcionário</th>
+                    <th>Opções</th>
+
 
                 </thead>
+
+                <tbody id="corpo_tabela_realizadas"></tbody>
 
 
             </table>
@@ -70,11 +80,21 @@
         function pesquisar_usuario(){
 
             var_beep = document.getElementById('valor_beep').value;
+
+            document.getElementById('valor_beep').value =  var_beep.toUpperCase();
             
             //alert(var_beep);
 
-            $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?CD_USUARIO='+ var_beep)
+            $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep);
 
+            //MENSAGEM            
+            var_ds_msg = 'Usuário%20encontrado!';
+            //var_tp_msg = 'alert-success';
+            //var_tp_msg = 'alert-danger';
+            var_tp_msg = 'alert-primary';
+            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+            corpo_tabela_realizadas();          
         }
 
         function ajax_adicionar_sol(){
@@ -83,6 +103,8 @@
                 var centro_c = document.getElementById('frm_id_cc').value;
                 var cd_produto = document.getElementById('frm_id_produtos').value;
                 var quantidade = document.getElementById('frm_qtd_sol').value;
+
+                //alert(cd_produto);
 
                 $.ajax({
                 url: "funcoes/sesmt/ajax_cad_sol.php",
@@ -98,52 +120,34 @@
                     //alert(dataResult);
 
                     //ALIMENTANDO INPUT MSG
-                    document.getElementById('msg').value = dataResult;
-
+                    document.getElementById('msg').value = dataResult;                 
                     
-                    //$('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ usuario);
+                    $('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ var_beep);
+
+
+                     //MENSAGEM            
+                     var_ds_msg = 'Solicitação%20cadastrada%20com%20sucesso!';
+                     var_tp_msg = 'alert-success';
+                     //var_tp_msg = 'alert-danger';
+                     //var_tp_msg = 'alert-primary';
+                     $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+
+                    corpo_tabela_realizadas();
                 }
             });                    
 
         }
 
+        function corpo_tabela_realizadas(){
 
+            var_beep = document.getElementById('valor_beep').value;
 
+            //alert(var_beep);
 
+            $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-        
-        //function atualiza_ca(){
-
-            //var_ca = document.getElementsByName('frm_cd_produtos').value;
-
-            //var select = document.getElementById("frm_id_produtos");
-            //var opcaoTexto = select.options[select.selectedIndex].text; -- NÃO ESTAVA USANDO.
-            //var opcaoValor = select.options[select.selectedIndex].value;
-
-            //alert(opcaoValor);
-
-            //document.getElementById("campo_ca"). value = opcaoValor.substring(3, 10);
-
-        //}
+        }
 
     </script>
 

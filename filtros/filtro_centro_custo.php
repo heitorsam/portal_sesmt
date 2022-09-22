@@ -17,13 +17,15 @@ $row_cc = oci_fetch_array($rest_cons_cc);
 ?>
 
 Centro de Custo:
-<select name="frm_cc" id="frm_id_cc" class='form-control' onchange="atualiza_cc()">>
+<select name="frm_cc" id="frm_id_cc" class='form-control'>
 
-        <?php while($row_cc = oci_fetch_array($rest_cons_cc)){
+    <?php echo '<option value="">Selecione</option>';?>
+    
+    <?php while($row_cc = oci_fetch_array($rest_cons_cc)){
 
-            echo '<option value="' . $row_cc['CD_SETOR'] . '" >' .  $row_cc['NM_SETOR'] . '</option>';
+        echo '<option value="' . $row_cc['CD_SETOR'] . '" >' .  $row_cc['NM_SETOR'] . '</option>';
 
-        }
-        ?>
+    }
+    ?>
 
 </select>
