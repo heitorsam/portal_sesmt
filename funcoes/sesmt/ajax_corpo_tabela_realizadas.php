@@ -25,27 +25,26 @@
 
 ?>
 
+<?php while($row_tabela = oci_fetch_array($resultado_con_tabela)){
 
-   <?php while($row_tabela = oci_fetch_array($resultado_con_tabela)){
+    echo '<tr>';
+    
+    echo '<td>' .  $row_tabela['CD_SOLICITACAO'] . '</td>';
+    echo '<td>' .  $row_tabela['CD_USUARIO_MV'] . '</td>';
+    echo '<td>' .  $row_tabela['DT_ENTREGA'] . '</td>';
+    echo '<td>' .  $row_tabela['CD_PRODUTO_MV'] . '</td>';
+    echo '<td>' .  $row_tabela['DS_PRODUTO'] . '</td>';
+    echo '<td>' .  $row_tabela['CA_MV'] . '</td>';
+    echo '<td>' .  $row_tabela['QUANTIDADE'] . '</td>';
+    echo '<td>' .  $row_tabela['CD_USUARIO_CADASTRO'] . '</td>';
+    echo '<td>' ?>
 
-        echo '<tr>';
-        
-            echo '<td>' .  $row_tabela['CD_SOLICITACAO'] . '</td>';
-            echo '<td>' .  $row_tabela['CD_USUARIO_MV'] . '</td>';
-            echo '<td>' .  $row_tabela['DT_ENTREGA'] . '</td>';
-            echo '<td>' .  $row_tabela['CD_PRODUTO_MV'] . '</td>';
-            echo '<td>' .  $row_tabela['DS_PRODUTO'] . '</td>';
-            echo '<td>' .  $row_tabela['CA_MV'] . '</td>';
-            echo '<td>' .  $row_tabela['QUANTIDADE'] . '</td>';
-            echo '<td>' .  $row_tabela['CD_USUARIO_CADASTRO'] . '</td>';
-            echo '<td>' ?>
+    <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 
+    <i class="fa-solid fa-trash-can"></i></a><?php
 
-            <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 
-            <i class="fa-solid fa-trash-can"></i></a><?php
+    echo '</td>';
 
-            echo '</td>';
-
-        echo '</tr>';
+    echo '</tr>';
 
     }
 

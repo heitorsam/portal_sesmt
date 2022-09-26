@@ -21,8 +21,6 @@
     <div class="div_br"> </div>    
 
     <!-- CONTEUDO -->
-
-
             <div class='row'>
 
                 <div class='col-md-3'>
@@ -32,7 +30,6 @@
                     <input type="text" name="frm_usu_sol" id="valor_beep" class="form-control" onchange = "pesquisar_usuario()" autocomplete = "off" maxlength="12">  
 
                 </div>
-               
 
             </div>
                 
@@ -46,14 +43,17 @@
             <input id='msg' style='width: 100%' hidden>
 
             <!--DIV MENSAGEM ACOES-->
-            <div id="mensagem_acoes"></div>      
-
+            <div id="mensagem_acoes"></div>
+            
+             <!--DIV TITULO REALIZADAS-->
             <div class="div_br"></div>
             <h11><i class="fa-solid fa-list"></i> Realizadas</h11>
 
             <div class="div_br"></div>
 
+            <!--DIV TABELA-->
             <table class="table table-striped" style="text-align: center">
+
                 <thead>
 
                     <th>Solicitação</th>
@@ -66,16 +66,18 @@
                     <th>Funcionário</th>
                     <th>Opções</th>
 
-
                 </thead>
 
                 <tbody id="corpo_tabela_realizadas"></tbody>
 
-
             </table>
+
+    <!--FUNÇÕES AJAX E JAVASCRIPT-->
 
     <script>
 
+        /*FUNÇÃO PESQUISA USUARIO PELO BEEP*/
+        
         function pesquisar_usuario(){
 
             var_beep = document.getElementById('valor_beep').value;
@@ -92,54 +94,57 @@
             corpo_tabela_realizadas();          
         }
 
+        /*FUNÇÃO ADICIONAR SOLICITAÇÕES*/
+
         function ajax_adicionar_sol(){
 
-                var var_beep = document.getElementById('valor_beep').value;
-                var centro_c = document.getElementById('frm_id_cc').value;
-                var cd_produto = document.getElementById('frm_id_produtos').value;
-                var quantidade = document.getElementById('frm_qtd_sol').value;
+            var var_beep = document.getElementById('valor_beep').value;
+            var centro_c = document.getElementById('frm_id_cc').value;
+            var cd_produto = document.getElementById('frm_id_produtos').value;
+            var quantidade = document.getElementById('frm_qtd_sol').value;
 
-                if(quantidade == '' || centro_c == '' || cd_produto == '' ){
+            if(quantidade == '' || centro_c == '' || cd_produto == '' ){
 
-                    var_ds_msg = 'Necessário%20preencher%20os%20campos!';
-                    var_tp_msg = 'alert-danger';
-                    $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                var_ds_msg = 'Necessário%20preencher%20os%20campos!';
+                var_tp_msg = 'alert-danger';
+                $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-                }else{
+            }else{
 
-                    //alert(cd_produto);
+                //alert(cd_produto);
 
-                    $.ajax({
-                        url: "funcoes/sesmt/ajax_cad_sol.php",
-                        type: "POST",
-                        data: {
-                            cd_setor: centro_c,
-                            cd_produto: cd_produto,
-                            quantidade: quantidade,
-                            cd_usuario: var_beep
-                            },
-                        cache: false,
-                        success: function(dataResult){
-                            //alert(dataResult);
+                $.ajax({
+                    url: "funcoes/sesmt/ajax_cad_sol.php",
+                    type: "POST",
+                    data: {
+                        cd_setor: centro_c,
+                        cd_produto: cd_produto,
+                        quantidade: quantidade,
+                        cd_usuario: var_beep
+                        },
+                    cache: false,
+                    success: function(dataResult){
+                        //alert(dataResult);
 
-                            //ALIMENTANDO INPUT MSG
-                            document.getElementById('msg').value = dataResult;                 
-                            
-                            //MENSAGEM            
-                            var_ds_msg = 'Solicitação%20cadastrada%20com%20sucesso!';
-                            var_tp_msg = 'alert-success';
-                            //var_tp_msg = 'alert-danger';
-                            //var_tp_msg = 'alert-primary';
-                            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                        //ALIMENTANDO INPUT MSG
+                        document.getElementById('msg').value = dataResult;                 
+                        
+                        //MENSAGEM            
+                        var_ds_msg = 'Solicitação%20cadastrada%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        //var_tp_msg = 'alert-danger';
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-
-                            corpo_tabela_realizadas();
-                        }
-                    }); 
-                
-                }
+                        corpo_tabela_realizadas();
+                    }
+                }); 
+            
+            }
 
         }
+
+        /*FUNÇÃO CRIAR CORPO DA TABELA*/
 
         function corpo_tabela_realizadas(){
 
@@ -150,7 +155,8 @@
             $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
         }
-
+        
+        /*FUNÇÃO DELETAR ITEM DA TABELA*/
 
         function ajax_deletar_realizadas(cd_solicitacao){
 
@@ -193,7 +199,6 @@
         }
 
     </script>
-
 
 <?php
     //RODAPE

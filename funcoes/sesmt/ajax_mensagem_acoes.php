@@ -5,13 +5,13 @@
 
     echo "<div class='div_br'></div>";
     echo "<div class='alert " . $var_tp . "' role='alert'>";   
-        echo $var_msg;                          
+    echo $var_msg;                          
     echo "</div>";
 
 ?>
 
 <script>
 
-$(".alert").delay(6000).fadeOut(1200);
+    $(".alert").delay(6000).fadeOut(1200);
 
 </script>
