@@ -24,7 +24,7 @@
         
         <span class="espaco_pequeno"></span>
         
-        <a href="relatorio.php" class="botao_home" type="submit"><i class="fa-sharp fa-solid fa-folder-open"></i>  Relatórios</a></td></tr>
+        <a href="relatorio.php" class="botao_home" type="submit"><i class="fa-solid fa-file"></i>  Relatórios</a></td></tr>
         
         <span class="espaco_pequeno"></span>
 
@@ -38,7 +38,7 @@
 
             <!--SESMT ADM-->
                 <?php if(@$_SESSION['papel_sesmt_adm'] == 'S'){ ?>
-                <a href="durabilidade.php" class="botao_home_adm" type="submit"><i class="fa-solid fa-pen-to-square"></i> Durabilidade</a></td></tr>
+                <a href="durabilidade.php" class="botao_home_adm" type="submit"><i class="fa-solid fa-square-plus"></i> Durabilidade</a></td></tr>
                 
                 <span class="espaco_pequeno"></span>
 

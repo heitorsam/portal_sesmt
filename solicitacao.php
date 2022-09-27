@@ -47,7 +47,7 @@
             
              <!--DIV TITULO REALIZADAS-->
             <div class="div_br"></div>
-            <h11><i class="fa-solid fa-list"></i> Realizadas</h11>
+            <h11><i class="fa-solid fa-bars"></i> Realizadas</h11>
 
             <div class="div_br"></div>
 

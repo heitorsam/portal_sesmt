@@ -34,12 +34,20 @@
 
             <?php
 
-            include 'filtros/filtro_centro_custo_relatorio.php';
+                include 'filtros/filtro_centro_custo_relatorio.php';
 
             ?>
 
         </div>
-       
+
+        <div class='col-md-3' id="constroi_usu_setor"></div>
+    
+    </div>
+
+    <div class="div_br"></div>
+
+
+    <div class='row'>
         
         <!-- DATA INICIO -->
         <div class='col-md-3'>
@@ -55,15 +63,6 @@
             <input type = "date" id="frm_dt_fim"class="form-control"></input>
 
         </div>
-
-    </div>
-
-    <div class="div_br"></div>
-
-
-    <div class='row'>
-
-        <div class='col-md-3' id="constroi_usu_setor"></div>
 
         <div class = "col-md-2" >
 
@@ -81,7 +80,7 @@
 
       <!--DIV TITULO REALIZADAS-->
       <div class="div_br"></div>
-      <h11><i class="fa-solid fa-list"></i> Histórico</h11>
+      <h11><i class="fa-solid fa-bars"></i> Histórico</h11>
 
     <div class="div_br"></div>
 
@@ -108,7 +107,14 @@
 
 
     <script>
-        
+
+
+        /*AO TERMINAR DE CARREGAR A PAGINA*/
+        $(document).ready(function(){
+            constroi_usu_setor();
+        });
+
+       
         /*FUNÇÃO CRIAR CORPO DA TABELA*/
 
         function corpo_tabela_relatorio(){
@@ -122,6 +128,14 @@
             //alert(var_dt_inicial);
             //alert(var_dt_final);
             //alert(var_usu_reletorio);
+
+            if(var_dt_inicial == ''){
+                document.getElementById('frm_dt_ini').focus();               
+            }else{
+                if(var_dt_final == ''){
+                    document.getElementById('frm_dt_fim').focus();                    
+                }
+            }
 
             var_link = 'funcoes/sesmt/ajax_exibe_relatorio.php?get_var_centro='+var_rel_cc+'&get_dt_ini='+var_dt_inicial+'&get_dt_fim='+var_dt_final+'&get_usu_rel='+var_usu_reletorio;
 

@@ -12,7 +12,7 @@ $rest_cons_cc = oci_parse($conn_ora, $cons_cc);
 
 oci_execute($rest_cons_cc);
 
-$row_cc = oci_fetch_array($rest_cons_cc);
+//$row_cc = oci_fetch_array($rest_cons_cc);
 
 ?>
 
