@@ -4,7 +4,7 @@ session_start();
 
 include '../../conexao.php';
 
-echo $cd_centro_custo = $_GET['get_var_centro'];
+$cd_centro_custo = $_GET['get_var_centro'];
 $data_inial =  $_GET['get_dt_ini'];
 $data_final =  $_GET['get_dt_fim'];
 $cd_usuario_relatorio = $_GET['get_usu_rel'];

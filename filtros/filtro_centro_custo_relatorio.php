@@ -17,7 +17,7 @@ $row_cc_relatorio = oci_fetch_array($rest_cons_cc_relatorio);
 ?>
 
 Centro de Custo:
-<select name="frm_rel_cc" id="frm_rel_id_cc" class='form-control'>
+<select name="frm_rel_cc" id="frm_rel_id_cc" class='form-control' onchange="constroi_usu_setor()">
 
     <?php echo '<option value="all">Todos</option>';?>
     <?php 

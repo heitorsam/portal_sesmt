@@ -17,7 +17,7 @@
         include 'js/mensagens_usuario.php';
     ?>
 
-    <h11><i class="fa-solid fa-file"></i> Relatorios</h11>
+    <h11><i class="fa-solid fa-file"></i> Relatórios</h11>
     <div class='espaco_pequeno'></div>
     <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></h27>
 
@@ -63,12 +63,9 @@
 
     <div class='row'>
 
-        <div class='col-md-3'>
 
-            <?php include 'filtros/filtro_usuarios_relatorio.php';?>
 
-        </div>
-
+        <div class='col-md-3' id="constroi_usu_setor"></div>
 
         
         <div class = "col-md-2" >
@@ -79,6 +76,9 @@
         </div>
 
     </div>
+
+    <!--DIV MENSAGEM ACOES-->
+    <div id="mensagem_acoes_relatorio"></div>
 
     <div class="div_br"> </div>
 
@@ -130,8 +130,20 @@
 
             //alert(var_link);
 
-
             $('#tabela_relatorio').load(var_link);
+
+            constroi_usu_setor();
+
+        }
+
+
+        function constroi_usu_setor(){
+
+            var_select_centro = document.getElementById('frm_rel_id_cc').value;
+
+            //alert(var_beep);
+
+            $('#constroi_usu_setor').load('funcoes/sesmt/ajax_constroi_usu_setor.php?get_var_cc='+ var_select_centro)
 
         }
 

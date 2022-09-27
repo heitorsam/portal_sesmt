@@ -24,7 +24,7 @@
         
         <span class="espaco_pequeno"></span>
         
-        <a href="relatorio.php" class="botao_home" type="submit"><i class="fa-sharp fa-solid fa-folder-open"></i>  Relatorios</a></td></tr>
+        <a href="relatorio.php" class="botao_home" type="submit"><i class="fa-sharp fa-solid fa-folder-open"></i>  Relatórios</a></td></tr>
         
         <span class="espaco_pequeno"></span>
 
