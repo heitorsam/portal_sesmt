@@ -49,13 +49,6 @@
 
         <div class='col-md-1'>
 
-            </br>
-            <button type='submit' class='btn btn-primary'><i class="fa-solid fa-magnifying-glass"></i></button>
-
-        </div>
-
-        <div class='col-md-1'>
-
          </br>
          <button type='submit' class='btn btn-primary' onclick= "ajax_adicionar_durabilidade()"><i class="fa-solid fa-plus"></i></button>
 
@@ -92,6 +85,13 @@
 
     
     <script>
+
+        /*AO TERMINAR DE CARREGAR A PAGINA*/
+
+        $(document).ready(function(){
+                ajax_tabela_durabilidade();
+            });
+
 
         // FUNÇÃO ADICIONAR DURABILIDADE ( CADASTRO ) //
 
@@ -148,6 +148,57 @@
             $('#tabela_durabilidade').load('funcoes/sesmt/ajax_tabela_durabilidade.php?cd_produto='+ var_produto)
 
         }
+
+         // FUNÇÃO DELETAR CADASTRO DURABILIDADE //
+
+         function ajax_deletar_durabilidade(){
+
+            resultado = confirm("Deseja excluir a observação?");
+            if(resultado == true){
+                $.ajax({
+                    url: "funcoes/sesmt/ajax_deletar_realizadas.php",
+                    type: "POST",
+                    data: {
+                        solicitacao: cd_solicitacao
+                        },
+                    cache: false,
+                    success: function(dataResult){
+
+                        var_beep = document.getElementById('valor_beep').value;
+
+                        //alert(dataResult);
+
+                        //alert(var_beep);
+                        //MENSAGEM            
+                        var_ds_msg = 'Solicitação%20excluída%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        //var_tp_msg = 'alert-danger';
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+
+
+                        $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
+
+
+                        //$('#div_permissoes').load('funcoes/permissoes/ajax_permissoes.php?cd_usuario='+ usuario);
+                        //$('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ usuario);
+                    }
+                });   
+            }
+
+
+
+
+
+
+
+
+         }
+
+
+
+
 
     </script>
 

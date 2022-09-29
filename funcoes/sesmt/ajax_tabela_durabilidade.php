@@ -13,14 +13,55 @@ $consulta_exibe_tabela_durabilidade = "SELECT dur.CD_DURABILIDADE,
                                               INNER JOIN dbamv.PRODUTO pro
                                                  ON pro.CD_PRODUTO = dur.CD_PRODUTO_MV
                                               INNER JOIN portal_sesmt.SOLICITACAO sol
-                                                 ON sol.CD_PRODUTO_MV =  dur.CD_PRODUTO_MV
-                                              WHERE dur.CD_PRODUTO_MV = $var_produto_durabilidade";
+                                                 ON sol.CD_PRODUTO_MV =  dur.CD_PRODUTO_MV";
+                                                 
+if($var_produto_durabilidade <> ''){
 
+$consulta_exibe_tabela_durabilidade .= " WHERE dur.CD_PRODUTO_MV = '$var_produto_durabilidade'";
+
+}
+                                       
 $resultado_exibe_tabela = oci_parse($conn_ora, $consulta_exibe_tabela_durabilidade);
 
-oci_execute($resultado_exibe_tabela);
+$valida = oci_execute($resultado_exibe_tabela);
+
+
+    //VALIDACAO
+    if (!$valida) {   
+        
+      $erro = oci_error($resultado_exibe_tabela);																							
+      //$_SESSION['msgerro'] = htmlentities($erro['message']);
+      //header("Location: $pag_login");
+      //echo $erro;
+      echo $consulta_exibe_tabela_durabilidade;
+
+
+  }else{
+
+      echo 'exibido com sucesso!';
+      
+  }
 
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <?php
 
@@ -41,13 +82,6 @@ while($row_durabilidade = oci_fetch_array($resultado_exibe_tabela)){
     echo '</td>';
 
     echo '</tr>';
-
-
-
-
-
-
-
 
 }
 
