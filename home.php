@@ -14,7 +14,7 @@
         include 'js/mensagens_usuario.php';
     ?>
 
-    <h11><i class="fa fa-address-book-o" aria-hidden="true"></i> SESMT</h11>
+    <h11><i class="fa fa-address-book-o efeito-zoom" aria-hidden="true"></i> SESMT</h11>
 
     <div class="div_br"> </div>
 

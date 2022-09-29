@@ -239,6 +239,8 @@ p,li{
 	font-weight: bold;
     background-color: #31b2d0; 
     border-color: #31b2d0;
+
+    animation: efeitozoomhome 1600ms infinite; 
 }
 
 /*BOTAO HOME ADM */
@@ -280,23 +282,22 @@ p,li{
 	font-weight: bold;
     background-color: #e36767; 
     border-color: #e36767;
+
+    animation: efeitozoomhome 1600ms infinite; 
 }
 
 /*BOTAO FORM*/
 
 
 .btn-primary { 
+
     font-size: 0.875rem !important;
     background-color: #3185c1 !important;
     border-color: #3185c1 !important;	
 
 }
 
-.btn-primary:hover{ 
-    background-color: #31b2d0 !important; 
-    border-color: #31b2d0 !important;	
-	
-}
+
 
 .btn-secondary { 
     font-size: 0.875rem !important;
@@ -862,5 +863,31 @@ h99{
     background-color: #31b2d0 !important; 
 
 }
+
+
+
+/*EFEITOS*/
+
+.btn:hover{
+
+    animation: efeitozoom 1600ms infinite; 
+}
+
+.efeito-zoom:hover{ 
+	        
+    animation: efeitozoom 1600ms infinite; 
+        
+}
+
+@keyframes efeitozoom {
+  from {transform: scale(0.90);}
+  to {transform: scale(1.1);}
+}
+
+@keyframes efeitozoomhome {
+  from {transform: scale(0.95);}
+  to {transform: scale(1);}
+}
+
 
 </style>

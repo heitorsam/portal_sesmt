@@ -14,9 +14,9 @@
         include 'js/mensagens_usuario.php';
     ?>  
 
-    <h11><i class="fas fa-file-import"></i> Solicitações</h11>
+    <h11><i class="fas fa-file-import efeito-zoom"></i> Solicitações</h11>
     <div class='espaco_pequeno'></div>
-    <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></h27>
+    <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply efeito-zoom" aria-hidden="true"></i> Voltar</a></h27>
 
     <div class="div_br"> </div>    
 
@@ -47,7 +47,7 @@
             
              <!--DIV TITULO REALIZADAS-->
             <div class="div_br"></div>
-            <h11><i class="fa-solid fa-bars"></i> Realizadas</h11>
+            <h11><i class="fa-solid fa-bars efeito-zoom"></i> Realizadas</h11>
 
             <div class="div_br"></div>
 

@@ -17,9 +17,9 @@
         include 'js/mensagens_usuario.php';
     ?>
 
-    <h11><i class="fa-solid fa-file"></i> Relatórios</h11>
+    <h11><i class="fa-solid fa-file efeito-zoom"></i> Relatórios</h11>
     <div class='espaco_pequeno'></div>
-    <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></h27>
+    <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply efeito-zoom" aria-hidden="true"></i> Voltar</a></h27>
 
     <div class="div_br"> </div>
 
@@ -41,7 +41,15 @@
         </div>
 
         <div class='col-md-3' id="constroi_usu_setor"></div>
-    
+
+
+        <div class = "col-md-2" >
+
+            </br>
+            <button type="submit" class="btn btn-primary efeito-zoom" onclick="corpo_tabela_relatorio()"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+        </div>
+
     </div>
 
     <div class="div_br"></div>
@@ -67,7 +75,7 @@
         <div class = "col-md-2" >
 
             </br>
-            <button type="submit" class="btn btn-primary" onclick="corpo_tabela_relatorio()"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar</button>
+            <button id="btn_excel" type="submit" class="btn btn-primary" style="display: none;" onclick="down_excel()"><i class="fa-solid fa-file-excel"></i></button>
 
         </div>
 
@@ -80,7 +88,7 @@
 
       <!--DIV TITULO REALIZADAS-->
       <div class="div_br"></div>
-      <h11><i class="fa-solid fa-bars"></i> Histórico</h11>
+      <h11><i class="fa-solid fa-bars efeito-zoom"></i> Histórico</h11>
 
     <div class="div_br"></div>
 
@@ -134,6 +142,8 @@
             }else{
                 if(var_dt_final == ''){
                     document.getElementById('frm_dt_fim').focus();                    
+                }else{
+                    document.getElementById('btn_excel').style.display = 'block';
                 }
             }
 
@@ -158,9 +168,26 @@
 
         }
 
+        function down_excel(){
+
+            var_rel_ex= document.getElementById('frm_rel_id_cc').value;
+            var_dt_inicial_ex= document.getElementById('frm_dt_ini').value;
+            var_dt_final_ex= document.getElementById('frm_dt_fim').value;
+            var_usu_reletorio_ex= document.getElementById('frm_id_usu_rel').value;
+
+            //alert(var_beep);
+
+            down_ex = 'excel.php?get_var_centro='+var_rel_ex+'&get_dt_ini='+var_dt_inicial_ex+'&get_dt_fim='+var_dt_final_ex+'&get_usu_rel='+var_usu_reletorio_ex;
+
+            window.location.replace(down_ex);
+
+        }
+
     </script> 
 
 <?php
+
     //RODAPE
     include 'rodape.php';
+    
 ?>

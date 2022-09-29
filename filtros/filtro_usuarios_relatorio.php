@@ -33,9 +33,9 @@ Usuário:
 
         while($row_usu_rel = oci_fetch_array($resultado_usu_oracle)){
 
-        echo '<option value="' . $row_usu_rel['CD_USUARIO'] . '" >' .  $row_usu_rel['NM_USUARIO'] . '</option>';
+            echo '<option value="' . $row_usu_rel['CD_USUARIO'] . '" >' .  $row_usu_rel['NM_USUARIO'] . '</option>';
 
-    }
+        }  
     
     ?>
 

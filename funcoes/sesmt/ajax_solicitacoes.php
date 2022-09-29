@@ -64,9 +64,9 @@
         
         <!--QUANTIDADE-->
         <div class = "col-md-2">
-            Quantidade: 
+            Quantidade:
             </br>
-            <input type = "text" id="frm_qtd_sol"class="form-control" autocomplete="off"></input>
+            <input type = "text" id="frm_qtd_sol" class="form-control" autocomplete="off"></input>
         </div>
 
         <!--BOTÃO + -->
