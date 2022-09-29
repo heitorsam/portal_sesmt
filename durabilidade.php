@@ -49,6 +49,13 @@
 
         <div class='col-md-1'>
 
+            </br>
+            <button type='submit' class='btn btn-primary'><i class="fa-solid fa-magnifying-glass"></i></button>
+
+        </div>
+
+        <div class='col-md-1'>
+
          </br>
          <button type='submit' class='btn btn-primary' onclick= "ajax_adicionar_durabilidade()"><i class="fa-solid fa-plus"></i></button>
 
@@ -85,6 +92,8 @@
 
     
     <script>
+
+        // FUNÇÃO ADICIONAR DURABILIDADE ( CADASTRO ) //
 
         function ajax_adicionar_durabilidade(){
 
@@ -129,6 +138,8 @@
                 });
             }
         }
+
+        // FUNÇÃO EXIBIR CADASTRO DURABILIDADE //
 
         function ajax_tabela_durabilidade(){
 

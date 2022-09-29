@@ -4,7 +4,6 @@ include '../../conexao.php';
 
 $var_produto_durabilidade = $_GET['cd_produto'];
 
-
 $consulta_exibe_tabela_durabilidade = "SELECT dur.CD_DURABILIDADE,
                                               dur.CD_PRODUTO_MV,
                                               pro.DS_PRODUTO,
@@ -36,7 +35,7 @@ while($row_durabilidade = oci_fetch_array($resultado_exibe_tabela)){
     echo '<td>' .  $row_durabilidade['DIAS'] . '</td>';
     echo '<td>' ?>
 
-    <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_durabilidade['CD_DURABILIDADE']; ?>)" > 
+    <a type="button" class="btn btn-adm" onclick="ajax_deletar_durabilidade(<?php echo $row_durabilidade['CD_DURABILIDADE']; ?>)" > 
     <i class="fa-solid fa-trash-can"></i></a><?php
 
     echo '</td>';
