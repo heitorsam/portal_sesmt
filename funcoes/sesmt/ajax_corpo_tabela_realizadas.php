@@ -45,16 +45,16 @@
 
     echo '<tr>';
     
-    echo '<td>' .  $row_tabela['CD_SOLICITACAO'] . '</td>';
-    echo '<td>' .  $row_tabela['CD_USUARIO_MV'] . '</td>';
-    echo '<td>' .  $row_tabela['NM_SETOR'] . '</td>';
-    echo '<td>' .  $row_tabela['DT_ENTREGA'] . '</td>';
-    echo '<td>' .  $row_tabela['CD_PRODUTO_MV'] . '</td>';
-    echo '<td>' .  $row_tabela['DS_PRODUTO'] . '</td>';
-    echo '<td>' .  $row_tabela['DIAS'] . '</td>';
-    echo '<td>' .  $row_tabela['CA_MV'] . '</td>';
-    echo '<td>' .  $row_tabela['QUANTIDADE'] . '</td>';
-    echo '<td>' .  $row_tabela['CD_USUARIO_CADASTRO'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['CD_SOLICITACAO'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['CD_USUARIO_MV'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['NM_SETOR'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['DT_ENTREGA'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['CD_PRODUTO_MV'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['DS_PRODUTO'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['DIAS'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['CA_MV'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['QUANTIDADE'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['CD_USUARIO_CADASTRO'] . '</td>';
     echo '<td>' ?>
 
     <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 

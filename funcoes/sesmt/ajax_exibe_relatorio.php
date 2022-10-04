@@ -55,16 +55,16 @@ oci_execute($resultado_tabela_relatorio);
 
     echo '<tr>';
     
-        echo '<td>' .  $row_tabela_relatorio['CD_SOLICITACAO'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['CD_USUARIO_MV'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['NM_SETOR'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['HR_CADASTRO'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['CD_PRODUTO_MV'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['DS_PRODUTO'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['DT_DURABILIDADE'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['CA_MV'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['QUANTIDADE'] . '</td>';
-        echo '<td>' .  $row_tabela_relatorio['CD_USUARIO_CADASTRO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_SOLICITACAO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_USUARIO_MV'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['NM_SETOR'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['HR_CADASTRO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_PRODUTO_MV'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['DS_PRODUTO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['DT_DURABILIDADE'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['CA_MV'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['QUANTIDADE'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_USUARIO_CADASTRO'] . '</td>';
 
     echo '</tr>';
 
