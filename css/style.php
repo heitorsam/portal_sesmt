@@ -864,7 +864,19 @@ h99{
 
 }
 
+/*ALERT PERSONALZIDO*/
 
+.alert_pers_amarelo{
+
+    font-size: 14px;
+    color: #ff5e00 !important;
+    padding: 12px 0px 12px 18px;
+    background-color: #fff3cd;
+    border: solid 1px #ffeeba;
+    border-radius: 5px;
+    width: 40%;
+
+}
 
 /*EFEITOS*/
 

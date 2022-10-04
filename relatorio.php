@@ -72,6 +72,7 @@
 
         </div>
 
+        <!-- BOTÃO EXCEL DOWNLOAD -->
         <div class = "col-md-2" >
 
             </br>
@@ -100,9 +101,11 @@
 
             <th>Solicitação</th>
             <th>Usuário </th>
+            <th>Setor</th>
             <th>Entrega</th>
             <th>Código </th>
             <th>Produto </th>
+            <th>Durabilidade </th>
             <th>C.A</th>
             <th>Quantidade</th>
             <th>Funcionário</th>
@@ -116,13 +119,11 @@
 
     <script>
 
-
         /*AO TERMINAR DE CARREGAR A PAGINA*/
         $(document).ready(function(){
             constroi_usu_setor();
         });
 
-       
         /*FUNÇÃO CRIAR CORPO DA TABELA*/
 
         function corpo_tabela_relatorio(){
@@ -153,10 +154,7 @@
 
             $('#tabela_relatorio').load(var_link);
 
-            constroi_usu_setor();
-
         }
-
 
         function constroi_usu_setor(){
 

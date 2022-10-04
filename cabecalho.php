@@ -70,7 +70,7 @@ session_start();
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
 
                         <!--MENU-->
-                            <a class="dropdown-item" style="background-color: #f3f3f3; " href="javascript:void(0)"><i class="fa fa-address-book-o" aria-hidden="true"></i> Portal SAME</a>   
+                            <a class="dropdown-item" style="background-color: #f3f3f3; " href="javascript:void(0)"><i class="fa fa-address-book-o" aria-hidden="true"></i> Portal Sesmt</a>   
                             
                             <?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
                                 <a class="dropdown-item" href="estrutura_requisicao.php"><i class="fa-solid fa-file"></i> Documento</a>   

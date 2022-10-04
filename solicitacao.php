@@ -4,7 +4,11 @@
 
     //ACESSO ADM
     include 'acesso_restrito_sesmt.php';
+
 ?>
+
+
+
 
     <div class="div_br"> </div>
 
@@ -44,7 +48,10 @@
 
             <!--DIV MENSAGEM ACOES-->
             <div id="mensagem_acoes"></div>
-            
+
+            <!--DIV DURABILIDADE-->
+            <div id="mensagem_durabilidade"></div>
+
              <!--DIV TITULO REALIZADAS-->
             <div class="div_br"></div>
             <h11><i class="fa-solid fa-bars efeito-zoom"></i> Realizadas</h11>
@@ -58,9 +65,11 @@
 
                     <th>Solicitação</th>
                     <th>Usuário </th>
+                    <th>Setor </th>
                     <th>Entrega</th>
                     <th>Código </th>
                     <th>Produto </th>
+                    <th>Durabilidade</th>
                     <th>C.A</th>
                     <th>Quantidade</th>
                     <th>Funcionário</th>
@@ -84,14 +93,10 @@
 
             document.getElementById('valor_beep').value =  var_beep.toUpperCase();
 
-            $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep);
+            $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep);        
 
-            //MENSAGEM            
-            var_ds_msg = 'Usuário%20encontrado!';
-            var_tp_msg = 'alert-primary';
-            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-
-            corpo_tabela_realizadas();          
+            corpo_tabela_realizadas();
+            
         }
 
         /*FUNÇÃO ADICIONAR SOLICITAÇÕES*/
@@ -124,19 +129,36 @@
                         },
                     cache: false,
                     success: function(dataResult){
+
+                        if(dataResult == 'Sucesso'){
+
+                            //MENSAGEM            
+                            var_ds_msg = 'Solicitacao%20cadastrada%20com%20sucesso!';
+                            var_tp_msg = 'alert-success';
+                            //var_tp_msg = 'alert-danger';
+                            //var_tp_msg = 'alert-primary';
+                            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                        }else{
+
+                          //MENSAGEM            
+                          var_ds_msg = dataResult.replace(/\s+/g, '-');
+                          //var_tp_msg = 'alert-success';
+                          var_tp_msg = 'alert-danger';
+                          //var_tp_msg = 'alert-primary';
+                          $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                        }
+
                         //alert(dataResult);
+                        
+                        //console.log(dataResult)
 
                         //ALIMENTANDO INPUT MSG
-                        document.getElementById('msg').value = dataResult;                 
-                        
-                        //MENSAGEM            
-                        var_ds_msg = 'Solicitação%20cadastrada%20com%20sucesso!';
-                        var_tp_msg = 'alert-success';
-                        //var_tp_msg = 'alert-danger';
-                        //var_tp_msg = 'alert-primary';
-                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                        //document.getElementById('msg').value = dataResult;                 
 
                         corpo_tabela_realizadas();
+
                     }
                 }); 
             
@@ -186,8 +208,6 @@
                         //var_tp_msg = 'alert-primary';
                         $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-
-
                         $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
 
@@ -198,10 +218,51 @@
             }
         }
 
+
+        function ajax_encontrar_durabilidade(){
+
+            var select_prod = document.getElementById('frm_id_produtos').value;
+            var campo_durabilidade = document.getElementById('frm_id_durabilidade').value;
+
+
+                $.ajax({
+                    url: "funcoes/sesmt/ajax_encontrar_durabilidade.php",
+                    type: "POST",
+                    data: {
+                        produto: select_prod,
+                        campo: campo_durabilidade
+                    
+                        },
+                    cache: false,
+                    success: function(dataResult){
+
+                        document.getElementById('frm_id_durabilidade').value = dataResult;
+
+                        
+                    }
+                }); 
+
+                ajax_exibe_alert_durabilidade(); 
+
+        }
+
+        function ajax_exibe_alert_durabilidade(){
+
+            var_alert_prod = document.getElementById('frm_id_produtos').value;
+            var_beep = document.getElementById('valor_beep').value;
+            
+            //alert(var_beep);
+
+            $('#mensagem_durabilidade').load('funcoes/sesmt/ajax_exibe_alert_durabilidade.php?cd_usuario='+ var_beep+'&id_prod='+var_alert_prod)
+
+        }
+
     </script>
 
 <?php
+
     //RODAPE
     include 'rodape.php';
+    
 ?>
 

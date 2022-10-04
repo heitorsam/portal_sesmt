@@ -70,7 +70,8 @@
 
         <thead>
 
-            <th>Codigo Produto</th>
+            <th>Código Durabilidade</th>
+            <th>Código Produto</th>
             <th>Nome Produto</th>
             <th>C.A </th>
             <th>Durabilidade</th>
@@ -81,20 +82,16 @@
         <tbody id="tabela_durabilidade"></tbody>
 
     </table>
-
-
     
     <script>
 
         /*AO TERMINAR DE CARREGAR A PAGINA*/
-
         $(document).ready(function(){
-                ajax_tabela_durabilidade();
-            });
+            ajax_tabela_durabilidade();
+        });
 
 
         // FUNÇÃO ADICIONAR DURABILIDADE ( CADASTRO ) //
-
         function ajax_adicionar_durabilidade(){
 
             var var_produto_dur = document.getElementById('frm_id_produtos_dur').value;
@@ -121,15 +118,29 @@
                     cache: false,
                     success: function(dataResult){
 
+                        if(dataResult == 'Sucesso'){                           
+                            
+                            //MENSAGEM            
+                            var_ds_msg = 'Durabilidade%20cadastrada%20com%20sucesso!';
+                            var_tp_msg = 'alert-success';
+                            //var_tp_msg = 'alert-danger';
+                            //var_tp_msg = 'alert-primary';
+                            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                                                
+                        }else{
+
+                            //MENSAGEM            
+                            var_ds_msg = dataResult.replace(/\s+/g, '-');
+                            var_tp_msg = 'alert-danger';
+                            //var_tp_msg = 'alert-primary';
+                            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                            
+                        }
+
                         //ALIMENTANDO INPUT MSG
-                        document.getElementById('msg').value = dataResult;   
-                         
-                        //MENSAGEM            
-                        var_ds_msg = 'Durabilidade%20cadastrada%20com%20sucesso!';
-                        var_tp_msg = 'alert-success';
-                        //var_tp_msg = 'alert-danger';
-                        //var_tp_msg = 'alert-primary';
-                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                        //document.getElementById('msg').value = dataResult;   
 
                         ajax_tabela_durabilidade();
 
@@ -151,52 +162,44 @@
 
          // FUNÇÃO DELETAR CADASTRO DURABILIDADE //
 
-         function ajax_deletar_durabilidade(){
+         
+        function ajax_deletar_realizadas(cd_durabilidade){
 
+            //var usuario = document.getElementById('input').value;
             resultado = confirm("Deseja excluir a observação?");
+
             if(resultado == true){
                 $.ajax({
-                    url: "funcoes/sesmt/ajax_deletar_realizadas.php",
+                    url: "funcoes/sesmt/ajax_deletar_durabilidade.php",
                     type: "POST",
                     data: {
-                        solicitacao: cd_solicitacao
+                        durabilidade: cd_durabilidade
                         },
                     cache: false,
                     success: function(dataResult){
 
-                        var_beep = document.getElementById('valor_beep').value;
+                        console.log(dataResult)
+
+                        var_produto_dur = document.getElementById('frm_id_produtos_dur').value;
 
                         //alert(dataResult);
 
                         //alert(var_beep);
                         //MENSAGEM            
-                        var_ds_msg = 'Solicitação%20excluída%20com%20sucesso!';
+                        var_ds_msg = 'Durabilidade%20excluída%20com%20sucesso!';
                         var_tp_msg = 'alert-success';
                         //var_tp_msg = 'alert-danger';
                         //var_tp_msg = 'alert-primary';
                         $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
 
+                        $('#tabela_durabilidade').load('funcoes/sesmt/ajax_tabela_durabilidade.php?cd_produto='+ var_produto)
 
-                        $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
-
-                        //$('#div_permissoes').load('funcoes/permissoes/ajax_permissoes.php?cd_usuario='+ usuario);
-                        //$('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ usuario);
                     }
                 });   
             }
-
-
-
-
-
-
-
-
-         }
-
-
+            }
 
 
 
