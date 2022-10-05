@@ -1,19 +1,18 @@
-CREATE USER portal_same IDENTIFIED BY sjc_pepita_ouro_aleixo_440;
+CREATE USER portal_projetos IDENTIFIED BY sjc_arroz_doce_piui_2022;
 
-GRANT CREATE SESSION TO portal_same;
-GRANT CREATE PROCEDURE TO portal_same;
-GRANT CREATE TABLE TO portal_same;
-GRANT CREATE VIEW TO portal_same;
-GRANT UNLIMITED TABLESPACE TO portal_same;
-GRANT CREATE SEQUENCE TO portal_same;
+GRANT CREATE SESSION TO portal_projetos;
+GRANT CREATE PROCEDURE TO portal_projetos;
+GRANT CREATE TABLE TO portal_projetos;
+GRANT CREATE VIEW TO portal_projetos;
+GRANT UNLIMITED TABLESPACE TO portal_projetos;
+GRANT CREATE SEQUENCE TO portal_projetos;
 
+GRANT EXECUTE ON dbasgu.FNC_MV2000_HMVPEP TO portal_projetos;
 
-GRANT EXECUTE ON dbasgu.FNC_MV2000_HMVPEP TO portal_same;
+GRANT SELECT ON dbasgu.USUARIOS TO portal_projetos;
+GRANT SELECT ON dbasgu.PAPEL_USUARIOS TO portal_projetos;
 
-GRANT SELECT ON dbasgu.USUARIOS TO portal_same;
-GRANT SELECT ON dbasgu.PAPEL_USUARIOS TO portal_same;
-
-
+/*
 GRANT SELECT ON dbamv.ATENDIME TO portal_same;
 GRANT SELECT ON dbamv.PACIENTE TO portal_same;
 GRANT SELECT ON dbamv.PRESTADOR TO portal_same;
@@ -40,3 +39,4 @@ GRANT UPDATE ON dbamv.PRESTADOR_ASSINATURA TO portal_same;
 GRANT DELETE ON dbamv.PRESTADOR_ASSINATURA TO portal_same;
 
 grant execute on PKG_TISS_UTIL to portal_same;
+*/
