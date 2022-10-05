@@ -123,7 +123,7 @@
                 document.getElementById('valor_beep').value =  var_beep.toUpperCase();
 
 
-                $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep);        
+                $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep +'&tipo=N');        
 
                 corpo_tabela_realizadas();
             }
@@ -131,13 +131,13 @@
 
         /*FUNÇÃO ADICIONAR SOLICITAÇÕES*/
 
-        function ajax_adicionar_sol(){
+        function ajax_adicionar_sol(tipo){
 
             var var_beep = document.getElementById('valor_beep').value;
             var centro_c = document.getElementById('frm_id_cc').value;
             var cd_produto = document.getElementById('frm_id_produtos').value;
             var quantidade = document.getElementById('frm_qtd_sol').value;
-            tipo = document.getElementById('slt_tipo').value
+
             if(tipo == 'S'){
                 data = document.getElementById('data').value
             }else{
