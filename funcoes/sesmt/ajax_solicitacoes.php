@@ -26,14 +26,14 @@
     <div class="col-md-3">
         Colaborador:
         </br>
-        <input type="text" id="frm_colab_sol" readonly value = "<?php echo $row['NM_USUARIO'] ?>" class="form-control"></input>
+        <input type="text" id="frm_colab_sol" readonly value = "<?php echo @$row['NM_USUARIO'] ?>" class="form-control"></input>
     </div>
 
     <!--FUNÇÃO-->
     <div class="col-md-4">
         Função:
         </br>
-        <input type="text" id="frm_func_sol" readonly value = "<?php echo $row['DS_FUNCAO'] ?>" class="form-control"></input>
+        <input type="text" id="frm_func_sol" readonly value = "<?php echo @$row['DS_FUNCAO'] ?>" class="form-control"></input>
     </div>
 
     <!--CENTRO DE CUSTO-->

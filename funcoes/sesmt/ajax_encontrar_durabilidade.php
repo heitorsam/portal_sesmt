@@ -20,6 +20,6 @@ oci_execute($resultado_con_encontrar_durabilidade);
 
 $row_dur_prod = oci_fetch_array($resultado_con_encontrar_durabilidade);
 
-echo $row_dur_prod['DIAS'];
+echo @$row_dur_prod['DIAS'];
 
 ?>

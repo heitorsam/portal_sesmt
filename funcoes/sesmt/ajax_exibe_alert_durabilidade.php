@@ -49,11 +49,11 @@
 
     $rest_alert_prod = oci_parse($conn_ora, $cons_alert_prod);
 
-    oci_execute($rest_alert_prod);
+    @oci_execute($rest_alert_prod);
 
-    $row_alert_d = oci_fetch_array($rest_alert_prod);
+    @$row_alert_d = oci_fetch_array($rest_alert_prod);
 
-    $sn_dur = $row_alert_d['SN_ALERTA_DUR'];
+    @$sn_dur = $row_alert_d['SN_ALERTA_DUR'];
 
     if($sn_dur == 1 ){
 

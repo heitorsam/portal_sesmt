@@ -27,7 +27,7 @@
                             
                              SELECT ldur.DIAS
                              FROM portal_sesmt.LOG_DURABILIDADE ldur
-                             WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE) AS DIAS,
+                             WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE) || ' dias' AS DIAS,
 
                             sol.CD_USUARIO_CADASTRO
                         FROM portal_sesmt.SOLICITACAO sol
