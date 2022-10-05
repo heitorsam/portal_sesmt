@@ -29,7 +29,14 @@ $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                             END
                                     FROM portal_sesmt.DURABILIDADE dur
                                     WHERE dur.CD_PRODUTO_MV = sol.CD_PRODUTO_MV) AS DT_DURABILIDADE,
-                                    sol.CA_MV,
+                                    (SELECT SUBSTR(SUBSTR(prod.DS_PRODUTO,
+                                    INSTR(prod.DS_PRODUTO, '(CA') + 1,
+                                    INSTR(prod.DS_PRODUTO, ')') -
+                                    INSTR(prod.DS_PRODUTO, '(CA') - 1),3,10) AS CA
+                                    FROM dbamv.PRODUTO prod
+                                    WHERE prod.DS_PRODUTO LIKE '%(CA %'
+                                    AND prod.CD_PRODUTO = sol.CD_PRODUTO_MV
+                                    ) AS CA_MV,
                                     sol.QUANTIDADE,
                                     sol.CD_USUARIO_CADASTRO
                                     FROM portal_sesmt.SOLICITACAO sol

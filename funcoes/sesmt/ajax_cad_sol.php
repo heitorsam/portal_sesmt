@@ -9,7 +9,7 @@
     $var_pro = $_POST ['cd_produto'];
     $var_usuario = $_POST['cd_usuario'];
     $var_usu_cad = $_SESSION['usuarioLogin'];
-    echo $data_soli = str_replace("T", " ",$_POST['data']);
+    $data_soli = str_replace("T", " ",$_POST['data']);
     $tipo = $_POST['tipo'];
 
 
