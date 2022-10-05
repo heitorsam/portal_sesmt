@@ -48,7 +48,23 @@
 
     </div>
 
+    </br>
+    <h11><i class="fas fa-chart-line"></i> Dashboard</h11>
+    <span class="espaco_pequeno" style="width: 6px"></span>
+    <div class="div_br"></div>
+    <div class="row">
+        <div class="col-md-12" id="div_dashboard">       
+        </div>        
+    </div>
+    <script>
+    $(document).ready(function(){
+        $('#div_dashboard').load('funcoes/sesmt/ajax_dashboard.php');
+
+    });
+    </script>
+
 <?php
     //RODAPE
     include 'rodape.php';
 ?>
+
