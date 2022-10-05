@@ -42,7 +42,7 @@
                 <div class="row justify-content-center ">
                     <div class="col-md-5 col-lg-5 d-none d-md-block" style="border-right: 1px solid #e7e7e7; border-bottom-left-radius: 5px;">
 
-                        <img class="img_redimensionada" src="img/logo_santa_casa_sjc.gif" />
+                        <img class="img_redimensionada efeito-zoom" src="img/logo_santa_casa_sjc.gif" />
 
                     </div>
                     <div class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-5" style="text-align: left; border-bottom-right-radius: 5px;">
@@ -51,7 +51,7 @@
 
                                 <!--TITULO-->
                                 <div class="centralizar">
-                                    <h13><i class="fa fa-user-o" aria-hidden="true"></i> Acesso</h13>
+                                    <h13><i class="fa fa-user-o efeito-zoom" aria-hidden="true"></i> Acesso</h13>
                                 </div>
 
                                 <div class="div_br"> </div>
