@@ -30,8 +30,18 @@
 
     }else{
 
+        $consulta_nextval = "SELECT portal_sesmt.SEQ_CD_SOLICITACAO.NEXTVAL AS CD_SOLICITACAO FROM DUAL";
+
+        $result_nextval = oci_parse($conn_ora, $consulta_nextval);
+
+        oci_execute($result_nextval);
+
+        $row_nextval = oci_fetch_array($result_nextval);
+
+        $nextval = $row_nextval['CD_SOLICITACAO'];
+
         $insert_oracle = "INSERT INTO portal_sesmt.SOLICITACAO
-        SELECT portal_sesmt.SEQ_CD_SOLICITACAO.NEXTVAL AS CD_SOLICITACAO,
+        SELECT  $nextval AS CD_SOLICITACAO,
         UPPER('$var_usuario') AS CD_USUARIO_MV,
         '$var_set' AS CD_SETOR_MV,
         '$var_pro' AS CD_PRODUTO_MV,
@@ -68,7 +78,31 @@
 
         }else{
 
-            echo 'Sucesso';
+            $insert_ca = "INSERT INTO portal_sesmt.EDITAR_CA 
+                            SELECT  $nextval AS CD_SOLICITACAO,
+                            (SELECT SUBSTR(SUBSTR(prod.DS_PRODUTO,
+                            INSTR(prod.DS_PRODUTO, '(CA') + 1,
+                            INSTR(prod.DS_PRODUTO, ')') -
+                            INSTR(prod.DS_PRODUTO, '(CA') - 1),3,10) AS CA
+                            FROM dbamv.PRODUTO prod
+                            WHERE prod.DS_PRODUTO LIKE '%(CA %'
+                            AND prod.CD_PRODUTO = $var_pro
+                            ) AS CA,
+                            'N' AS EDITADO_SN
+                            FROM DUAL";
+            $result_ca = oci_parse($conn_ora, $insert_ca);
+
+            $valida_ca = oci_execute($result_ca);
+
+            if(!$valida_ca){
+                $erro = oci_error($result_ca);																							
+                $msg_erro = htmlentities($erro['message']);
+                //header("Location: $pag_login");
+                //echo $erro;
+                echo $msg_erro;
+            }else{
+                echo 'Sucesso';
+            }
 
         }
 

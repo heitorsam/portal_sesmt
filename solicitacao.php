@@ -82,6 +82,7 @@
                     <th>Entrega</th>
                     <th>Código </th>
                     <th>Produto </th>
+                    <th>C.A.</th>
                     <th>Durabilidade</th>
                     <th>Quantidade</th>
                     <th>Funcionário</th>
@@ -93,217 +94,234 @@
 
             </table>
 
-    <!--FUNÇÕES AJAX E JAVASCRIPT-->
-
-    <script>
-
-        /*FUNÇÃO PESQUISA USUARIO PELO BEEP*/
-        
-        function pesquisar_usuario(){
-
-            var_beep = document.getElementById('valor_beep').value;
-
-            if('S' == '<?php echo $_SESSION['papel_sesmt_adm'] ?>'){
-                if(var_beep != ''){
-
-                    document.getElementById('valor_beep').value =  var_beep.toUpperCase();
-
-                    tp = document.getElementById('slt_tipo').value
-
-                    $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep+'&tipo='+ tp);        
-
-            
-                    corpo_tabela_realizadas();
-                }else{
-
-                    document.getElementById('valor_beep').focus()
-                }
-            }else{
-
-                document.getElementById('valor_beep').value =  var_beep.toUpperCase();
-
-
-                $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep +'&tipo=N');        
-
-                corpo_tabela_realizadas();
-            }
-        }
-
-        /*FUNÇÃO ADICIONAR SOLICITAÇÕES*/
-
-        function ajax_adicionar_sol(tipo){
-
-            var var_beep = document.getElementById('valor_beep').value;
-            var centro_c = document.getElementById('frm_id_cc').value;
-            var cd_produto = document.getElementById('frm_id_produtos').value;
-            var quantidade = document.getElementById('frm_qtd_sol').value;
-
-            if(tipo == 'S'){
-                data = document.getElementById('data').value
-            }else{
-                data = 'SYSDATE'
-            }
-            if(quantidade == '' || centro_c == '' || cd_produto == '' || data == '' ){
-
-                var_ds_msg = 'Necessário%20preencher%20os%20campos!';
-                var_tp_msg = 'alert-danger';
-                $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-
-            }else{
-
-                //alert(cd_produto);
-
-                $.ajax({
-                    url: "funcoes/sesmt/ajax_cad_sol.php",
-                    type: "POST",
-                    data: {
-                        cd_setor: centro_c,
-                        cd_produto: cd_produto,
-                        quantidade: quantidade,
-                        cd_usuario: var_beep,
-                        data: data,
-                        tipo: tipo
-                        },
-                    cache: false,
-                    success: function(dataResult){
-
-                        console.log(dataResult)
-
-                        if(dataResult == 'Sucesso'){
-
-                            //MENSAGEM            
-                            var_ds_msg = 'Solicitacao%20cadastrada%20com%20sucesso!';
-                            var_tp_msg = 'alert-success';
-                            //var_tp_msg = 'alert-danger';
-                            //var_tp_msg = 'alert-primary';
-                            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
-
-                        }else{
-
-                          //MENSAGEM            
-                          var_ds_msg = dataResult.replace(/\s+/g, '-');
-                          //var_tp_msg = 'alert-success';
-                          var_tp_msg = 'alert-danger';
-                          //var_tp_msg = 'alert-primary';
-                          $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
-
-                        }
-
-                        //alert(dataResult);
-                        
-                        //console.log(dataResult)
-
-                        //ALIMENTANDO INPUT MSG
-                        //document.getElementById('msg').value = dataResult;                 
-
-                        corpo_tabela_realizadas();
-
-                    }
-                }); 
-            
-            }
-
-        }
-
-        /*FUNÇÃO CRIAR CORPO DA TABELA*/
-
-        function corpo_tabela_realizadas(){
-
-            var_beep = document.getElementById('valor_beep').value;
-
-            //alert(var_beep);
-
-            $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
-
-        }
-        
-        /*FUNÇÃO DELETAR ITEM DA TABELA*/
-
-        function ajax_deletar_realizadas(cd_solicitacao){
-
-            //var usuario = document.getElementById('input').value;
-
-            resultado = confirm("Deseja excluir a solicitação?");
-
-            if(resultado == true){
-                $.ajax({
-                    url: "funcoes/sesmt/ajax_deletar_realizadas.php",
-                    type: "POST",
-                    data: {
-                        solicitacao: cd_solicitacao
-                        },
-                    cache: false,
-                    success: function(dataResult){
-
-                        var_beep = document.getElementById('valor_beep').value;
-
-                        //alert(dataResult);
-
-                        console.log(dataResult)
-
-                        //alert(var_beep);
-                        //MENSAGEM            
-                        var_ds_msg = 'Solicitação%20excluída%20com%20sucesso!';
-                        var_tp_msg = 'alert-success';
-                        //var_tp_msg = 'alert-danger';
-                        //var_tp_msg = 'alert-primary';
-                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-
-                        $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
-
-
-                        //$('#div_permissoes').load('funcoes/permissoes/ajax_permissoes.php?cd_usuario='+ usuario);
-                        //$('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ usuario);
-                    }
-                });   
-            }
-        }
-
-
-        function ajax_encontrar_durabilidade(){
-
-            var select_prod = document.getElementById('frm_id_produtos').value;
-            var campo_durabilidade = document.getElementById('frm_id_durabilidade').value;
-
-
-                $.ajax({
-                    url: "funcoes/sesmt/ajax_encontrar_durabilidade.php",
-                    type: "POST",
-                    data: {
-                        produto: select_prod,
-                        campo: campo_durabilidade
-                    
-                        },
-                    cache: false,
-                    success: function(dataResult){
-
-                        document.getElementById('frm_id_durabilidade').value = dataResult;
-
-                        
-                    }
-                }); 
-
-                ajax_exibe_alert_durabilidade(); 
-
-        }
-
-        function ajax_exibe_alert_durabilidade(){
-
-            var_alert_prod = document.getElementById('frm_id_produtos').value;
-            var_beep = document.getElementById('valor_beep').value;
-            
-            //alert(var_beep);
-
-            $('#mensagem_durabilidade').load('funcoes/sesmt/ajax_exibe_alert_durabilidade.php?cd_usuario='+ var_beep+'&id_prod='+var_alert_prod)
-
-        }
-
-    </script>
-
+    
 <?php
 
     //RODAPE
     include 'rodape.php';
-    
+    include 'funcoes/js_editar_campos.php';
 ?>
 
+<!--FUNÇÕES AJAX E JAVASCRIPT-->
+
+<script>
+
+    /*FUNÇÃO PESQUISA USUARIO PELO BEEP*/
+
+    function pesquisar_usuario(){
+
+        var_beep = document.getElementById('valor_beep').value;
+
+        if('S' == '<?php echo $_SESSION['papel_sesmt_adm'] ?>'){
+            if(var_beep != ''){
+
+                document.getElementById('valor_beep').value =  var_beep.toUpperCase();
+
+                tp = document.getElementById('slt_tipo').value
+
+                $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep+'&tipo='+ tp);        
+
+        
+                corpo_tabela_realizadas();
+            }else{
+
+                document.getElementById('valor_beep').focus()
+            }
+        }else{
+
+            document.getElementById('valor_beep').value =  var_beep.toUpperCase();
+
+
+            $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep +'&tipo=N');        
+
+            corpo_tabela_realizadas();
+        }
+    }
+
+    /*FUNÇÃO ADICIONAR SOLICITAÇÕES*/
+
+    function ajax_adicionar_sol(tipo){
+
+        var var_beep = document.getElementById('valor_beep').value;
+        var centro_c = document.getElementById('frm_id_cc').value;
+        var cd_produto = document.getElementById('frm_id_produtos').value;
+        var quantidade = document.getElementById('frm_qtd_sol').value;
+
+        if(tipo == 'S'){
+            data = document.getElementById('data').value
+        }else{
+            data = 'SYSDATE'
+        }
+        if(quantidade == '' || centro_c == '' || cd_produto == '' || data == '' ){
+
+            var_ds_msg = 'Necessário%20preencher%20os%20campos!';
+            var_tp_msg = 'alert-danger';
+            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+        }else{
+
+            //alert(cd_produto);
+
+            $.ajax({
+                url: "funcoes/sesmt/ajax_cad_sol.php",
+                type: "POST",
+                data: {
+                    cd_setor: centro_c,
+                    cd_produto: cd_produto,
+                    quantidade: quantidade,
+                    cd_usuario: var_beep,
+                    data: data,
+                    tipo: tipo
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    console.log(dataResult)
+
+                    if(dataResult == 'Sucesso'){
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Solicitacao%20cadastrada%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        //var_tp_msg = 'alert-danger';
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                    }else{
+
+                    //MENSAGEM            
+                    var_ds_msg = dataResult.replace(/\s+/g, '-');
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                    }
+
+                    //alert(dataResult);
+                    
+                    //console.log(dataResult)
+
+                    //ALIMENTANDO INPUT MSG
+                    //document.getElementById('msg').value = dataResult;                 
+
+                    corpo_tabela_realizadas();
+
+                }
+            }); 
+        
+        }
+
+    }
+
+    /*FUNÇÃO CRIAR CORPO DA TABELA*/
+
+    function corpo_tabela_realizadas(){
+
+        var_beep = document.getElementById('valor_beep').value;
+
+        //alert(var_beep);
+
+        $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
+
+    }
+
+    /*FUNÇÃO DELETAR ITEM DA TABELA*/
+
+    function ajax_deletar_realizadas(cd_solicitacao){
+
+        //var usuario = document.getElementById('input').value;
+
+        resultado = confirm("Deseja excluir a solicitação?");
+
+        if(resultado == true){
+            $.ajax({
+                url: "funcoes/sesmt/ajax_deletar_realizadas.php",
+                type: "POST",
+                data: {
+                    solicitacao: cd_solicitacao
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    var_beep = document.getElementById('valor_beep').value;
+
+                    //alert(dataResult);
+
+                    console.log(dataResult)
+
+                    //alert(var_beep);
+                    //MENSAGEM            
+                    var_ds_msg = 'Solicitação%20excluída%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    //var_tp_msg = 'alert-danger';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                    $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
+
+
+                    //$('#div_permissoes').load('funcoes/permissoes/ajax_permissoes.php?cd_usuario='+ usuario);
+                    //$('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ usuario);
+                }
+            });   
+        }
+    }
+
+
+    function ajax_encontrar_durabilidade(){
+
+        var select_prod = document.getElementById('frm_id_produtos').value;
+        var campo_durabilidade = document.getElementById('frm_id_durabilidade').value;
+
+
+            $.ajax({
+                url: "funcoes/sesmt/ajax_encontrar_durabilidade.php",
+                type: "POST",
+                data: {
+                    produto: select_prod,
+                    campo: campo_durabilidade
+                
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    document.getElementById('frm_id_durabilidade').value = dataResult;
+
+                    
+                }
+            }); 
+
+            ajax_exibe_alert_durabilidade(); 
+
+    }
+
+    function ajax_exibe_alert_durabilidade(){
+
+        var_alert_prod = document.getElementById('frm_id_produtos').value;
+        var_beep = document.getElementById('valor_beep').value;
+        
+        //alert(var_beep);
+
+        $('#mensagem_durabilidade').load('funcoes/sesmt/ajax_exibe_alert_durabilidade.php?cd_usuario='+ var_beep+'&id_prod='+var_alert_prod)
+
+    }
+
+    function ajax_reset_ca(cd_solicitacao){
+        $.ajax({
+            url: "funcoes/sesmt/ajax_reset_ca.php",
+            type: "POST",
+            data: {
+                cd_solicitacao: cd_solicitacao
+            
+                },
+            cache: false,
+            success: function(dataResult){
+                document.getElementById('MV_CA'+ cd_solicitacao).innerHTML = dataResult;
+
+                
+            }
+        }); 
+    }
+
+</script>

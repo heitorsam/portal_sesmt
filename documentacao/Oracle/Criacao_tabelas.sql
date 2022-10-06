@@ -135,3 +135,10 @@ NOCYCLE;
 
 SELECT * FROM portal_sesmt.LOG_DURABILIDADE ldur
 
+DROP TABLE portal_sesmt.EDITAR_CA;
+
+CREATE TABLE portal_sesmt.EDITAR_CA(
+CD_SOLICITACAO     INT NOT NULL,
+MV_CA              INT,
+EDITADO_SN         VARCHAR(1)
+);

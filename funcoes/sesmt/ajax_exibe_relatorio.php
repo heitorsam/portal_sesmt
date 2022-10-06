@@ -29,16 +29,12 @@ $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                             END
                                     FROM portal_sesmt.DURABILIDADE dur
                                     WHERE dur.CD_PRODUTO_MV = sol.CD_PRODUTO_MV) AS DT_DURABILIDADE,
-                                    (SELECT SUBSTR(SUBSTR(prod.DS_PRODUTO,
-                                    INSTR(prod.DS_PRODUTO, '(CA') + 1,
-                                    INSTR(prod.DS_PRODUTO, ')') -
-                                    INSTR(prod.DS_PRODUTO, '(CA') - 1),3,10) AS CA
-                                    FROM dbamv.PRODUTO prod
-                                    WHERE prod.DS_PRODUTO LIKE '%(CA %'
-                                    AND prod.CD_PRODUTO = sol.CD_PRODUTO_MV
+                                    (SELECT edc.MV_CA FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
                                     ) AS CA_MV,
                                     sol.QUANTIDADE,
-                                    sol.CD_USUARIO_CADASTRO
+                                    sol.CD_USUARIO_CADASTRO,
+                                    (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
+                                    ) AS EDITADO_SN
                                     FROM portal_sesmt.SOLICITACAO sol
                                     INNER JOIN dbamv.PRODUTO pro
                                     ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
@@ -69,7 +65,11 @@ oci_execute($resultado_tabela_relatorio);
         echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_PRODUTO_MV'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['DS_PRODUTO'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['DT_DURABILIDADE'] . '</td>';
-        echo '<td class="align-middle">' .  $row_tabela_relatorio['CA_MV'] . '</td>';
+        echo '<td class="align-middle">';
+        if($row_tabela_relatorio['EDITADO_SN'] == 'S'){
+            echo '<i class="fa-sharp fa-solid fa-keyboard"></i> ';
+        } 
+        echo  $row_tabela_relatorio['CA_MV'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['QUANTIDADE'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_USUARIO_CADASTRO'] . '</td>';
 
