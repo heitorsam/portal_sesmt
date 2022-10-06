@@ -58,7 +58,7 @@
     </div>
     <script>
     $(document).ready(function(){
-        $('#div_dashboard').load('funcoes/sesmt/ajax_dashboard.php');
+        $('#div_dashboard').load('funcoes/solicitacao/ajax_dashboard.php');
 
     });
     </script>
