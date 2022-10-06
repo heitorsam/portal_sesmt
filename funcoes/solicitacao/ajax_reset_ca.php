@@ -1,8 +1,11 @@
 <?php 
+session_start();
 
     include '../../conexao.php';
 
     $cd_solicitacao = $_POST['cd_solicitacao'];
+
+    $usuario = $_SESSION['usuarioLogin'];
 
     $update = "UPDATE portal_sesmt.editar_ca
     SET MV_CA =
@@ -16,7 +19,9 @@
                                      ) AS CA_MV
            FROM portal_sesmt.solicitacao sol
           WHERE sol.cd_solicitacao =  $cd_solicitacao),
-          EDITADO_SN = 'N'
+          EDITADO_SN = 'N',
+          CD_USUARIO_ULT_ALT = '$usuario',
+          HR_ULT_ALT = SYSDATE
           WHERE cd_solicitacao =  $cd_solicitacao
           ";
 
