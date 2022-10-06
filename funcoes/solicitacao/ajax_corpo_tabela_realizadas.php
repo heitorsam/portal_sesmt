@@ -56,10 +56,11 @@
     echo '<td class="align-middle">' .  $row_tabela['CD_PRODUTO_MV'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['DS_PRODUTO'] . '</td>';?>
     <td class="align-middle" id="MV_CA<?php echo $row_tabela['CD_SOLICITACAO'] ?>"
-    ondblclick="fnc_editar_campo('portal_sesmt.EDITAR_CA', 'MV_CA', '<?php echo @$row_tabela['CA']; ?>', 'CD_SOLICITACAO', '<?php echo @$row_tabela['CD_SOLICITACAO']; ?>', '')"> 
+    ondblclick="fnc_editar_campo('portal_sesmt.EDITAR_CA', 'MV_CA', '<?php echo @$row_tabela['CA_MV']; ?>', 'CD_SOLICITACAO', '<?php echo @$row_tabela['CD_SOLICITACAO']; ?>', '')"> 
      
     <?php 
     if($row_tabela['EDITADO'] == 'S'){
+        echo '<i class="fa-sharp fa-solid fa-keyboard"></i> ';
         echo $row_tabela['CA_MV'];
     ?>
         <i style="color: #e05757; font-size: 10px;" class="fa-solid fa-xmark" onclick="ajax_reset_ca('<?php echo $row_tabela['CD_SOLICITACAO'] ?>')"></i>
@@ -74,8 +75,8 @@
     echo '<td class="align-middle">' .  $row_tabela['DIAS'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['QUANTIDADE'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['CD_USUARIO_CADASTRO'] . '</td>';
-    echo '<td>' ?>
-
+    echo '<td>';
+    ?>
     <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 
     <i class="fa-solid fa-trash-can"></i></a><?php
 

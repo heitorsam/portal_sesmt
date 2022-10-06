@@ -148,7 +148,7 @@
                 }
             }
 
-            var_link = 'funcoes/sesmt/ajax_exibe_relatorio.php?get_var_centro='+var_rel_cc+'&get_dt_ini='+var_dt_inicial+'&get_dt_fim='+var_dt_final+'&get_usu_rel='+var_usu_reletorio;
+            var_link = 'funcoes/relatorio/ajax_exibe_relatorio.php?get_var_centro='+var_rel_cc+'&get_dt_ini='+var_dt_inicial+'&get_dt_fim='+var_dt_final+'&get_usu_rel='+var_usu_reletorio;
 
             //alert(var_link);
 
@@ -162,7 +162,7 @@
 
             //alert(var_beep);
 
-            $('#constroi_usu_setor').load('funcoes/sesmt/ajax_constroi_usu_setor.php?get_var_cc='+ var_select_centro)
+            $('#constroi_usu_setor').load('funcoes/relatorio/ajax_constroi_usu_setor.php?get_var_cc='+ var_select_centro)
 
         }
 

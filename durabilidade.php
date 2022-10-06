@@ -101,13 +101,13 @@
 
                 var_ds_msg = 'Necessário%20preencher%20os%20campos!';
                 var_tp_msg = 'alert-danger';
-                $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                $('#mensagem_acoes').load('funcoes/durabilidade/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
             }else{
 
                 $.ajax({
 
-                    url: "funcoes/sesmt/ajax_cad_durabilidade.php",
+                    url: "funcoes/durabilidade/ajax_cad_durabilidade.php",
                     type: "POST",
                     data: {
                     
@@ -125,7 +125,7 @@
                             var_tp_msg = 'alert-success';
                             //var_tp_msg = 'alert-danger';
                             //var_tp_msg = 'alert-primary';
-                            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                            $('#mensagem_acoes').load('funcoes/durabilidade/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                                                 
                         }else{
@@ -134,7 +134,7 @@
                             var_ds_msg = dataResult.replace(/\s+/g, '-');
                             var_tp_msg = 'alert-danger';
                             //var_tp_msg = 'alert-primary';
-                            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                            $('#mensagem_acoes').load('funcoes/durabilidade/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                             
                         }
@@ -156,7 +156,7 @@
 
             var_produto = document.getElementById('frm_id_produtos_dur').value
 
-            $('#tabela_durabilidade').load('funcoes/sesmt/ajax_tabela_durabilidade.php?cd_produto='+ var_produto)
+            $('#tabela_durabilidade').load('funcoes/durabilidade/ajax_tabela_durabilidade.php?cd_produto='+ var_produto)
 
         }
 
@@ -170,7 +170,7 @@
 
             if(resultado == true){
                 $.ajax({
-                    url: "funcoes/sesmt/ajax_deletar_durabilidade.php",
+                    url: "funcoes/durabilidade/ajax_deletar_durabilidade.php",
                     type: "POST",
                     data: {
                         durabilidade: cd_durabilidade
@@ -190,10 +190,10 @@
                         var_tp_msg = 'alert-success';
                         //var_tp_msg = 'alert-danger';
                         //var_tp_msg = 'alert-primary';
-                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                        $('#mensagem_acoes').load('funcoes/durabilidade/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
 
-                        $('#tabela_durabilidade').load('funcoes/sesmt/ajax_tabela_durabilidade.php?cd_produto='+ var_produto)
+                        $('#tabela_durabilidade').load('funcoes/durabilidade/ajax_tabela_durabilidade.php?cd_produto='+ var_produto)
 
 
                     }

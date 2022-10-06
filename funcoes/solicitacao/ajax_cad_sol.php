@@ -78,6 +78,8 @@
 
         }else{
 
+            $usuario = $_SESSION['usuarioLogin'];
+
             $insert_ca = "INSERT INTO portal_sesmt.EDITAR_CA 
                             SELECT  $nextval AS CD_SOLICITACAO,
                             (SELECT SUBSTR(SUBSTR(prod.DS_PRODUTO,
@@ -88,7 +90,11 @@
                             WHERE prod.DS_PRODUTO LIKE '%(CA %'
                             AND prod.CD_PRODUTO = $var_pro
                             ) AS CA,
-                            'N' AS EDITADO_SN
+                            'N' AS EDITADO_SN,
+                            '$usuario' AS CD_USUARIO_CADASTRO,
+                            SYSDATE AS HR_CADASTRO,
+                            NULL AS CD_USUARIO_ULT_ALT,
+                            NULL AS HR_ULT_ALT
                             FROM DUAL";
             $result_ca = oci_parse($conn_ora, $insert_ca);
 

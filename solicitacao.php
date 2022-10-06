@@ -119,7 +119,7 @@
 
                 tp = document.getElementById('slt_tipo').value
 
-                $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep+'&tipo='+ tp);        
+                $('#solicitacoes').load('funcoes/solicitacao/ajax_solicitacoes.php?cd_usuario='+ var_beep+'&tipo='+ tp);        
 
         
                 corpo_tabela_realizadas();
@@ -132,7 +132,7 @@
             document.getElementById('valor_beep').value =  var_beep.toUpperCase();
 
 
-            $('#solicitacoes').load('funcoes/sesmt/ajax_solicitacoes.php?cd_usuario='+ var_beep +'&tipo=N');        
+            $('#solicitacoes').load('funcoes/solicitacao/ajax_solicitacoes.php?cd_usuario='+ var_beep +'&tipo=N');        
 
             corpo_tabela_realizadas();
         }
@@ -156,14 +156,14 @@
 
             var_ds_msg = 'Necessário%20preencher%20os%20campos!';
             var_tp_msg = 'alert-danger';
-            $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+            $('#mensagem_acoes').load('funcoes/solicitacao/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
         }else{
 
             //alert(cd_produto);
 
             $.ajax({
-                url: "funcoes/sesmt/ajax_cad_sol.php",
+                url: "funcoes/solicitacao/ajax_cad_sol.php",
                 type: "POST",
                 data: {
                     cd_setor: centro_c,
@@ -185,7 +185,7 @@
                         var_tp_msg = 'alert-success';
                         //var_tp_msg = 'alert-danger';
                         //var_tp_msg = 'alert-primary';
-                        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                        $('#mensagem_acoes').load('funcoes/solicitacao/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                     }else{
 
@@ -194,7 +194,7 @@
                     //var_tp_msg = 'alert-success';
                     var_tp_msg = 'alert-danger';
                     //var_tp_msg = 'alert-primary';
-                    $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                    $('#mensagem_acoes').load('funcoes/solicitacao/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                     }
 
@@ -222,7 +222,7 @@
 
         //alert(var_beep);
 
-        $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
+        $('#corpo_tabela_realizadas').load('funcoes/solicitacao/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
     }
 
@@ -236,7 +236,7 @@
 
         if(resultado == true){
             $.ajax({
-                url: "funcoes/sesmt/ajax_deletar_realizadas.php",
+                url: "funcoes/solicitacao/ajax_deletar_realizadas.php",
                 type: "POST",
                 data: {
                     solicitacao: cd_solicitacao
@@ -256,9 +256,9 @@
                     var_tp_msg = 'alert-success';
                     //var_tp_msg = 'alert-danger';
                     //var_tp_msg = 'alert-primary';
-                    $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                    $('#mensagem_acoes').load('funcoes/solicitacao/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-                    $('#corpo_tabela_realizadas').load('funcoes/sesmt/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
+                    $('#corpo_tabela_realizadas').load('funcoes/solicitacao/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
 
                     //$('#div_permissoes').load('funcoes/permissoes/ajax_permissoes.php?cd_usuario='+ usuario);
@@ -276,7 +276,7 @@
 
 
             $.ajax({
-                url: "funcoes/sesmt/ajax_encontrar_durabilidade.php",
+                url: "funcoes/solicitacao/ajax_encontrar_durabilidade.php",
                 type: "POST",
                 data: {
                     produto: select_prod,
@@ -298,30 +298,37 @@
 
     function ajax_exibe_alert_durabilidade(){
 
-        var_alert_prod = document.getElementById('frm_id_produtos').value;
-        var_beep = document.getElementById('valor_beep').value;
-        
-        //alert(var_beep);
+        tipo = document.getElementById('slt_tipo').value
 
-        $('#mensagem_durabilidade').load('funcoes/sesmt/ajax_exibe_alert_durabilidade.php?cd_usuario='+ var_beep+'&id_prod='+var_alert_prod)
+        if(tipo == 'N'){
+            var_alert_prod = document.getElementById('frm_id_produtos').value;
+            var_beep = document.getElementById('valor_beep').value;
+            
+            //alert(var_beep);
 
+            $('#mensagem_durabilidade').load('funcoes/solicitacao/ajax_exibe_alert_durabilidade.php?cd_usuario='+ var_beep+'&id_prod='+var_alert_prod)
+        }
     }
 
     function ajax_reset_ca(cd_solicitacao){
-        $.ajax({
-            url: "funcoes/sesmt/ajax_reset_ca.php",
-            type: "POST",
-            data: {
-                cd_solicitacao: cd_solicitacao
-            
-                },
-            cache: false,
-            success: function(dataResult){
-                document.getElementById('MV_CA'+ cd_solicitacao).innerHTML = dataResult;
+        resultado = confirm("Deseja excluir o C.A.?");
 
+        if(resultado == true){
+            $.ajax({
+                url: "funcoes/solicitacao/ajax_reset_ca.php",
+                type: "POST",
+                data: {
+                    cd_solicitacao: cd_solicitacao
                 
-            }
-        }); 
+                    },
+                cache: false,
+                success: function(dataResult){
+                    document.getElementById('MV_CA'+ cd_solicitacao).innerHTML = dataResult;
+
+                    
+                }
+            }); 
+        }
     }
 
 </script>

@@ -1,3 +1,5 @@
+<?php session_start() ?>
+
 <script>
 
 /////////////////
@@ -16,7 +18,7 @@
 
     var texto_update_inicial = "UPDATE " + var_owner_tabela + " SET " + var_coluna_edicao + " = '"
   
-    var text_update_final = "' ,EDITADO_SN = 'S' WHERE " + var_coluna_pk + " = '" + var_valor_pk + "'"
+    var text_update_final = "' ,EDITADO_SN = 'S', CD_USUARIO_ULT_ALT = '<?php echo $_SESSION['usuarioLogin'] ?>', HR_ULT_ALT = SYSDATE WHERE " + var_coluna_pk + " = '" + var_valor_pk + "'"
     var var_valor_edicao = ''
 
     //REGRAS:  1- VALOR COM VIRGULA // 2- COMBO VAZIA
@@ -55,7 +57,7 @@
     if(var_tipo_campo == 1){
 
       //SE FOR INPUT
-      if(document.getElementById("input_editar").value != ''){
+      if(document.getElementById("input_editar").value != '' && document.getElementById("input_editar").value > 0){
         
         
         var vl_campo = document.getElementById("input_editar").value
@@ -75,7 +77,7 @@
             success: function(dataResult){ 
               console.log(dataResult)
               
-                var var_texto_final = document.getElementById("input_editar").value 
+                var var_texto_final = '<i class="fa-sharp fa-solid fa-keyboard"></i> ' + document.getElementById("input_editar").value 
                 corpo_tabela_realizadas();
                 document.getElementById(global_coluna_alterada).innerHTML = var_texto_final
                 global_coluna_edicao = var_texto_final            
@@ -84,6 +86,7 @@
         })
 
       }else{
+       
         document.getElementById(global_coluna_alterada).innerHTML = global_coluna_edicao
       }
 
@@ -110,8 +113,8 @@
 
                 var var_coluna_alterada = global_coluna_alterada
                 
-                document.getElementById(var_coluna_alterada).innerHTML = var_texto_final
                 corpo_tabela_realizadas();
+                document.getElementById(var_coluna_alterada).innerHTML = var_texto_final
                 global_coluna_edicao = var_texto_final            
 
             }
