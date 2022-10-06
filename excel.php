@@ -19,20 +19,37 @@ $cd_usuario_relatorio_ex = $_GET['get_usu_rel'];
 //FAZ O SELECT
 
 $consulta_excel_oracle = "SELECT sol.CD_SOLICITACAO,
-                                 sol.CD_USUARIO_MV,
-                                 TO_CHAR(sol.HR_CADASTRO, 'DD/MM/YYYY') AS HR_CADASTRO,
-                                 sol.CD_SETOR_MV,
-                                 sol.CD_PRODUTO_MV,
-                                 pro.DS_PRODUTO,
-                                 sol.CA_MV,
-                                 sol.QUANTIDADE,
-                                 sol.CD_USUARIO_CADASTRO
-                                 FROM portal_sesmt.SOLICITACAO sol
-                                 INNER JOIN dbamv.PRODUTO pro
-                                 ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
-                                 WHERE TO_CHAR(sol.HR_CADASTRO,'DD/MM/YYYY') BETWEEN 
-                                 TO_CHAR(TO_DATE('$data_inial_ex','YYYY-MM-DD'),'DD/MM/YYYY') AND
-                                 TO_CHAR(TO_DATE('$data_final_ex','YYYY-MM-DD'),'DD/MM/YYYY')";
+                            sol.CD_USUARIO_MV,
+                            TO_CHAR(sol.HR_CADASTRO, 'DD/MM/YYYY') AS HR_CADASTRO,
+                            sol.CD_SETOR_MV,
+                            (SELECT st.NM_SETOR
+                            FROM dbamv.SETOR st
+                            WHERE st.SN_ATIVO = 'S'
+                                AND st.CD_SETOR = sol.CD_SETOR_MV) AS NM_SETOR,
+                            sol.CD_PRODUTO_MV,
+                            pro.DS_PRODUTO,
+                            (SELECT CASE
+                                    WHEN dur.DIAS < 2 THEN
+                                    dur.DIAS || ' Dia'
+                                    WHEN dur.DIAS >= 2 THEN
+                                    dur.DIAS || ' Dias'
+                                    ELSE
+                                    ''
+                                    END
+                            FROM portal_sesmt.DURABILIDADE dur
+                            WHERE dur.CD_PRODUTO_MV = sol.CD_PRODUTO_MV) AS DT_DURABILIDADE,
+                            (SELECT csa.CA_SOL FROM portal_sesmt.VW_CA_SOL_ATUAL csa WHERE csa.CD_SOLICITACAO = sol.CD_SOLICITACAO
+                            ) AS CA_MV,
+                            sol.QUANTIDADE,
+                            sol.CD_USUARIO_CADASTRO,
+                            (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
+                            ) AS EDITADO_SN
+                            FROM portal_sesmt.SOLICITACAO sol
+                            INNER JOIN dbamv.PRODUTO pro
+                            ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
+                            WHERE TRUNC(sol.HR_CADASTRO) BETWEEN
+                            TRUNC(TO_DATE('$data_inial_ex', 'YYYY-MM-DD')) AND
+                            TRUNC(TO_DATE('$data_final_ex', 'YYYY-MM-DD'))";
 
 if($centro_custo_ex <> 'all'){
 
@@ -56,10 +73,12 @@ echo "<table>";
     echo "<tr>";
 
     echo "<th>Solicitação</th>";
-    echo "<th>Usuario</th>";
+    echo "<th>Usuário </th>";
+    echo "<th>Setor</th>";
     echo "<th>Entrega</th>";
-    echo "<th>Código</th>";
-    echo "<th>Produto</th>";
+    echo "<th>Código </th>";
+    echo "<th>Produto </th>";
+    echo "<th>Durabilidade </th>";
     echo "<th>C.A</th>";
     echo "<th>Quantidade</th>";
     echo "<th>Funcionário</th>";
@@ -70,15 +89,16 @@ echo "<table>";
     
      echo '<tr>';
     
-        echo '<td>' .  $row_tabela_excel['CD_SOLICITACAO'] . '</td>';
-        echo '<td>' .  $row_tabela_excel['CD_USUARIO_MV'] . '</td>';
-        echo '<td>' .  $row_tabela_excel['HR_CADASTRO'] . '</td>';
-        echo '<td>' .  $row_tabela_excel['CD_PRODUTO_MV'] . '</td>';
-        echo '<td>' .  $row_tabela_excel['DS_PRODUTO'] . '</td>';
-        echo '<td>' .  $row_tabela_excel['CA_MV'] . '</td>';
-        echo '<td>' .  $row_tabela_excel['QUANTIDADE'] . '</td>';
-        echo '<td>' .  $row_tabela_excel['CD_USUARIO_CADASTRO'] . '</td>';
-
+        echo '<td class="align-middle">' .  $row_tabela_excel['CD_SOLICITACAO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['CD_USUARIO_MV'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['NM_SETOR'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['HR_CADASTRO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['CD_PRODUTO_MV'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['DS_PRODUTO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['DT_DURABILIDADE'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['CA_MV'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['QUANTIDADE'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_excel['CD_USUARIO_CADASTRO'] . '</td>';
     echo '</tr>';
 
     }

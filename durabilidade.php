@@ -34,7 +34,7 @@
 
             <?php
             
-             include 'filtros/filtro_produtos_durabilidade.php';
+             include 'filtros/filtro_produtos.php';
             
             ?>
 
@@ -94,14 +94,14 @@
         // FUNÇÃO ADICIONAR DURABILIDADE ( CADASTRO ) //
         function ajax_adicionar_durabilidade(){
 
-            var var_produto_dur = document.getElementById('frm_id_produtos_dur').value;
+            var var_produto_dur = document.getElementById('frm_id_produtos').value;
             var var_dias_dur = document.getElementById('frm_dias_dur').value;
 
             if (var_produto_dur == '' || var_dias_dur == ''){
 
                 var_ds_msg = 'Necessário%20preencher%20os%20campos!';
                 var_tp_msg = 'alert-danger';
-                $('#mensagem_acoes').load('funcoes/durabilidade/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
             }else{
 
@@ -125,7 +125,7 @@
                             var_tp_msg = 'alert-success';
                             //var_tp_msg = 'alert-danger';
                             //var_tp_msg = 'alert-primary';
-                            $('#mensagem_acoes').load('funcoes/durabilidade/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                            $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                                                 
                         }else{
@@ -134,7 +134,7 @@
                             var_ds_msg = dataResult.replace(/\s+/g, '-');
                             var_tp_msg = 'alert-danger';
                             //var_tp_msg = 'alert-primary';
-                            $('#mensagem_acoes').load('funcoes/durabilidade/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                            $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                             
                         }
@@ -154,7 +154,7 @@
 
         function ajax_tabela_durabilidade(){
 
-            var_produto = document.getElementById('frm_id_produtos_dur').value
+            var_produto = document.getElementById('frm_id_produtos').value
 
             $('#tabela_durabilidade').load('funcoes/durabilidade/ajax_tabela_durabilidade.php?cd_produto='+ var_produto)
 
@@ -180,7 +180,7 @@
 
                         console.log(dataResult)
 
-                        var_produto_dur = document.getElementById('frm_id_produtos_dur').value;
+                        var_produto_dur = document.getElementById('frm_id_produtos').value;
 
                         //alert(dataResult);
 
@@ -190,7 +190,7 @@
                         var_tp_msg = 'alert-success';
                         //var_tp_msg = 'alert-danger';
                         //var_tp_msg = 'alert-primary';
-                        $('#mensagem_acoes').load('funcoes/durabilidade/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                        $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
 
                         $('#tabela_durabilidade').load('funcoes/durabilidade/ajax_tabela_durabilidade.php?cd_produto='+ var_produto)

@@ -123,6 +123,8 @@
 
         
                 corpo_tabela_realizadas();
+
+                
             }else{
 
                 document.getElementById('valor_beep').focus()
@@ -156,7 +158,7 @@
 
             var_ds_msg = 'Necessário%20preencher%20os%20campos!';
             var_tp_msg = 'alert-danger';
-            $('#mensagem_acoes').load('funcoes/solicitacao/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+            $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
         }else{
 
@@ -185,7 +187,7 @@
                         var_tp_msg = 'alert-success';
                         //var_tp_msg = 'alert-danger';
                         //var_tp_msg = 'alert-primary';
-                        $('#mensagem_acoes').load('funcoes/solicitacao/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                        $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                     }else{
 
@@ -194,7 +196,7 @@
                     //var_tp_msg = 'alert-success';
                     var_tp_msg = 'alert-danger';
                     //var_tp_msg = 'alert-primary';
-                    $('#mensagem_acoes').load('funcoes/solicitacao/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                    $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                     }
 
@@ -256,7 +258,7 @@
                     var_tp_msg = 'alert-success';
                     //var_tp_msg = 'alert-danger';
                     //var_tp_msg = 'alert-primary';
-                    $('#mensagem_acoes').load('funcoes/solicitacao/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                    $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
                     $('#corpo_tabela_realizadas').load('funcoes/solicitacao/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
@@ -299,14 +301,18 @@
     function ajax_exibe_alert_durabilidade(){
 
         tipo = document.getElementById('slt_tipo').value
-
+        
         if(tipo == 'N'){
+
             var_alert_prod = document.getElementById('frm_id_produtos').value;
             var_beep = document.getElementById('valor_beep').value;
             
             //alert(var_beep);
 
-            $('#mensagem_durabilidade').load('funcoes/solicitacao/ajax_exibe_alert_durabilidade.php?cd_usuario='+ var_beep+'&id_prod='+var_alert_prod)
+            $('#mensagem_durabilidade').load('funcoes/solicitacao/ajax_exibe_alert_durabilidade.php?cd_usuario='+ var_beep+'&id_prod='+var_alert_prod+'&tipo='+ tipo)
+        }else{
+            
+            $('#mensagem_durabilidade').load('funcoes/solicitacao/ajax_exibe_alert_durabilidade.php?tipo='+ tipo)
         }
     }
 

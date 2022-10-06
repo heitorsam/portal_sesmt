@@ -6,7 +6,7 @@
 
 
     $consulta_tabela = "SELECT sol.CD_SOLICITACAO,
-                            sol.CD_USUARIO_MV,
+                            (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = UPPER('cbmescandell')) AS NM_USU,
 
                             (SELECT st.NM_SETOR
                              FROM dbamv.SETOR st
@@ -30,7 +30,7 @@
                              FROM portal_sesmt.LOG_DURABILIDADE ldur
                              WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE) || ' dias' AS DIAS,
 
-                            sol.CD_USUARIO_CADASTRO,
+                             (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
                             (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
                             ) AS EDITADO
                         FROM portal_sesmt.SOLICITACAO sol
@@ -50,7 +50,7 @@
     echo '<tr>';
     
     echo '<td class="align-middle">' .  $row_tabela['CD_SOLICITACAO'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['CD_USUARIO_MV'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['NM_USU'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['NM_SETOR'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['DT_ENTREGA'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['CD_PRODUTO_MV'] . '</td>';
@@ -74,7 +74,7 @@
     echo'</td>';
     echo '<td class="align-middle">' .  $row_tabela['DIAS'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['QUANTIDADE'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['CD_USUARIO_CADASTRO'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['NM_USUARIO_CADASTRO'] . '</td>';
     echo '<td>';
     ?>
     <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 

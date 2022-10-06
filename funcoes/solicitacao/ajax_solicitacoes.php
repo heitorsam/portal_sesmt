@@ -102,6 +102,10 @@
     
 
 <script>
+
+    $(document).ready(function() {
+        ajax_exibe_alert_durabilidade()
+    });
     
     var_usu_sol = document.getElementById('frm_colab_sol').value;     
 
@@ -112,7 +116,7 @@
         var_tp_msg = 'alert-success';
         //var_tp_msg = 'alert-danger';
         //var_tp_msg = 'alert-primary';
-        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+        $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
     
     }else{
 
@@ -121,7 +125,7 @@
         //var_tp_msg = 'alert-success';
         var_tp_msg = 'alert-danger';
         //var_tp_msg = 'alert-primary';
-        $('#mensagem_acoes').load('funcoes/sesmt/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+        $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
     }        
 

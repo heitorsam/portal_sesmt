@@ -34,7 +34,7 @@
 
             <?php
 
-                include 'filtros/filtro_centro_custo_relatorio.php';
+                include 'filtros/filtro_centro_custo.php';
 
             ?>
 
@@ -128,7 +128,7 @@
 
         function corpo_tabela_relatorio(){
 
-            var_rel_cc= document.getElementById('frm_rel_id_cc').value;
+            var_rel_cc= document.getElementById('frm_id_cc').value;
             var_dt_inicial= document.getElementById('frm_dt_ini').value;
             var_dt_final= document.getElementById('frm_dt_fim').value;
             var_usu_reletorio= document.getElementById('frm_id_usu_rel').value;
@@ -158,7 +158,7 @@
 
         function constroi_usu_setor(){
 
-            var_select_centro = document.getElementById('frm_rel_id_cc').value;
+            var_select_centro = document.getElementById('frm_id_cc').value;
 
             //alert(var_beep);
 
@@ -168,7 +168,7 @@
 
         function down_excel(){
 
-            var_rel_ex= document.getElementById('frm_rel_id_cc').value;
+            var_rel_ex= document.getElementById('frm_id_cc').value;
             var_dt_inicial_ex= document.getElementById('frm_dt_ini').value;
             var_dt_final_ex= document.getElementById('frm_dt_fim').value;
             var_usu_reletorio_ex= document.getElementById('frm_id_usu_rel').value;
