@@ -69,31 +69,16 @@ session_start();
                         <i class="fa fa-bars" aria-hidden="true"></i> Menu</a></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
 
-                        <!--MENU-->
-                            <a class="dropdown-item" style="background-color: #f3f3f3; " href="javascript:void(0)"><i class="fa fa-address-book-o" aria-hidden="true"></i> Portal Sesmt</a>   
-                            
-                            <?php if(@$_SESSION['sn_usuario_same_recepcao'] == 'S'){ ?>
-                                <a class="dropdown-item" href="estrutura_requisicao.php"><i class="fa-solid fa-file"></i> Documento</a>   
-                                <a class="dropdown-item" href="estrutura_recepcao.php"><i class="fas fa-file-import"></i> Recepção</a>   
-                            <?php } ?>
-                            
-                            <?php if(@$_SESSION['sn_usuario_same_secretaria'] == 'S'){ ?>
-                                <a class="dropdown-item" href="estrutura_secretaria.php"><i class="fas fa-address-book"></i> Secretária</a>   
-                            <?php } ?>
-                            
-                            <?php if(@$_SESSION['sn_usuario_same_diretor'] == 'S'){ ?>
-                                <a class="dropdown-item" href="estrutura_diretor.php"><i class="fa-solid fa-hospital-user"></i> Diretor</a>   
-                            <?php } ?>
-                            
-                            <?php if(@$_SESSION['sn_usuario_same'] == 'S'){ ?>
-                                <a class="dropdown-item" href="estrutura_same.php"><i class="fas fa-file-alt"></i> SAME</a>   
-                            <?php } ?>
-                            
-                            <?php if(@$_SESSION['sn_administrador_same'] == 'S'){ ?>
-                                <a class="dropdown-item" href="estrutura_configuracoes.php"><i class="fa-solid fa-user-gear"></i> Configurações</a>   
+                        <!--MENU-->      
+                        
+                        <a class="dropdown-item" href="solicitacao.php"><i class="fas fa-file-import"></i>  Solicitações</a>  
+
+                        <a class="dropdown-item" href="relatorio.php"><i class="fa-solid fa-file"></i>  Relatórios</a>   
+                        
+                            <?php if(@$_SESSION['papel_sesmt_adm'] == 'S'){ ?>
+                                <a class="dropdown-item" href="durabilidade.php"><i class="fa-solid fa-square-plus"></i> Durabilidade</a>   
                             <?php } ?>
                                                         
-                            <div class="div_br"> </div>
 
                         </div>
                     </li>
