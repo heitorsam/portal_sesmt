@@ -76,18 +76,25 @@
             <input type = "number" type="number" min="0" id="frm_qtd_sol" class="form-control" autocomplete="off"></input>
         </div>
 
-        <?php if(@$_GET['tipo'] == 'S'){ ?>
-            <div class="col-md-2">
-                Dia:
+    </div>
+
+    <div class="div_br"> </div>
+
+    <div class = "row">
+    
+    <?php if(@$_GET['tipo'] == 'S'){ ?>
+            <div class="col-md-4">
+                Data Histórica:
                 </br>
                 <input type="datetime-local" id="data" class="form-control">
             </div>
         <?php } ?>
+        
         <!--BOTÃO + -->
-        <div class = "col-md-1" >
+        <div class = "col-md-2" >
 
             </br>
-            <button type = "submit" class="btn btn-primary" onclick="ajax_adicionar_sol('<?php echo $_GET['tipo'] ?>')" ><i class="fa-solid fa-plus"></i></button>
+            <button type = "submit" class="btn btn-primary" onclick="ajax_adicionar_sol('<?php echo $_GET['tipo'] ?>')" ><i class="fa-solid fa-plus"></i> Solicitar</button>
 
         </div>
 

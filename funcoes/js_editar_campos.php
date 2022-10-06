@@ -75,7 +75,7 @@
             success: function(dataResult){ 
               console.log(dataResult)
               
-                var var_texto_final = '<i class="fa-sharp fa-solid fa-keyboard"></i> ' + document.getElementById("input_editar").value 
+                var var_texto_final = document.getElementById("input_editar").value 
                 corpo_tabela_realizadas();
                 document.getElementById(global_coluna_alterada).innerHTML = var_texto_final
                 global_coluna_edicao = var_texto_final            

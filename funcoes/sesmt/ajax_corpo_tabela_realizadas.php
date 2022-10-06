@@ -16,8 +16,8 @@
                             TO_CHAR(sol.HR_CADASTRO,'DD/MM/YYYY HH24:MI:SS') AS DT_ENTREGA,
                             sol.CD_PRODUTO_MV,
                             pro.DS_PRODUTO,
-                            (SELECT edc.MV_CA FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
-                            ) AS CA,
+                            (SELECT csa.CA_SOL FROM portal_sesmt.VW_CA_SOL_ATUAL csa WHERE csa.CD_SOLICITACAO = sol.CD_SOLICITACAO
+                            ) AS CA_MV,
                             sol.QUANTIDADE,
 
                             (SELECT dur.DIAS
@@ -60,13 +60,12 @@
      
     <?php 
     if($row_tabela['EDITADO'] == 'S'){
-        echo '<i class="fa-sharp fa-solid fa-keyboard"></i> ';
-        echo $row_tabela['CA'];
+        echo $row_tabela['CA_MV'];
     ?>
-        <i class="fa-solid fa-xmark" onclick="ajax_reset_ca('<?php echo $row_tabela['CD_SOLICITACAO'] ?>')"></i>
+        <i style="color: #e05757; font-size: 10px;" class="fa-solid fa-xmark" onclick="ajax_reset_ca('<?php echo $row_tabela['CD_SOLICITACAO'] ?>')"></i>
     <?php    
     }else{
-        echo $row_tabela['CA'];
+        echo $row_tabela['CA_MV'];
     }
 
     
