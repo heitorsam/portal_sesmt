@@ -10,7 +10,7 @@ $data_final =  $_GET['get_dt_fim'];
 $cd_usuario_relatorio = $_GET['get_usu_rel'];
 
 $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
-                                    sol.CD_USUARIO_MV,
+                                    (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
                                     TO_CHAR(sol.HR_CADASTRO, 'DD/MM/YYYY') AS HR_CADASTRO,
                                     sol.CD_SETOR_MV,
                                     (SELECT st.NM_SETOR
@@ -32,7 +32,7 @@ $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                     (SELECT csa.CA_SOL FROM portal_sesmt.VW_CA_SOL_ATUAL csa WHERE csa.CD_SOLICITACAO = sol.CD_SOLICITACAO
                                     ) AS CA_MV,
                                     sol.QUANTIDADE,
-                                    sol.CD_USUARIO_CADASTRO,
+                                    (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
                                     (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
                                     ) AS EDITADO_SN
                                     FROM portal_sesmt.SOLICITACAO sol
@@ -61,7 +61,7 @@ oci_execute($resultado_tabela_relatorio);
     echo '<tr>';
     
         echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_SOLICITACAO'] . '</td>';
-        echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_USUARIO_MV'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['NM_USU'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['NM_SETOR'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['HR_CADASTRO'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_PRODUTO_MV'] . '</td>';
@@ -69,7 +69,7 @@ oci_execute($resultado_tabela_relatorio);
         echo '<td class="align-middle">' .  $row_tabela_relatorio['DT_DURABILIDADE'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['CA_MV'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['QUANTIDADE'] . '</td>';
-        echo '<td class="align-middle">' .  $row_tabela_relatorio['CD_USUARIO_CADASTRO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['NM_USUARIO_CADASTRO'] . '</td>';
 
     echo '</tr>';
 
