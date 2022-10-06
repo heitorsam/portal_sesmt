@@ -50,6 +50,8 @@ if($cd_usuario_relatorio <> 'all'){
     $consulta_tabela_rel .= "AND sol.CD_USUARIO_MV = UPPER('$cd_usuario_relatorio')";
 }
 
+$consulta_tabela_rel .= "ORDER BY 1 DESC";
+
 $resultado_tabela_relatorio = oci_parse($conn_ora, $consulta_tabela_rel);
 
 oci_execute($resultado_tabela_relatorio);
