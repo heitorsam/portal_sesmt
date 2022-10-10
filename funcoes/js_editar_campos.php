@@ -26,10 +26,10 @@
     if(var_select == ''){
       
       if(var_regra == 1){
-        document.getElementById(var_coluna_edicao + var_valor_pk).innerHTML = '<input type="text" id="input_editar" class="form-control"  minlength="1" onblur="alterar_valor(1, 12)">' 
+        document.getElementById(var_coluna_edicao + var_valor_pk).innerHTML = '<input type="text" id="input_editar" class="form-control" autocomplete = "off" minlength="1" onblur="alterar_valor(1, 12)">' 
         $('#input_editar').focus() 
       }else{
-        document.getElementById(var_coluna_edicao + var_valor_pk).innerHTML = '<input type="text" id="input_editar" class="form-control"  minlength="1" onblur="alterar_valor(1, 0)">' 
+        document.getElementById(var_coluna_edicao + var_valor_pk).innerHTML = '<input type="text" id="input_editar" class="form-control" autocomplete = "off" minlength="1" onblur="alterar_valor(1, 0)">' 
         $('#input_editar').focus() 
       }
 
