@@ -106,7 +106,7 @@
             <th>Código </th>
             <th>Produto </th>
             <th>Durabilidade </th>
-            <th>C.A</th>
+            <th>            C.A.            </th>
             <th>Quantidade</th>
             <th>Funcionário</th>
 

@@ -82,7 +82,7 @@
                     <th>Entrega</th>
                     <th>Código </th>
                     <th>Produto </th>
-                    <th>C.A.</th>
+                    <th>            C.A.            </th>
                     <th>Durabilidade</th>
                     <th>Quantidade</th>
                     <th>Funcionário</th>
