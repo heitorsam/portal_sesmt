@@ -68,13 +68,19 @@
             </br>
             <input type = "text" id="frm_id_durabilidade" class="form-control" autocomplete="off" disabled></input>
         </div>
-        
+
+      
+         <!--UNIDADE-->
+        <div class="col-md-2" id="unidade" style="display: none;"></div>     
+
+
         <!--QUANTIDADE-->
         <div class = "col-md-2">
             Quantidade:
             </br>
             <input type = "number" type="number" min="0" id="frm_qtd_sol" class="form-control" autocomplete="off"></input>
         </div>
+
 
     </div>
 

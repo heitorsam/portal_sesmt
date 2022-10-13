@@ -32,7 +32,12 @@
 
                              (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
                             (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
-                            ) AS EDITADO
+                            ) AS EDITADO,
+
+                            (SELECT uni_pro.DS_UNIDADE
+                             FROM dbamv.uni_pro uni_pro  
+                             WHERE cd_produto = sol.CD_PRODUTO_MV
+                             AND uni_pro.sn_ativo = 'S') AS DS_UNIDADE 
                         FROM portal_sesmt.SOLICITACAO sol
                         INNER JOIN dbamv.PRODUTO pro
                            ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
@@ -74,6 +79,7 @@
     echo'</td>';
     echo '<td class="align-middle">' .  $row_tabela['DIAS'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['QUANTIDADE'] . '</td>';
+    echo '<td class="align-middle">' .  $row_tabela['DS_UNIDADE'] . '</td>';
     echo '<td class="align-middle">' .  $row_tabela['NM_USUARIO_CADASTRO'] . '</td>';
     echo '<td>';
     ?>

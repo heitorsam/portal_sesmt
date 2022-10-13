@@ -85,6 +85,7 @@
                     <th>            C.A.            </th>
                     <th>Durabilidade</th>
                     <th>Quantidade</th>
+                    <th>Unidade</th>
                     <th>Funcionário</th>
                     <th>Opções</th>
 
@@ -148,6 +149,7 @@
         var centro_c = document.getElementById('frm_id_cc').value;
         var cd_produto = document.getElementById('frm_id_produtos').value;
         var quantidade = document.getElementById('frm_qtd_sol').value;
+        var uni_pro = document.getElementById('frm_id_unid_pro').value;
 
         if(tipo == 'S'){
             data = document.getElementById('data').value
@@ -173,7 +175,8 @@
                     quantidade: quantidade,
                     cd_usuario: var_beep,
                     data: data,
-                    tipo: tipo
+                    tipo: tipo,
+                    cd_uni_pro: uni_pro
                     },
                 cache: false,
                 success: function(dataResult){
@@ -289,13 +292,13 @@
                 success: function(dataResult){
 
                     document.getElementById('frm_id_durabilidade').value = dataResult;
-
                     
                 }
             }); 
 
             ajax_exibe_alert_durabilidade(); 
-
+            ajax_selecionar_unidade();
+           
     }
 
     function ajax_exibe_alert_durabilidade(){
@@ -336,5 +339,20 @@
             }); 
         }
     }
+
+           function ajax_selecionar_unidade(){
+
+            var_produto_unid = document.getElementById('frm_id_produtos').value;
+
+            $('#unidade').load('funcoes/solicitacao/ajax_selecionar_unidade.php?cd_produto='+var_produto_unid)
+
+        }
+
+
+
+
+
+    
+
 
 </script>
