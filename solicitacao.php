@@ -233,7 +233,6 @@
     }
 
     /*FUNÇÃO DELETAR ITEM DA TABELA*/
-
     function ajax_deletar_realizadas(cd_solicitacao){
 
         //var usuario = document.getElementById('input').value;
@@ -341,19 +340,72 @@
         }
     }
 
-           function ajax_selecionar_unidade(){
+    function ajax_selecionar_unidade(){
 
-            var_produto_unid = document.getElementById('frm_id_produtos').value;
+        var_produto_unid = document.getElementById('frm_id_produtos').value;
 
-            $('#unidade').load('funcoes/solicitacao/ajax_selecionar_unidade.php?cd_produto='+var_produto_unid)
+        $('#unidade').load('funcoes/solicitacao/ajax_selecionar_unidade.php?cd_produto='+var_produto_unid)
+
+    }
+
+    var ult_cd_setor = 0;
+
+    function ajax_pre_sol_mv(cd_solicitacao,cd_setor){
+
+        //DESCHECANDO
+        id_check = 'check_' + cd_solicitacao;
+        
+
+        if(ult_cd_setor != cd_setor && ult_cd_setor != 0){
+
+            //ADICIONAR AQUELA FUNCAO QUE DA MENSAGEM NO MEIO
+            alert('Não se é possivel adicionar dois setor divergentes!');                
+            $('#' + id_check).prop("checked", false);
+
+        }else{
+
+            ult_cd_setor = cd_setor;
+
+            var usu_pre_sol_mv  = document.getElementById('valor_beep').value;
+
+
+            if (!document.getElementById(id_check).checked) {
+
+                tp_acao = 'D';
+                alert(tp_acao);
+
+            }else{
+
+                tp_acao = 'I';
+                alert(tp_acao);
+            }
+           
+
+            $.ajax({
+
+                url: "funcoes/solicitacao/ajax_cadastrar_pre_sol_mv.php",
+                type: "POST",
+                data: {
+                    usuario : usu_pre_sol_mv,
+                    cd_sol: cd_solicitacao,
+                    tp_acao: tp_acao
+       
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    alert(dataResult);
+                    
+                }
+
+            })
 
         }
 
+    } 
 
 
 
-
-    
 
 
 </script>

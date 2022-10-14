@@ -8,6 +8,11 @@
     $consulta_tabela = "SELECT sol.CD_SOLICITACAO,
                             (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
 
+                            (SELECT st.CD_SETOR
+                             FROM dbamv.SETOR st
+                             WHERE st.SN_ATIVO = 'S'
+                             AND st.CD_SETOR = sol.CD_SETOR_MV) AS CD_SETOR,
+
                             (SELECT st.NM_SETOR
                              FROM dbamv.SETOR st
                              WHERE st.SN_ATIVO = 'S'
@@ -89,10 +94,10 @@
 
             echo '</td>';
 
-            echo '<td class="align-middle">';
+            echo '<td class="align-middle efeito-zoom">';
 
             ?>
-            <input type="checkbox"></input>
+            <input id="check_<?php echo $row_tabela['CD_SOLICITACAO']; ?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR']; ?>)"></input>
             
             <?php
 
