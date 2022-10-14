@@ -71,12 +71,19 @@
 
             <div class="div_br"></div>
 
+                <!--BOTÃO SOLICITAR MV -->
+               <button type = "submit" style='display: flex; float:right;'class="btn btn-primary" onclick="solicitar_mv()"><i style="padding-top: 4px; padding-right:5px;"class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
+               <div class="div_br"></div>
+               <div class="div_br"></div>
+               <div class="div_br"></div>
+     
+
             <!--DIV TABELA-->
             <table class="table table-striped" style="text-align: center">
 
                 <thead>
 
-                    <th>Solicitação</th>
+                    <th> Solicitação </th>
                     <th>Usuário </th>
                     <th>Setor </th>
                     <th>Entrega</th>
@@ -403,9 +410,28 @@
         }
 
     } 
+    
 
+    function solicitar_mv(){
 
+        var usu_mv  = document.getElementById('valor_beep').value;
 
+            $.ajax({
+                url: "funcoes/solicitacao/ajax_cria_sol_mv.php",
+                type: "POST",
+                data: {
+                    usuario: usu_mv
+                
+                    },
+                cache: false,
+                success: function(dataResult){
 
+                    alert(dataResult);
+
+                    corpo_tabela_realizadas();
+                    
+                }
+            }); 
+    }
 
 </script>

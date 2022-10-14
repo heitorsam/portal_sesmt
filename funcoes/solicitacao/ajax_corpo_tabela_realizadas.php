@@ -42,10 +42,14 @@
                             (SELECT uni_pro.DS_UNIDADE
                              FROM dbamv.uni_pro uni_pro  
                              WHERE cd_produto = sol.CD_PRODUTO_MV
-                             AND uni_pro.sn_ativo = 'S') AS DS_UNIDADE 
+                             AND uni_pro.sn_ativo = 'S') AS DS_UNIDADE,
+                            
+                            sm.CD_SOLSAI_PRO
                         FROM portal_sesmt.SOLICITACAO sol
                         INNER JOIN dbamv.PRODUTO pro
                            ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
+                        LEFT JOIN SOLICITACAO_MV sm
+                           ON sm.CD_SOLICITACAO = sol.CD_SOLICITACAO
                         WHERE sol.CD_USUARIO_MV = UPPER('$var_cd_usu')
                         ORDER BY 1 DESC";
 
@@ -87,20 +91,27 @@
             echo '<td class="align-middle">' .  $row_tabela['QUANTIDADE'] . '</td>';
             echo '<td class="align-middle">' .  $row_tabela['DS_UNIDADE'] . '</td>';
             echo '<td class="align-middle">' .  $row_tabela['NM_USUARIO_CADASTRO'] . '</td>';
-            echo '<td>';
+            echo '<td class="align-middle">';
             ?>
             <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 
             <i class="fa-solid fa-trash-can"></i></a><?php
 
             echo '</td>';
 
-            echo '<td class="align-middle efeito-zoom">';
+            echo '<td class="align-middle">';
 
+            if(isset($row_tabela['CD_SOLSAI_PRO'])){
+
+             echo $row_tabela['CD_SOLSAI_PRO'];
+
+            }else{ 
             ?>
-            <input id="check_<?php echo $row_tabela['CD_SOLICITACAO']; ?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR']; ?>)"></input>
-            
+
+            <input id="check_<?php echo ['CD_SOLICITACAO'];?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR'];?>)"></input>
+
             <?php
 
+            }
             echo '</td>';
     
     
