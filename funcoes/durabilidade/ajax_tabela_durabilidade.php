@@ -14,13 +14,8 @@ $consulta_exibe_tabela_durabilidade = "SELECT dur.CD_DURABILIDADE,
                                                 FROM dbamv.PRODUTO prod_aux
                                                 WHERE prod.DS_PRODUTO LIKE '%(CA %'
                                                 AND prod_aux.CD_PRODUTO = prod.CD_PRODUTO
-                                                ) AS CA_MV,                                                                             
-                                                CASE 
-                                                    WHEN  dur.DIAS < 2 THEN   dur.DIAS  || ' Dia'
-                                                    WHEN  dur.DIAS >= 2 THEN  dur.DIAS  || ' Dias'
-                                                    ELSE ''
-                                                END AS DIAS
-                                              --dur.DIAS || ' Dias' AS DIAS
+                                                ) AS CA_MV,  
+                                                dur.DIAS  || ' dia(s)' AS DIAS                                                                           
                                               FROM portal_sesmt.DURABILIDADE dur
                                               INNER JOIN dbamv.PRODUTO prod
                                                  ON prod.CD_PRODUTO = dur.CD_PRODUTO_MV

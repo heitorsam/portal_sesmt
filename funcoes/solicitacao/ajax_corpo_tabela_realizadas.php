@@ -74,14 +74,15 @@
                              WHERE cd_produto = sol.CD_PRODUTO_MV
                              AND uni_pro.sn_ativo = 'S') AS DS_UNIDADE,
                             
-                            sm.CD_SOLSAI_PRO
+                            sm.CD_SOLSAI_PRO,
+                            sol.SN_HISTORICO
                         FROM portal_sesmt.SOLICITACAO sol
                         INNER JOIN dbamv.PRODUTO pro
                            ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
                         LEFT JOIN SOLICITACAO_MV sm
                            ON sm.CD_SOLICITACAO = sol.CD_SOLICITACAO
                         WHERE sol.CD_USUARIO_MV = UPPER('$var_cd_usu')
-                        ORDER BY 1 DESC";
+                        ORDER BY TO_DATE(TO_CHAR(sol.HR_CADASTRO,'DD/MM/YYYY HH24:MI:SS'),'DD/MM/YYYY HH24:MI:SS') DESC";
 
     $resultado_con_tabela = oci_parse($conn_ora, $consulta_tabela);
 
@@ -153,6 +154,10 @@
 
                    
             <?php
+
+            }elseif($row_tabela['SN_HISTORICO'] == 'S'){
+
+                echo '<i style="color: #444444 !important" class="fa-solid fa-hourglass-end"></i>';
 
             }else{ 
                 
