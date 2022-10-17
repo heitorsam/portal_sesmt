@@ -19,16 +19,45 @@ $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                         AND st.CD_SETOR = sol.CD_SETOR_MV) AS NM_SETOR,
                                     sol.CD_PRODUTO_MV,
                                     pro.DS_PRODUTO,
-                                    (SELECT CASE
-                                            WHEN dur.DIAS < 2 THEN
-                                            dur.DIAS || ' Dia'
-                                            WHEN dur.DIAS >= 2 THEN
-                                            dur.DIAS || ' Dias'
-                                            ELSE
-                                            ''
-                                            END
-                                    FROM portal_sesmt.DURABILIDADE dur
-                                    WHERE dur.CD_PRODUTO_MV = sol.CD_PRODUTO_MV) AS DT_DURABILIDADE,
+                                    CASE 
+                            
+                                        WHEN 
+                                            (SELECT dur.DIAS
+                                            FROM portal_sesmt.DURABILIDADE dur
+                                            WHERE dur.CD_DURABILIDADE = sol.CD_DURABILIDADE
+                                            
+                                            UNION ALL
+                                            
+                                            SELECT ldur.DIAS
+                                            FROM portal_sesmt.LOG_DURABILIDADE ldur
+                                            WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE) IS NULL THEN '-'
+
+                                        WHEN 
+                                            (SELECT dur.DIAS
+                                            FROM portal_sesmt.DURABILIDADE dur
+                                            WHERE dur.CD_DURABILIDADE = sol.CD_DURABILIDADE
+                                            
+                                            UNION ALL
+                                            
+                                            SELECT ldur.DIAS
+                                            FROM portal_sesmt.LOG_DURABILIDADE ldur
+                                            WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE) IS NULL THEN '-'
+
+                                        ELSE 
+
+                                            (SELECT dur.DIAS
+                                            FROM portal_sesmt.DURABILIDADE dur
+                                            WHERE dur.CD_DURABILIDADE = sol.CD_DURABILIDADE
+                                            
+                                            UNION ALL
+                                            
+                                            SELECT ldur.DIAS
+                                            FROM portal_sesmt.LOG_DURABILIDADE ldur
+                                            WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE)                               
+                                            
+                                            || ' dia(s)' 
+                                            
+                                        END AS DT_DURABILIDADE,
                                     (SELECT csa.CA_SOL FROM portal_sesmt.VW_CA_SOL_ATUAL csa WHERE csa.CD_SOLICITACAO = sol.CD_SOLICITACAO
                                     ) AS CA_MV,
                                     sol.QUANTIDADE,

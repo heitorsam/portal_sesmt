@@ -25,15 +25,45 @@
                             ) AS CA_MV,
                             sol.QUANTIDADE,
 
-                            (SELECT dur.DIAS
-                             FROM portal_sesmt.DURABILIDADE dur
-                             WHERE dur.CD_DURABILIDADE = sol.CD_DURABILIDADE
+                            CASE 
                             
-                             UNION ALL
-                            
-                             SELECT ldur.DIAS
-                             FROM portal_sesmt.LOG_DURABILIDADE ldur
-                             WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE) || ' dias' AS DIAS,
+                            WHEN 
+                                (SELECT dur.DIAS
+                                FROM portal_sesmt.DURABILIDADE dur
+                                WHERE dur.CD_DURABILIDADE = sol.CD_DURABILIDADE
+                                
+                                UNION ALL
+                                
+                                SELECT ldur.DIAS
+                                FROM portal_sesmt.LOG_DURABILIDADE ldur
+                                WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE) IS NULL THEN '-'
+
+                            WHEN 
+                                (SELECT dur.DIAS
+                                FROM portal_sesmt.DURABILIDADE dur
+                                WHERE dur.CD_DURABILIDADE = sol.CD_DURABILIDADE
+                                
+                                UNION ALL
+                                
+                                SELECT ldur.DIAS
+                                FROM portal_sesmt.LOG_DURABILIDADE ldur
+                                WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE) IS NULL THEN '-'
+
+                            ELSE 
+
+                                (SELECT dur.DIAS
+                                 FROM portal_sesmt.DURABILIDADE dur
+                                 WHERE dur.CD_DURABILIDADE = sol.CD_DURABILIDADE
+                                 
+                                 UNION ALL
+                                 
+                                 SELECT ldur.DIAS
+                                 FROM portal_sesmt.LOG_DURABILIDADE ldur
+                                 WHERE ldur.CD_DURABILIDADE = sol.CD_DURABILIDADE)                               
+                                 
+                                 || ' dia(s)' 
+                                
+                            END AS DIAS,
 
                              (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
                             (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
