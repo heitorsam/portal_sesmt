@@ -14,3 +14,22 @@ GRANT SELECT ON dbasgu.PAPEL_USUARIOS TO portal_sesmt;
 
 GRANT SELECT ON dbamv.PRODUTO TO portal_sesmt;
 GRANT SELECT ON dbamv.SETOR TO portal_sesmt;
+GRANT SELECT ON dbamv.UNI_PRO TO portal_sesmt;
+
+GRANT SELECT ON dbamv.SOLSAI_PRO TO portal_sesmt;
+GRANT INSERT ON dbamv.SOLSAI_PRO TO portal_sesmt;
+GRANT SELECT ON dbamv.SEQ_SOLSAI_PRO TO portal_sesmt;
+
+GRANT SELECT ON dbamv.ITSOLSAI_PRO TO portal_sesmt;
+GRANT INSERT ON dbamv.ITSOLSAI_PRO TO portal_sesmt;
+GRANT SELECT ON dbamv.SEQ_ITSOLSAI_PRO TO portal_sesmt;
+
+
+--DAR REVOKE
+GRANT DELETE ON dbamv.SOLSAI_PRO TO portal_sesmt;
+GRANT DELETE ON dbamv.ITSOLSAI_PRO TO portal_sesmt;
+
+REVOKE DELETE ON dbamv.SOLSAI_PRO FROM portal_sesmt;
+REVOKE DELETE ON dbamv.ITSOLSAI_PRO FROM portal_sesmt;
+
+
