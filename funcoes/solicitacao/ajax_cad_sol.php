@@ -5,8 +5,9 @@
     include '../../conexao.php';
 
     $var_qtd = $_POST['quantidade']; 
-    $var_set = $_POST ['cd_setor'];
-    $var_pro = $_POST ['cd_produto'];
+    $var_set = $_POST['cd_setor'];
+    $var_pro = $_POST['cd_produto'];
+    $var_cd_uni_pro = $_POST['cd_uni_pro'];    
     $var_usuario = $_POST['cd_usuario'];
     $var_usu_cad = $_SESSION['usuarioLogin'];
     $data_soli = str_replace("T", " ",$_POST['data']);
@@ -45,6 +46,7 @@
         UPPER('$var_usuario') AS CD_USUARIO_MV,
         '$var_set' AS CD_SETOR_MV,
         '$var_pro' AS CD_PRODUTO_MV,
+        '$var_cd_uni_pro' AS CD_UNI_PRO,
         (SELECT dur.CD_DURABILIDADE
              FROM portal_sesmt.DURABILIDADE dur 
           WHERE dur.CD_PRODUTO_MV = '$var_pro') AS CD_DURABILIDADE,

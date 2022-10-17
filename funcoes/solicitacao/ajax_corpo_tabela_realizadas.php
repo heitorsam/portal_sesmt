@@ -8,6 +8,11 @@
     $consulta_tabela = "SELECT sol.CD_SOLICITACAO,
                             (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
 
+                            (SELECT st.CD_SETOR
+                             FROM dbamv.SETOR st
+                             WHERE st.SN_ATIVO = 'S'
+                             AND st.CD_SETOR = sol.CD_SETOR_MV) AS CD_SETOR,
+
                             (SELECT st.NM_SETOR
                              FROM dbamv.SETOR st
                              WHERE st.SN_ATIVO = 'S'
@@ -32,10 +37,19 @@
 
                              (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
                             (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
-                            ) AS EDITADO
+                            ) AS EDITADO,
+
+                            (SELECT uni_pro.DS_UNIDADE
+                             FROM dbamv.uni_pro uni_pro  
+                             WHERE cd_produto = sol.CD_PRODUTO_MV
+                             AND uni_pro.sn_ativo = 'S') AS DS_UNIDADE,
+                            
+                            sm.CD_SOLSAI_PRO
                         FROM portal_sesmt.SOLICITACAO sol
                         INNER JOIN dbamv.PRODUTO pro
                            ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
+                        LEFT JOIN SOLICITACAO_MV sm
+                           ON sm.CD_SOLICITACAO = sol.CD_SOLICITACAO
                         WHERE sol.CD_USUARIO_MV = UPPER('$var_cd_usu')
                         ORDER BY 1 DESC";
 
@@ -49,38 +63,63 @@
 
     echo '<tr>';
     
-    echo '<td class="align-middle">' .  $row_tabela['CD_SOLICITACAO'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['NM_USU'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['NM_SETOR'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['DT_ENTREGA'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['CD_PRODUTO_MV'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['DS_PRODUTO'] . '</td>';?>
-    <td class="align-middle" id="MV_CA<?php echo $row_tabela['CD_SOLICITACAO'] ?>"
-    ondblclick="fnc_editar_campo('portal_sesmt.EDITAR_CA', 'MV_CA', '<?php echo @$row_tabela['CA_MV']; ?>', 'CD_SOLICITACAO', '<?php echo @$row_tabela['CD_SOLICITACAO']; ?>', '')"> 
-     
-    <?php 
-    if($row_tabela['EDITADO'] == 'S'){
-        echo '<i class="fa-sharp fa-solid fa-keyboard"></i> ';
-        echo $row_tabela['CA_MV'];
-    ?>
-        <i style="color: #e05757; font-size: 10px;" class="fa-solid fa-xmark" onclick="ajax_reset_ca('<?php echo $row_tabela['CD_SOLICITACAO'] ?>')"></i>
-    <?php    
-    }else{
-        echo $row_tabela['CA_MV'];
-    }
+        echo '<td class="align-middle">' .  $row_tabela['CD_SOLICITACAO'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela['NM_USU'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela['NM_SETOR'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela['DT_ENTREGA'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela['CD_PRODUTO_MV'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela['DS_PRODUTO'] . '</td>';?>
+        <td class="align-middle" id="MV_CA<?php echo $row_tabela['CD_SOLICITACAO'] ?>"
+        ondblclick="fnc_editar_campo('portal_sesmt.EDITAR_CA', 'MV_CA', '<?php echo @$row_tabela['CA_MV']; ?>', 'CD_SOLICITACAO', '<?php echo @$row_tabela['CD_SOLICITACAO']; ?>', '')"> 
+        
+        <?php 
+        if($row_tabela['EDITADO'] == 'S'){
+            echo '<i class="fa-sharp fa-solid fa-keyboard"></i> ';
+            echo $row_tabela['CA_MV'];
+        ?>
+            <i style="color: #e05757; font-size: 10px;" class="fa-solid fa-xmark" onclick="ajax_reset_ca('<?php echo $row_tabela['CD_SOLICITACAO'] ?>')"></i>
+        <?php    
+        }else{
+            echo $row_tabela['CA_MV'];
+        }
 
+        
+        
+        echo'</td>';
+
+            echo '<td class="align-middle">' .  $row_tabela['DIAS'] . '</td>';
+            echo '<td class="align-middle">' .  $row_tabela['QUANTIDADE'] . '</td>';
+            echo '<td class="align-middle">' .  $row_tabela['DS_UNIDADE'] . '</td>';
+            echo '<td class="align-middle">' .  $row_tabela['NM_USUARIO_CADASTRO'] . '</td>';
+            echo '<td class="align-middle">';
+            ?>
+            <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 
+            <i class="fa-solid fa-trash-can"></i></a><?php
+
+            echo '</td>';
+
+            echo '<td class="align-middle">';
+
+            if(isset($row_tabela['CD_SOLSAI_PRO'])){
+                
+                echo  $row_tabela['CD_SOLSAI_PRO'];
+                ?>
+
+             <a class="btn btn-primary" data-toggle="modal" data-target="#exibe_solsai" onclick="ajax_modal_solsai('<?php echo $row_tabela['CD_SOLSAI_PRO'] ?>')"><i class="fas fa-link"></i></a>
+            
+            <?php
+            }else{ 
+                
+            ?>
+
+            <input id="check_<?php echo ['CD_SOLICITACAO'];?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR'];?>)"></input>
+
+            <?php
+
+            }
+            echo '</td>';
     
     
-    echo'</td>';
-    echo '<td class="align-middle">' .  $row_tabela['DIAS'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['QUANTIDADE'] . '</td>';
-    echo '<td class="align-middle">' .  $row_tabela['NM_USUARIO_CADASTRO'] . '</td>';
-    echo '<td>';
-    ?>
-    <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 
-    <i class="fa-solid fa-trash-can"></i></a><?php
-
-    echo '</td>';
 
     echo '</tr>';
 

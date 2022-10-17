@@ -71,12 +71,19 @@
 
             <div class="div_br"></div>
 
+                <!--BOTÃO SOLICITAR MV -->
+               <button type = "submit" style='display: flex; float:right;'class="btn btn-primary" data-toggle="modal" data-target="#exibe_solsai" onclick="function (){ajax_modal_solsai() solicitar_mv()}"><i style="padding-top: 4px; padding-right:5px;"class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
+               <div class="div_br"></div>
+               <div class="div_br"></div>
+               <div class="div_br"></div>
+     
+
             <!--DIV TABELA-->
             <table class="table table-striped" style="text-align: center">
 
                 <thead>
 
-                    <th>Solicitação</th>
+                    <th> Solicitação </th>
                     <th>Usuário </th>
                     <th>Setor </th>
                     <th>Entrega</th>
@@ -85,8 +92,10 @@
                     <th>            C.A.            </th>
                     <th>Durabilidade</th>
                     <th>Quantidade</th>
+                    <th>Unidade</th>
                     <th>Funcionário</th>
                     <th>Opções</th>
+                    <th>      MV      </th>
 
                 </thead>
 
@@ -101,6 +110,25 @@
     include 'rodape.php';
     include 'funcoes/js_editar_campos.php';
 ?>
+
+<!--MODAL-->
+<div class="modal fade bd-example-modal-sm" id="exibe_solsai" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+ 
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+
+        <div class="modal-content">
+
+                <div style="margin: 0 auto;" class="modal-header">
+
+                    <h5 style="font-size: 60px !important; padding: 20px;" class="modal-title" id="div_cd_solsai_pro"></h5>
+
+                </div>
+  
+        </div>
+
+    </div>
+</div>
+
 
 <!--FUNÇÕES AJAX E JAVASCRIPT-->
 
@@ -148,6 +176,7 @@
         var centro_c = document.getElementById('frm_id_cc').value;
         var cd_produto = document.getElementById('frm_id_produtos').value;
         var quantidade = document.getElementById('frm_qtd_sol').value;
+        var uni_pro = document.getElementById('frm_id_unid_pro').value;
 
         if(tipo == 'S'){
             data = document.getElementById('data').value
@@ -173,7 +202,8 @@
                     quantidade: quantidade,
                     cd_usuario: var_beep,
                     data: data,
-                    tipo: tipo
+                    tipo: tipo,
+                    cd_uni_pro: uni_pro
                     },
                 cache: false,
                 success: function(dataResult){
@@ -229,7 +259,6 @@
     }
 
     /*FUNÇÃO DELETAR ITEM DA TABELA*/
-
     function ajax_deletar_realizadas(cd_solicitacao){
 
         //var usuario = document.getElementById('input').value;
@@ -289,13 +318,13 @@
                 success: function(dataResult){
 
                     document.getElementById('frm_id_durabilidade').value = dataResult;
-
                     
                 }
             }); 
 
             ajax_exibe_alert_durabilidade(); 
-
+            ajax_selecionar_unidade();
+           
     }
 
     function ajax_exibe_alert_durabilidade(){
@@ -335,6 +364,101 @@
                 }
             }); 
         }
+    }
+
+    function ajax_selecionar_unidade(){
+
+        var_produto_unid = document.getElementById('frm_id_produtos').value;
+
+        $('#unidade').load('funcoes/solicitacao/ajax_selecionar_unidade.php?cd_produto='+var_produto_unid)
+
+    }
+
+    var ult_cd_setor = 0;
+
+    function ajax_pre_sol_mv(cd_solicitacao,cd_setor){
+
+        //DESCHECANDO
+        id_check = 'check_' + cd_solicitacao;
+        
+
+        if(ult_cd_setor != cd_setor && ult_cd_setor != 0){
+
+            //ADICIONAR AQUELA FUNCAO QUE DA MENSAGEM NO MEIO
+            alert('Não se é possivel adicionar dois setor divergentes!');                
+            $('#' + id_check).prop("checked", false);
+
+        }else{
+
+            ult_cd_setor = cd_setor;
+
+            var usu_pre_sol_mv  = document.getElementById('valor_beep').value;
+
+
+            if (!document.getElementById(id_check).checked) {
+
+                tp_acao = 'D';
+                alert(tp_acao);
+
+            }else{
+
+                tp_acao = 'I';
+                alert(tp_acao);
+            }
+           
+
+            $.ajax({
+
+                url: "funcoes/solicitacao/ajax_cadastrar_pre_sol_mv.php",
+                type: "POST",
+                data: {
+                    usuario : usu_pre_sol_mv,
+                    cd_sol: cd_solicitacao,
+                    tp_acao: tp_acao
+       
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    alert(dataResult);
+                    
+                }
+
+            })
+
+        }
+
+    } 
+    
+
+    function solicitar_mv(){
+
+        var usu_mv  = document.getElementById('valor_beep').value;
+
+            $.ajax({
+                url: "funcoes/solicitacao/ajax_cria_sol_mv.php",
+                type: "POST",
+                data: {
+                    usuario: usu_mv
+                
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    alert(dataResult);
+
+                    corpo_tabela_realizadas();
+                    
+                }
+            }); 
+    }
+
+
+    function ajax_modal_solsai(CD_SOLSAI_PRO){
+
+
+        document.getElementById("div_cd_solsai_pro").innerHTML = CD_SOLSAI_PRO;
+
     }
 
 </script>
