@@ -72,7 +72,7 @@
             <div class="div_br"></div>
 
                 <!--BOTÃO SOLICITAR MV -->
-               <button type = "submit" style='display: flex; float:right;'class="btn btn-primary" data-toggle="modal" data-target="#exibe_solsai" onclick="function (){ajax_modal_solsai() solicitar_mv()}"><i style="padding-top: 4px; padding-right:5px;"class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
+               <button type = "submit" style='display: flex; float:right;'class="btn btn-primary" data-toggle="modal" data-target="#exibe_solsai" onclick="solicitar_mv()"><i style="padding-top: 4px; padding-right:5px;"class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
                <div class="div_br"></div>
                <div class="div_br"></div>
                <div class="div_br"></div>
@@ -140,32 +140,23 @@
 
         var_beep = document.getElementById('valor_beep').value;
 
-        if('S' == '<?php echo $_SESSION['papel_sesmt_adm'] ?>'){
-            if(var_beep != ''){
-
-                document.getElementById('valor_beep').value =  var_beep.toUpperCase();
-
-                tp = document.getElementById('slt_tipo').value
-
-                $('#solicitacoes').load('funcoes/solicitacao/ajax_solicitacoes.php?cd_usuario='+ var_beep+'&tipo='+ tp);        
-
-        
-                corpo_tabela_realizadas();
-
-                
-            }else{
-
-                document.getElementById('valor_beep').focus()
-            }
-        }else{
+        if(var_beep != ''){
 
             document.getElementById('valor_beep').value =  var_beep.toUpperCase();
 
+            tp = document.getElementById('slt_tipo').value
 
-            $('#solicitacoes').load('funcoes/solicitacao/ajax_solicitacoes.php?cd_usuario='+ var_beep +'&tipo=N');        
+            $('#solicitacoes').load('funcoes/solicitacao/ajax_solicitacoes.php?cd_usuario='+ var_beep+'&tipo='+ tp);        
 
-            corpo_tabela_realizadas();
+            limpar_pre_sol_mv();
+    
+            corpo_tabela_realizadas();               
+
+        }else{
+
+            document.getElementById('valor_beep').focus()
         }
+
     }
 
     /*FUNÇÃO ADICIONAR SOLICITAÇÕES*/
@@ -379,14 +370,22 @@
     function ajax_pre_sol_mv(cd_solicitacao,cd_setor){
 
         //DESCHECANDO
-        id_check = 'check_' + cd_solicitacao;
-        
+        id_check = 'check_' + cd_solicitacao;        
 
         if(ult_cd_setor != cd_setor && ult_cd_setor != 0){
 
             //ADICIONAR AQUELA FUNCAO QUE DA MENSAGEM NO MEIO
-            alert('Não se é possivel adicionar dois setor divergentes!');                
-            $('#' + id_check).prop("checked", false);
+            
+            //MENSAGEM            
+            var_ds_msg = 'Não%20é%20possivel%20cadastrar%20uma%20solicitação%20com%20setores%20divergentes!';
+            //var_tp_msg = 'alert-success';
+            var_tp_msg = 'alert-danger';
+            //var_tp_msg = 'alert-primary';
+            $('#mensagem_acoes').load('funcoes/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+            $('#corpo_tabela_realizadas').load('funcoes/solicitacao/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
+
+            $('#'+id_check).prop("checked", false);
 
         }else{
 
@@ -394,16 +393,15 @@
 
             var usu_pre_sol_mv  = document.getElementById('valor_beep').value;
 
-
             if (!document.getElementById(id_check).checked) {
 
                 tp_acao = 'D';
-                alert(tp_acao);
+                //alert(tp_acao);
 
             }else{
 
                 tp_acao = 'I';
-                alert(tp_acao);
+                //alert(tp_acao);
             }
            
 
@@ -420,7 +418,7 @@
                 cache: false,
                 success: function(dataResult){
 
-                    alert(dataResult);
+                    //alert(dataResult);
                     
                 }
 
@@ -439,25 +437,49 @@
                 url: "funcoes/solicitacao/ajax_cria_sol_mv.php",
                 type: "POST",
                 data: {
-                    usuario: usu_mv
+                    usuario_solicitacao: usu_mv
                 
                     },
                 cache: false,
                 success: function(dataResult){
 
-                    alert(dataResult);
+                    //alert(dataResult);
 
                     corpo_tabela_realizadas();
+
+                    ajax_modal_solsai(dataResult);
                     
                 }
             }); 
     }
 
+    function limpar_pre_sol_mv(){
 
-    function ajax_modal_solsai(CD_SOLSAI_PRO){
+    var usu_limpa_mv  = document.getElementById('valor_beep').value;
+
+        $.ajax({
+            url: "funcoes/solicitacao/ajax_limpa_sol_mv.php",
+            type: "POST",
+            data: {
+                usuario_limpa: usu_limpa_mv
+            
+                },
+            cache: false,
+            success: function(dataResult){
+
+                //alert(dataResult);
+
+                corpo_tabela_realizadas();
+                
+            }
+        }); 
+    }
 
 
-        document.getElementById("div_cd_solsai_pro").innerHTML = CD_SOLSAI_PRO;
+    function ajax_modal_solsai(cd_sol_sai_pro){
+
+
+        document.getElementById("div_cd_solsai_pro").innerHTML = cd_sol_sai_pro;
 
     }
 

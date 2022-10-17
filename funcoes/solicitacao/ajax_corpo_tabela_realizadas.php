@@ -93,8 +93,24 @@
             echo '<td class="align-middle">' .  $row_tabela['NM_USUARIO_CADASTRO'] . '</td>';
             echo '<td class="align-middle">';
             ?>
+
+
+            <?php 
+
+            if(!isset($row_tabela['CD_SOLSAI_PRO'])){
+
+            ?>
+
             <a type="button" class="btn btn-adm" onclick="ajax_deletar_realizadas(<?php echo $row_tabela['CD_SOLICITACAO']; ?>)" > 
             <i class="fa-solid fa-trash-can"></i></a><?php
+
+            }else{
+
+                echo '<a style="background-color: #a6a6a6 !important; border-color: #a6a6a6 !important;" type="button" class="btn btn-adm"> 
+                      <i class="fa-solid fa-trash-can"></i></a>';
+
+               
+            }
 
             echo '</td>';
 
@@ -103,16 +119,16 @@
             if(isset($row_tabela['CD_SOLSAI_PRO'])){
                 
                 echo  $row_tabela['CD_SOLSAI_PRO'];
-                ?>
+            ?>
 
-             <a class="btn btn-primary" data-toggle="modal" data-target="#exibe_solsai" onclick="ajax_modal_solsai('<?php echo $row_tabela['CD_SOLSAI_PRO'] ?>')"><i class="fas fa-link"></i></a>
-            
+                   
             <?php
+
             }else{ 
                 
             ?>
 
-            <input id="check_<?php echo ['CD_SOLICITACAO'];?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR'];?>)"></input>
+            <input id="check_<?php echo $row_tabela['CD_SOLICITACAO'];?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR'];?>)"></input>
 
             <?php
 
