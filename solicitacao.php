@@ -72,7 +72,7 @@
             <div class="div_br"></div>
 
                 <!--BOTÃO SOLICITAR MV -->
-               <button type = "submit" style='display: flex; float:right;'class="btn btn-primary" data-toggle="modal" data-target="#exibe_solsai" onclick="solicitar_mv()"><i style="padding-top: 4px; padding-right:5px;"class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
+               <button id="btn_mv" type="submit" style='float:right; display: none;'class="btn btn-primary" onclick="solicitar_mv()"><i style="padding-top: 4px; padding-right:5px;" class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
                <div class="div_br"></div>
                <div class="div_br"></div>
                <div class="div_br"></div>
@@ -174,7 +174,7 @@
         }else{
             data = 'SYSDATE'
         }
-        if(quantidade == '' || centro_c == '' || cd_produto == '' || data == '' ){
+        if(quantidade == '' || centro_c == '' || centro_c == 'all' || cd_produto == '' || data == '' ){
 
             var_ds_msg = 'Necessário%20preencher%20os%20campos!';
             var_tp_msg = 'alert-danger';
@@ -387,6 +387,9 @@
 
             $('#'+id_check).prop("checked", false);
 
+            count_exibe_btn_mv = 0;
+            exibe_btn_mv('');
+
         }else{
 
             ult_cd_setor = cd_setor;
@@ -397,14 +400,15 @@
 
                 tp_acao = 'D';
                 //alert(tp_acao);
+                exibe_btn_mv('subtrair');
 
             }else{
 
                 tp_acao = 'I';
                 //alert(tp_acao);
+                exibe_btn_mv('somar');
             }
            
-
             $.ajax({
 
                 url: "funcoes/solicitacao/ajax_cadastrar_pre_sol_mv.php",
@@ -417,8 +421,6 @@
                     },
                 cache: false,
                 success: function(dataResult){
-
-                    //alert(dataResult);
                     
                 }
 
@@ -426,12 +428,16 @@
 
         }
 
-    } 
-    
+    }     
 
     function solicitar_mv(){
 
         var usu_mv  = document.getElementById('valor_beep').value;
+
+        resultado = confirm("Realmente deseja criar a solicitação no MV?");
+
+        if(resultado == true){
+
 
             $.ajax({
                 url: "funcoes/solicitacao/ajax_cria_sol_mv.php",
@@ -447,10 +453,14 @@
 
                     corpo_tabela_realizadas();
 
+                    $('#exibe_solsai').modal('show');
+
                     ajax_modal_solsai(dataResult);
                     
                 }
             }); 
+
+        }
     }
 
     function limpar_pre_sol_mv(){
@@ -483,4 +493,30 @@
 
     }
 
+    var count_exibe_btn_mv = 0;
+
+    function exibe_btn_mv(acao){
+
+        if(acao == 'somar'){
+
+            count_exibe_btn_mv = count_exibe_btn_mv + 1;
+
+        }
+
+        if(acao == 'subtrair'){
+
+            count_exibe_btn_mv = count_exibe_btn_mv - 1;
+        }
+
+        if(count_exibe_btn_mv >= 1){
+
+            document.getElementById('btn_mv').style.display = 'flex';
+
+        }else{
+
+            document.getElementById('btn_mv').style.display = 'none';
+
+        }
+
+    }
 </script>
