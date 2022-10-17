@@ -157,8 +157,8 @@
 
             }elseif($row_tabela['SN_HISTORICO'] == 'S'){
 
-                echo '<i style="color: #444444 !important" class="fa-solid fa-hourglass-end"></i>';
-
+                echo '<i style="color: #444444 !important" class="fa-solid fa-clock-rotate-left"></i>';
+                
             }else{ 
                 
             ?>
