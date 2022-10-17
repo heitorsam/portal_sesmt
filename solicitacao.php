@@ -72,7 +72,7 @@
             <div class="div_br"></div>
 
                 <!--BOTÃO SOLICITAR MV -->
-               <button type = "submit" style='display: flex; float:right;'class="btn btn-primary" onclick="solicitar_mv()"><i style="padding-top: 4px; padding-right:5px;"class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
+               <button type = "submit" style='display: flex; float:right;'class="btn btn-primary" data-toggle="modal" data-target="#exibe_solsai" onclick="function (){ajax_modal_solsai() solicitar_mv()}"><i style="padding-top: 4px; padding-right:5px;"class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
                <div class="div_br"></div>
                <div class="div_br"></div>
                <div class="div_br"></div>
@@ -110,6 +110,25 @@
     include 'rodape.php';
     include 'funcoes/js_editar_campos.php';
 ?>
+
+<!--MODAL-->
+<div class="modal fade bd-example-modal-sm" id="exibe_solsai" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+ 
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+
+        <div class="modal-content">
+
+                <div style="margin: 0 auto;" class="modal-header">
+
+                    <h5 style="font-size: 60px !important; padding: 20px;" class="modal-title" id="div_cd_solsai_pro"></h5>
+
+                </div>
+  
+        </div>
+
+    </div>
+</div>
+
 
 <!--FUNÇÕES AJAX E JAVASCRIPT-->
 
@@ -432,6 +451,14 @@
                     
                 }
             }); 
+    }
+
+
+    function ajax_modal_solsai(CD_SOLSAI_PRO){
+
+
+        document.getElementById("div_cd_solsai_pro").innerHTML = CD_SOLSAI_PRO;
+
     }
 
 </script>

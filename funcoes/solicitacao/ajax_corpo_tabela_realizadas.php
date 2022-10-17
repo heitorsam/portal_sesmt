@@ -101,10 +101,15 @@
             echo '<td class="align-middle">';
 
             if(isset($row_tabela['CD_SOLSAI_PRO'])){
+                
+                echo  $row_tabela['CD_SOLSAI_PRO'];
+                ?>
 
-             echo $row_tabela['CD_SOLSAI_PRO'];
-
+             <a class="btn btn-primary" data-toggle="modal" data-target="#exibe_solsai" onclick="ajax_modal_solsai('<?php echo $row_tabela['CD_SOLSAI_PRO'] ?>')"><i class="fas fa-link"></i></a>
+            
+            <?php
             }else{ 
+                
             ?>
 
             <input id="check_<?php echo ['CD_SOLICITACAO'];?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR'];?>)"></input>
