@@ -68,7 +68,8 @@ $consulta_excel_oracle = "SELECT sol.CD_SOLICITACAO,
                             TRUNC(TO_DATE('$data_inial_ex', 'YYYY-MM-DD')) AND
                             TRUNC(TO_DATE('$data_final_ex', 'YYYY-MM-DD'))
                             GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_PRODUTO_MV, pro.DS_PRODUTO, sol.QUANTIDADE, sol.HR_CADASTRO, sol.CD_USUARIO_MV, sol.CD_DURABILIDADE,
-                                     sol.CD_USUARIO_CADASTRO";
+                                     sol.CD_USUARIO_CADASTRO
+                            ORDER BY sol.CD_SOLICITACAO DESC";
 
 if($centro_custo_ex <> 'all'){
 
