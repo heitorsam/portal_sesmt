@@ -70,9 +70,9 @@
             <h11><i class="fa-solid fa-bars efeito-zoom"></i> Realizadas</h11>
 
             <div class="div_br"></div>
-
+            
                 <!--BOTÃO SOLICITAR MV -->
-               <button id="btn_mv" type="submit" style='float:right; display: none;'class="btn btn-primary" onclick="solicitar_mv()"><i style="padding-top: 4px; padding-right:5px;" class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
+               <button id="btn_mv" type="submit" style='float:right; display: none;'class="btn btn-primary" onclick="solicitar_mv_ass()"><i style="padding-top: 4px; padding-right:5px;" class="fa-solid fa-paper-plane "></i>Solicitar MV</button>
                <div class="div_br"></div>
                <div class="div_br"></div>
                <div class="div_br"></div>
@@ -159,6 +159,7 @@
 
     }
 
+
     /*FUNÇÃO ADICIONAR SOLICITAÇÕES*/
 
     function ajax_adicionar_sol(tipo){
@@ -168,6 +169,7 @@
         var cd_produto = document.getElementById('frm_id_produtos').value;
         var quantidade = document.getElementById('frm_qtd_sol').value;
         var uni_pro = document.getElementById('frm_id_unid_pro').value;
+        var ds_justificativa = document.getElementById('frm_Justificativa').value;
 
         if(tipo == 'S'){
             data = document.getElementById('data').value
@@ -194,7 +196,8 @@
                     cd_usuario: var_beep,
                     data: data,
                     tipo: tipo,
-                    cd_uni_pro: uni_pro
+                    cd_uni_pro: uni_pro,
+                    ds_just: ds_justificativa
                     },
                 cache: false,
                 success: function(dataResult){
@@ -234,6 +237,12 @@
             }); 
         
         }
+
+    };
+
+    function salva_just(){
+
+     $('#exampleModal').modal('hide');
 
     }
 
@@ -282,9 +291,6 @@
 
                     $('#corpo_tabela_realizadas').load('funcoes/solicitacao/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
-
-                    //$('#div_permissoes').load('funcoes/permissoes/ajax_permissoes.php?cd_usuario='+ usuario);
-                    //$('#tabela_permissoes').load('funcoes/permissoes/ajax_tabela_permissoes.php?cd_usuario='+ usuario);
                 }
             });   
         }
@@ -424,43 +430,16 @@
                     
                 }
 
-            })
+            });
 
         }
 
-    }     
+    }    
+    
+    function solicitar_mv_ass(){
 
-    function solicitar_mv(){
-
-        var usu_mv  = document.getElementById('valor_beep').value;
-
-        resultado = confirm("Realmente deseja criar a solicitação no MV?");
-
-        if(resultado == true){
-
-
-            $.ajax({
-                url: "funcoes/solicitacao/ajax_cria_sol_mv.php",
-                type: "POST",
-                data: {
-                    usuario_solicitacao: usu_mv
-                
-                    },
-                cache: false,
-                success: function(dataResult){
-
-                    //alert(dataResult);
-
-                    corpo_tabela_realizadas();
-
-                    $('#exibe_solsai').modal('show');
-
-                    ajax_modal_solsai(dataResult);
-                    
-                }
-            }); 
-
-        }
+        $('#exampleModalCenter').modal('show');
+        
     }
 
     function limpar_pre_sol_mv(){
@@ -519,4 +498,5 @@
         }
 
     }
+
 </script>

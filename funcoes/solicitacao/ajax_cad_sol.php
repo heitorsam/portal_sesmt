@@ -12,7 +12,7 @@
     $var_usu_cad = $_SESSION['usuarioLogin'];
     $data_soli = str_replace("T", " ",$_POST['data']);
     $tipo = $_POST['tipo'];
-
+    $just = $_POST['ds_just'];
 
     if($tipo == 'S'){
         $data_hist = 'SYSDATE';
@@ -22,8 +22,6 @@
         $data_hist = 'NULL';
 
     }
-
-    
 
     if($var_qtd <= 0){
 
@@ -50,8 +48,17 @@
         (SELECT dur.CD_DURABILIDADE
              FROM portal_sesmt.DURABILIDADE dur 
           WHERE dur.CD_PRODUTO_MV = '$var_pro') AS CD_DURABILIDADE,
-        '$var_qtd' AS QUANTIDADE, 
-        UPPER('$var_usu_cad') AS CD_USUARIO_CADASTRO, ";
+        '$var_qtd' AS QUANTIDADE,";
+
+        if($just != ''){
+            $insert_oracle .= " '$just' AS DS_JUST_DUR,";
+
+        }else{
+
+            $insert_oracle .= " NULL AS DS_JUST_DUR,";
+        }
+
+        $insert_oracle .= " UPPER('$var_usu_cad') AS CD_USUARIO_CADASTRO, ";
         if($tipo == 'N'){
             $insert_oracle .= "SYSDATE AS HR_CADASTRO, ";
         }else{
@@ -109,11 +116,13 @@
                 //echo $erro;
                 echo $msg_erro;
             }else{
+
                 echo 'Sucesso';
             }
 
         }
 
-    }    
+    };
+    
 
 ?>

@@ -58,13 +58,57 @@
 
         @$sn_dur = $row_alert_d['SN_ALERTA_DUR'];
 
-        if($sn_dur == 1 && $tipo == 'N'){
+?>
 
-            echo "<div class='alert_pers_amarelo'>
-                    <strong><i class='fa-solid fa-triangle-exclamation'></i></strong> 
-                    Atenção, este usuário já possui um EPI dentro da durabilidade!
-                </div>";
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <?php
+                            echo "<div class='alert_pers_amarelo'>
+                            <strong><i class='fa-solid fa-triangle-exclamation'></i></strong> 
+                            Atenção, este usuário já possui um EPI dentro da durabilidade!
+                            </div>";
+                        ?>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                <div class="col-md-12" style="background-color: #f9f9f9 !important;">
+
+                    <div class="div_br"> </div>
+                    Justificativa:
+                    <div class="div_br"> </div>
+                    <input type="text" class="form form-control" id="frm_Justificativa" name='Justificativa'></input>
+                    
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="salva_just()">Salvar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+<?php       
+
+        if($sn_dur == 1 && $tipo == 'N'){
+?> 
+            <script>
+
+             $('#exampleModal').modal('show');
+
+            </script>
+<?php
             
         }
     }
 ?>
+

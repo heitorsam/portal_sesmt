@@ -868,13 +868,13 @@ h99{
 
 .alert_pers_amarelo{
 
-    font-size: 14px;
+    font-size: 13px;
     color: #ff5e00 !important;
-    padding: 12px 0px 12px 18px;
+    padding: 12px 20px 12px 18px;
     background-color: #fff3cd;
     border: solid 1px #ffeeba;
     border-radius: 5px;
-    width: 40%;
+    width: 100%;
 
 }
 
@@ -901,5 +901,20 @@ h99{
   to {transform: scale(1);}
 }
 
+
+
+.textarea {
+
+overflow-y: scroll;
+width: 100%;
+height: 80px;
+padding: 12px 20px;
+box-sizing: border-box;
+border: 1px solid #ccc;
+border-radius: 4px;
+background-color: #ffffff;
+font-size: 16px;
+resize: none;
+} 
 
 </style>

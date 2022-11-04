@@ -107,6 +107,7 @@
             <th>Produto </th>
             <th>Durabilidade </th>
             <th>            C.A.            </th>
+            <th>Excesso </th>
             <th>Quantidade</th>
             <th>Funcionário</th>
 
