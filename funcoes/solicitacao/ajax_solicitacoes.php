@@ -30,9 +30,9 @@
 
     $resultado_con_oracle = oci_parse($conn_ora, $consulta_oracle);
 
-    $valida = oci_execute($resultado_con_oracle);
+    @$valida = oci_execute(@$resultado_con_oracle);
 
-    $row = oci_fetch_array($resultado_con_oracle);
+    @$row = oci_fetch_array(@$resultado_con_oracle);
     
 ?>
 
