@@ -23,6 +23,7 @@ GRANT SELECT ON dbamv.SEQ_SOLSAI_PRO TO portal_sesmt;
 GRANT SELECT ON dbamv.ITSOLSAI_PRO TO portal_sesmt;
 GRANT INSERT ON dbamv.ITSOLSAI_PRO TO portal_sesmt;
 GRANT SELECT ON dbamv.SEQ_ITSOLSAI_PRO TO portal_sesmt;
+GRANT SELECT ON dbamv.STA_TB_FUNCIONARIO TO portal_sesmt;
 
 
 --DAR REVOKE

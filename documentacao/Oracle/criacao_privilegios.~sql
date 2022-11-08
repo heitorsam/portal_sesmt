@@ -26,6 +26,9 @@ GRANT SELECT ON dbamv.SEQ_ITSOLSAI_PRO TO portal_sesmt;
 
 
 --DAR REVOKE
+GRANT DELETE ON dbamv.SOLSAI_PRO TO portal_sesmt;
+GRANT DELETE ON dbamv.ITSOLSAI_PRO TO portal_sesmt;
+
 REVOKE DELETE ON dbamv.SOLSAI_PRO FROM portal_sesmt;
 REVOKE DELETE ON dbamv.ITSOLSAI_PRO FROM portal_sesmt;
 
