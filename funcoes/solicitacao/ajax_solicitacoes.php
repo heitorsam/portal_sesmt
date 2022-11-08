@@ -216,9 +216,9 @@ function ajax_cadastra_assinatura(var_escondi,var_cd_sol_mv){
             cache: false,
             success: function(dataResult){
 
-                console.log(dataResult);
+                //console.log(dataResult);
 
-                if(dataResult * 1 == 1){
+                if(dataResult == 'Sucesso'){
 
                     //MENSAGEM            
                     var_ds_msg = 'Assinatura%20cadastrada%20com%20sucesso!';
@@ -229,13 +229,15 @@ function ajax_cadastra_assinatura(var_escondi,var_cd_sol_mv){
 
                 }else{
 
-                    //MENSAGEM            
+                    console.log(dataResult);
+
+                    /*//MENSAGEM            
                     var_ds_msg = 'Erro%20ao%20cadastrar%20assinatura!';
                     //var_tp_msg = 'alert-success';
                     var_tp_msg = 'alert-danger';
                     //var_tp_msg = 'alert-primary';
                     $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
-
+                    */
                 }
 
                 
