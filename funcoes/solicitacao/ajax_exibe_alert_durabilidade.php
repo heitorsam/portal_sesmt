@@ -61,7 +61,7 @@
 ?>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -69,13 +69,13 @@
                         <?php
                             echo "<div class='alert_pers_amarelo'>
                             <strong><i class='fa-solid fa-triangle-exclamation'></i></strong> 
-                            Atenção, este usuário já possui um EPI dentro da durabilidade!
+                            Atenção, este usuário já possui um EPI dentro da durabilidade, informe uma justificativa!
                             </div>";
                         ?>
                     </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button>-->
                 </div>
                 <div class="modal-body">
 
@@ -83,15 +83,16 @@
 
                     <div class="div_br"> </div>
                     Justificativa:
-                    <div class="div_br"> </div>
-                    <input type="text" class="form form-control" id="frm_Justificativa" name='Justificativa'></input>
+                    <div class="div_br"> </div>             
+                 <input type="text" class="form form-control" id="frm_Justificativa" name='Justificativa'></input>
                     
                 </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" onclick="salva_just()">Salvar</button>
+                    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>-->
+                    <button type="button" disabled id="habilita"class="btn btn-primary" onclick="salva_just()">Salvar</button>
+
                 </div>
                 </div>
             </div>
@@ -112,3 +113,16 @@
     }
 ?>
 
+
+<script>
+
+    document.body.querySelector("#frm_Justificativa").addEventListener("input", function(){
+    
+    var botao_salvar = document.body.querySelector("#habilita");
+
+    // habilita o botão com 5 ou mais caracteres digitados
+    botao_salvar.disabled = this.value.length >= 5 ? false : true;
+
+    });
+
+</script>

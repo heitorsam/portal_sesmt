@@ -123,7 +123,6 @@
                     <h5 style="font-size: 60px !important; padding: 20px;" class="modal-title" id="div_cd_solsai_pro"></h5>
 
                 </div>
-  
         </div>
 
     </div>
@@ -169,7 +168,12 @@
         var cd_produto = document.getElementById('frm_id_produtos').value;
         var quantidade = document.getElementById('frm_qtd_sol').value;
         var uni_pro = document.getElementById('frm_id_unid_pro').value;
-        var ds_justificativa = document.getElementById('frm_Justificativa').value;
+
+        if(tipo == 'N'){
+
+            var ds_justificativa = document.getElementById('frm_Justificativa').value;
+
+        }
 
         if(tipo == 'S'){
             data = document.getElementById('data').value
@@ -292,7 +296,9 @@
                     $('#corpo_tabela_realizadas').load('funcoes/solicitacao/ajax_corpo_tabela_realizadas.php?cd_usuario='+ var_beep)
 
                 }
-            });   
+
+            });  
+
         }
     }
 

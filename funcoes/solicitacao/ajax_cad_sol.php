@@ -12,7 +12,17 @@
     $var_usu_cad = $_SESSION['usuarioLogin'];
     $data_soli = str_replace("T", " ",$_POST['data']);
     $tipo = $_POST['tipo'];
-    $just = $_POST['ds_just'];
+    //$just = $_POST['ds_just'];
+
+    if($tipo <> 'S'){
+
+        $just = $_POST['ds_just'];
+
+    }else{
+
+        $just = 'NULL';
+
+    }
 
     if($tipo == 'S'){
         $data_hist = 'SYSDATE';

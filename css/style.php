@@ -875,7 +875,8 @@ h99{
     border: solid 1px #ffeeba;
     border-radius: 5px;
     width: 100%;
-
+    margin: 1px 80px 1px 80px;
+    text-align: center;
 }
 
 /*EFEITOS*/

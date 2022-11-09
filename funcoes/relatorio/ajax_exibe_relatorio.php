@@ -9,7 +9,10 @@ $data_inial =  $_GET['get_dt_ini'];
 $data_final =  $_GET['get_dt_fim'];
 $cd_usuario_relatorio = $_GET['get_usu_rel'];
 
-$consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
+//VARIAVEL fontawesome
+$varfontawaeson = 'Atenção' . '<i class="fa-solid fa-triangle-exclamation"></i>';
+
+ echo $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                     (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
                                     TO_CHAR(sol.HR_CADASTRO, 'DD/MM/YYYY') AS HR_CADASTRO,
                                     sol.CD_SETOR_MV,
@@ -60,13 +63,12 @@ $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                         END AS DT_DURABILIDADE,
                                     (SELECT csa.CA_SOL FROM portal_sesmt.VW_CA_SOL_ATUAL csa WHERE csa.CD_SOLICITACAO = sol.CD_SOLICITACAO
                                     ) AS CA_MV,
+
                                     CASE
              
-                                        WHEN COUNT(sol.DS_JUST_DUR) > 0 THEN '<i class=";
-                                        $consulta_tabela_rel .= '"fa-solid fa-triangle-exclamation"';
-                                        $consulta_tabela_rel .= "></i>'
+                                        WHEN COUNT(sol.DS_JUST_DUR) > 0 THEN '$varfontawaeson'
                                         ELSE '-'
-                                        
+
                                     END AS EX_SOL,
                                     sol.QUANTIDADE,
                                     (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
@@ -77,19 +79,22 @@ $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                     ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
                                     WHERE TRUNC(sol.HR_CADASTRO) BETWEEN
                                     TRUNC(TO_DATE('$data_inial', 'YYYY-MM-DD')) AND
-                                    TRUNC(TO_DATE('$data_final', 'YYYY-MM-DD'))
-                                    GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_PRODUTO_MV, pro.DS_PRODUTO, sol.QUANTIDADE, sol.HR_CADASTRO, sol.CD_USUARIO_MV, sol.CD_DURABILIDADE,
-                                             sol.CD_USUARIO_CADASTRO";
+                                    TRUNC(TO_DATE('$data_final', 'YYYY-MM-DD'))";
 
 if($cd_centro_custo <> 'all'){
     $consulta_tabela_rel .= " AND sol.CD_SETOR_MV = '$cd_centro_custo'";
 }
      
 if($cd_usuario_relatorio <> 'all'){
-    $consulta_tabela_rel .= " AND sol.CD_USUARIO_MV = UPPER('$cd_usuario_relatorio')";
+    $consulta_tabela_rel .= " AND sol.CD_USUARIO_MV = $cd_usuario_relatorio";
 }
 
-$consulta_tabela_rel .= " ORDER BY 1 DESC";
+
+ $consulta_tabela_rel .= " GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_PRODUTO_MV, pro.DS_PRODUTO, sol.QUANTIDADE, sol.HR_CADASTRO, sol.CD_USUARIO_MV, sol.CD_DURABILIDADE,
+                           sol.CD_USUARIO_CADASTRO 
+                           ORDER BY 1 DESC";
+
+
 
 $resultado_tabela_relatorio = oci_parse($conn_ora, $consulta_tabela_rel);
 

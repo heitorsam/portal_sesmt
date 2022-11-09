@@ -13,12 +13,12 @@ $con_usu_oracle=   "SELECT  DISTINCT usu.CD_USUARIO,
 
                     if($var_centro_cust <> 'all'){
 
-                        $con_usu_oracle .= "AND sol.CD_SETOR_MV = '$var_centro_cust'";
-                                           
+                        $con_usu_oracle .= "AND sol.CD_SETOR_MV = '$var_centro_cust'";                   
 
                     }
 
                     $con_usu_oracle .= " ORDER BY usu.NM_USUARIO ASC";
+
 
 $resultado_usu_oracle = oci_parse($conn_ora, $con_usu_oracle);
 
