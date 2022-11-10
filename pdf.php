@@ -137,6 +137,7 @@ oci_execute($rest_cons_excel);
     while($row_tabela_excel = oci_fetch_array($rest_cons_excel)){
     
         $html .= '<tbody align="center">';
+       // $html .= '<tr>';
         $html .= '<tr><td>' . $row_tabela_excel['CD_SOLICITACAO'] . "</td>";
         $html .= '<td>' . $row_tabela_excel['NM_USU'] . "</td>" ;
         $html .= '<td>' . $row_tabela_excel['NM_SETOR'] . "</td>" ;

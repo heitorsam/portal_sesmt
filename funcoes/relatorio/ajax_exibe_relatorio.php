@@ -3,6 +3,7 @@
 
 session_start();
 
+
 include '../../conexao.php';
 
 $cd_centro_custo = $_GET['get_var_centro'];
@@ -124,7 +125,7 @@ oci_execute($resultado_tabela_relatorio);
         $imagem = base64_encode($img);
     ?>
 
-        <td class="align-middle"> <img class="assinatura" src="data:image;base64,<?php echo $imagem;?>"/></td>
+        <td class="align-middle"> <img class="assinatura" src="data:image;base64,<?php echo $imagem;?>" onclick="exibe_assinatura()"/></td>
 
 <?php
 
