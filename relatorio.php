@@ -76,7 +76,15 @@
         <div class = "col-md-2" >
 
             </br>
-            <button id="btn_excel" type="submit" class="btn btn-primary" style="display: none;" onclick="down_excel()"><i class="fa-solid fa-file-excel"></i></button>
+            <button id="btn_excel" type="submit" class="btn btn-primary" style="display: none;" onclick="down_pdf()"><i class="fa-solid fa-file-pdf"></i></button>
+
+        </div>
+
+         <!-- BOTÃO PDF DOWNLOAD -->
+         <div class = "col-md-2" >
+
+            </br>
+            <button id="btn_excel" type="submit" class="btn btn-primary" style="display: none;" onclick="down_pdf()"><i class="fa-solid fa-file-pdf"></i></button>
 
         </div>
 
@@ -110,6 +118,7 @@
             <th>Excesso  </th>
             <th> Quantidade</th>
             <th>Funcionário</th>
+            <th>   Assinatura  </th>
 
         </thead>
 
@@ -117,8 +126,39 @@
 
     </table>
 
+    <!-- MODAL -->
+    <div class="modal fade" id="exibe_assinatura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Assinatura</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+
+                ...
+
+
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
+
+        function exibe_assinatura(){
+
+            $('#exibe_assinatura').modal('show');
+
+        }
+
 
         /*AO TERMINAR DE CARREGAR A PAGINA*/
         $(document).ready(function(){
@@ -167,7 +207,7 @@
 
         }
 
-        function down_excel(){
+        function down_pdf(){
 
             var_rel_ex= document.getElementById('frm_id_cc').value;
             var_dt_inicial_ex= document.getElementById('frm_dt_ini').value;
@@ -176,7 +216,7 @@
 
             //alert(var_beep);
 
-            down_ex = 'excel.php?get_var_centro='+var_rel_ex+'&get_dt_ini='+var_dt_inicial_ex+'&get_dt_fim='+var_dt_final_ex+'&get_usu_rel='+var_usu_reletorio_ex;
+            down_ex = 'pdf.php?get_var_centro='+var_rel_ex+'&get_dt_ini='+var_dt_inicial_ex+'&get_dt_fim='+var_dt_final_ex+'&get_usu_rel='+var_usu_reletorio_ex;
 
             window.location.replace(down_ex);
 

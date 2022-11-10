@@ -211,7 +211,7 @@
                     if(dataResult == 'Sucesso'){
 
                         //MENSAGEM            
-                        var_ds_msg = 'Solicitacao%20cadastrada%20com%20sucesso!';
+                        var_ds_msg = 'Solicitação%20cadastrada%20com%20sucesso!';
                         var_tp_msg = 'alert-success';
                         //var_tp_msg = 'alert-danger';
                         //var_tp_msg = 'alert-primary';

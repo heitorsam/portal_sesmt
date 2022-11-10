@@ -918,4 +918,14 @@ font-size: 16px;
 resize: none;
 } 
 
+.assinatura {
+
+width: 100px;
+height: 25px;
+margin-left: 50px;
+object-fit: cover;
+
+
+}
+
 </style>
