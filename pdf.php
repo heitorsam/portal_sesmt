@@ -214,11 +214,20 @@ oci_execute($rest_cons_excel);
         $html .= '<td>' . $row_tabela_excel['QUANTIDADE'] . "</td>" ;
         //$html .= '<td>' . $row_tabela_excel['NM_USUARIO_CADASTRO'] . "</td></tr>" ;
 
-        $imgs = $row_tabela_excel['BLOB_ASS']->load();
-        $image = base64_encode($imgs);
+        if(isset($row_tabela_excel['BLOB_ASS'])){
 
-        $html .= '<td> <img class="assinatura" src="data:image;base64,' . $image . '"/></td>';
-        $html .= '</tbody>';   
+            $imgs = $row_tabela_excel['BLOB_ASS']->load();
+            $image = base64_encode($imgs);
+
+            $html .=  '<td><img class="assinatura" src="data:image;base64,' . $image . '"/></td>';
+
+        } else{
+
+            $html .= '<td class="align-middle"> - </td>';  
+
+        }
+           $html .= '</tbody>';        
+
 ?>
 
 <?php
@@ -239,7 +248,31 @@ use Dompdf\Options;
 $dompdf = new DOMPDF();
 
 // carregar o HTML
-$dompdf->load_html('<h1 style="text-align: center;">SOLICITAÇÕES SESMT</h1> ' . '<h2 style="text-align: center;"> Relatório </h2>'. $html . '  ');
+$dompdf->load_html(
+
+'<div>
+
+    <div class="row">
+
+        <div class="col-md-4" style="border: none !important; line-height: 23 !important; padding-top:10px; margin: 0 auto !important;">
+            <img src="https://www.santacasasjc.com.br/wp-content/uploads/2018/06/logotipo-santa-casa-sjc-210x75.png" alt="Logo Santa Casa" width="200 px" height="70 px" >
+        </div>
+
+    </div>
+
+        <div style="border: none !important; text-align: center;">
+        
+            <h2>Santa Casa de Misericórdia de São José dos Campos</h2>
+            <h3>Rua Dolzani Ricardo, 620 - Fone: (012) 3876-1999<br>CEP 12210-110 - São José dos Campos - SP<br>CNPJ 45.186.053/0001-87</h3>
+            <h3>Solicitações SESMT</h3>
+        
+        </div>
+
+    </div>
+    
+</div>' 
+
+. $html . '  ');
 $dompdf->set_option('isRemoteEnabled', true); 
 
 // dados do documento destino

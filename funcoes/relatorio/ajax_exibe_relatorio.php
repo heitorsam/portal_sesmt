@@ -11,6 +11,7 @@ $tp_rel = $_GET['get_tp_rel'];
 
 //VARIAVEL fontawesome
 $varfontawaeson = '<i class="fa-solid fa-triangle-exclamation"></i>';
+$fontawaeson = '<i class="fa-solid fa-triangle-exclamation"></i>';
 
  $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                     (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
@@ -141,7 +142,7 @@ oci_execute($resultado_tabela_relatorio);
 
         }else{
             
-         echo '<td class="align-middle"> - </td>';         
+         echo '<td class="align-middle">' . $fontawaeson . '</td>';         
 
         }
 
