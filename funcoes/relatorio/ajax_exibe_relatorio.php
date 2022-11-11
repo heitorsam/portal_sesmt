@@ -1,18 +1,16 @@
   
 <?php 
 
-session_start();
-
-
 include '../../conexao.php';
 
 $cd_centro_custo = $_GET['get_var_centro'];
 $data_inial =  $_GET['get_dt_ini'];
 $data_final =  $_GET['get_dt_fim'];
 $cd_usuario_relatorio = $_GET['get_usu_rel'];
+$tp_rel = $_GET['get_tp_rel'];
 
 //VARIAVEL fontawesome
-$varfontawaeson = 'Atenção' . '<i class="fa-solid fa-triangle-exclamation"></i>';
+$varfontawaeson = '<i class="fa-solid fa-triangle-exclamation"></i>';
 
  $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                     (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
@@ -72,6 +70,7 @@ $varfontawaeson = 'Atenção' . '<i class="fa-solid fa-triangle-exclamation"></i
                                         ELSE '-'
 
                                     END AS EX_SOL,
+                                    sol.DS_JUST_DUR,
                                     sol.QUANTIDADE,
                                     (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
                                     (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
@@ -96,14 +95,22 @@ if($cd_usuario_relatorio <> 'all'){
      $consulta_tabela_rel .= " AND sol.CD_USUARIO_MV = $cd_usuario_relatorio";
 }
 
+if($tp_rel == 'S'){
+
+    $consulta_tabela_rel .= "AND sol.DS_JUST_DUR IS NOT NULL";
+
+}
+
 $consulta_tabela_rel .= " GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_PRODUTO_MV, pro.DS_PRODUTO, sol.QUANTIDADE, sol.HR_CADASTRO, sol.CD_USUARIO_MV, sol.CD_DURABILIDADE,
-                           sol.CD_USUARIO_CADASTRO 
+                           sol.CD_USUARIO_CADASTRO, sol.DS_JUST_DUR
                            ORDER BY 1 DESC";
 
 
 $resultado_tabela_relatorio = oci_parse($conn_ora, $consulta_tabela_rel);
 
 oci_execute($resultado_tabela_relatorio);
+
+
 
  while($row_tabela_relatorio = oci_fetch_array($resultado_tabela_relatorio)){
 
@@ -118,21 +125,34 @@ oci_execute($resultado_tabela_relatorio);
         echo '<td class="align-middle">' .  $row_tabela_relatorio['DT_DURABILIDADE'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['CA_MV'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['EX_SOL'] . '</td>';
+        echo '<td class="align-middle">' .  $row_tabela_relatorio['DS_JUST_DUR'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['QUANTIDADE'] . '</td>';
         echo '<td class="align-middle">' .  $row_tabela_relatorio['NM_USUARIO_CADASTRO'] . '</td>';
 
-        $img = $row_tabela_relatorio['BLOB_ASS']->load();
-        $imagem = base64_encode($img);
-    ?>
+        if(isset($row_tabela_relatorio['BLOB_ASS'])){
 
-        <td class="align-middle"> <img class="assinatura" src="data:image;base64,<?php echo $imagem;?>" onclick="exibe_assinatura()"/></td>
+            $img = $row_tabela_relatorio['BLOB_ASS']->load();
+            $imagem = base64_encode($img);
+            echo '<td class="align-middle"> <img class="assinatura" src="data:image;base64,' . $imagem . '"/></td>';
+        ?>
+           <!-- <td class="align-middle"> <img class="assinatura" src="data:image;base64,<?php //echo $imagem;?>"/></td>-->
+
+        <?php
+
+        }else{
+            
+         echo '<td class="align-middle"> - </td>';         
+
+        }
+
+    ?>
+       
 
 <?php
 
     echo '</tr>';
     
 }
-
 
 ?>
 

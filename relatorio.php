@@ -9,8 +9,6 @@
     //CONEXÃO ORACLE
     include 'conexao.php';
 
-    //INCLUINDO VARIAVEL IMAGEM
-
 ?>
 
     <div class="div_br"> </div>
@@ -46,11 +44,15 @@
 
         <div class='col-md-3' id="constroi_usu_setor"></div>
 
+        <div class= 'col-md-2'>
 
-        <div class = "col-md-2" >
+            Tipo Relatório:
+            <select class='form form-control' id="tp_relatorio">
 
-            </br>
-            <button type="submit" class="btn btn-primary efeito-zoom" onclick="corpo_tabela_relatorio()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <option value = 'N'>  Geral</option>
+                <option value = 'S'>  Excesso</option>
+
+            </select>
 
         </div>
 
@@ -76,20 +78,24 @@
 
         </div>
 
-        <!-- BOTÃO EXCEL DOWNLOAD -->
-        <div class = "col-md-2" >
+        
+        <div class=row>
 
-            </br>
-            <button id="btn_excel" type="submit" class="btn btn-primary" style="display: none;" onclick="down_pdf()"><i class="fa-solid fa-file-pdf"></i></button>
+            <!-- BOTÃO SUBMIT DOWNLOAD -->
+            <div class = "col-md-5" >
 
-        </div>
+                </br>
+                <button type="submit" class="btn btn-primary efeito-zoom" onclick="corpo_tabela_relatorio()"><i class="fa-solid fa-magnifying-glass"></i></button>
 
-         <!-- BOTÃO PDF DOWNLOAD -->
-         <div class = "col-md-2" >
+            </div>
 
-            </br>
-            <button id="btn_excel" type="submit" class="btn btn-primary" style="display: none;" onclick="down_pdf()"><i class="fa-solid fa-file-pdf"></i></button>
+            <!-- BOTÃO PDF DOWNLOAD -->
+            <div class = "col-md-2" >
 
+                </br>
+                <button id="btn_excel" type="submit" class="btn btn-primary" style="display: none;" onclick="down_pdf()"><i class="fa-solid fa-file-pdf"></i></button>
+
+            </div>
         </div>
 
     </div>
@@ -120,6 +126,7 @@
             <th>Durabilidade </th>
             <th>            C.A.            </th>
             <th>Excesso  </th>
+            <th>Justificativa</th>
             <th> Quantidade</th>
             <th>Funcionário</th>
             <th>   Assinatura  </th>
@@ -130,9 +137,7 @@
 
     </table>
 
-
     <script>
-
 
 
         /*AO TERMINAR DE CARREGAR A PAGINA*/
@@ -148,6 +153,7 @@
             var_dt_inicial= document.getElementById('frm_dt_ini').value;
             var_dt_final= document.getElementById('frm_dt_fim').value;
             var_usu_reletorio= document.getElementById('frm_id_usu_rel').value;
+            var_tp_relatorio= document.getElementById('tp_relatorio').value;
 
             //alert(var_rel_cc);
             //alert(var_dt_inicial);
@@ -164,7 +170,7 @@
                 }
             }
 
-            var_link = 'funcoes/relatorio/ajax_exibe_relatorio.php?get_var_centro='+var_rel_cc+'&get_dt_ini='+var_dt_inicial+'&get_dt_fim='+var_dt_final+'&get_usu_rel='+var_usu_reletorio;
+            var_link = 'funcoes/relatorio/ajax_exibe_relatorio.php?get_var_centro='+var_rel_cc+'&get_dt_ini='+var_dt_inicial+'&get_dt_fim='+var_dt_final+'&get_usu_rel='+var_usu_reletorio+'&get_tp_rel='+var_tp_relatorio;
 
             //alert(var_link);
 
@@ -188,10 +194,9 @@
             var_dt_inicial_ex= document.getElementById('frm_dt_ini').value;
             var_dt_final_ex= document.getElementById('frm_dt_fim').value;
             var_usu_reletorio_ex= document.getElementById('frm_id_usu_rel').value;
+            var_parametro_pdf= document.getElementById('tp_relatorio').value;
 
-            //alert(var_beep);
-
-            down_ex = 'pdf.php?get_var_centro='+var_rel_ex+'&get_dt_ini='+var_dt_inicial_ex+'&get_dt_fim='+var_dt_final_ex+'&get_usu_rel='+var_usu_reletorio_ex;
+            down_ex = 'pdf.php?get_var_centro='+var_rel_ex+'&get_dt_ini='+var_dt_inicial_ex+'&get_dt_fim='+var_dt_final_ex+'&get_usu_rel='+var_usu_reletorio_ex+'&get_parametro_pdf='+var_parametro_pdf;
 
             window.location.replace(down_ex);
 
