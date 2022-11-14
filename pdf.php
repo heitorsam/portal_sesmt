@@ -26,7 +26,7 @@ $var_define_pdf = $_GET['get_parametro_pdf'];
 
 $html = '';
 
-if($var_define_pdf == 'N'){
+//if($var_define_pdf == 'N'){
 
 //FAZ O SELECT SEM O PARAMETRO DS_JUST IS NOT NULL
 $consulta_excel_oracle = "SELECT sol.CD_SOLICITACAO,
@@ -70,10 +70,7 @@ $consulta_excel_oracle = "SELECT sol.CD_SOLICITACAO,
                             ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
                             WHERE TRUNC(sol.HR_CADASTRO) BETWEEN
                             TRUNC(TO_DATE('$data_inial_ex', 'YYYY-MM-DD')) AND
-                            TRUNC(TO_DATE('$data_final_ex', 'YYYY-MM-DD'))
-                            GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_PRODUTO_MV, pro.DS_PRODUTO, sol.QUANTIDADE, sol.HR_CADASTRO, sol.CD_USUARIO_MV, sol.CD_DURABILIDADE,
-                                     sol.CD_USUARIO_CADASTRO
-                            ORDER BY sol.CD_SOLICITACAO DESC";
+                            TRUNC(TO_DATE('$data_final_ex', 'YYYY-MM-DD'))";
 
 if($centro_custo_ex <> 'all'){
 
@@ -83,83 +80,27 @@ if($centro_custo_ex <> 'all'){
 
 if($cd_usuario_relatorio_ex <> 'all'){
 
-    $consulta_excel_oracle .= " AND sol.CD_USUARIO_MV = UPPER('$cd_usuario_relatorio_ex')";
+    $consulta_excel_oracle .= " AND sol.CD_USUARIO_MV = $cd_usuario_relatorio_ex";
 
 }
 
-} else{
+if($var_define_pdf == 'S'){
 
-//FAZ O SELECT IS NOT NULL NO DS_JUST
-$consulta_excel_oracle = "SELECT sol.CD_SOLICITACAO,
-                            (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
-                            TO_CHAR(sol.HR_CADASTRO, 'DD/MM/YYYY') AS HR_CADASTRO,
-                            sol.CD_SETOR_MV,
-                            (SELECT st.NM_SETOR
-                            FROM dbamv.SETOR st
-                            WHERE st.SN_ATIVO = 'S'
-                                AND st.CD_SETOR = sol.CD_SETOR_MV) AS NM_SETOR,
-                            sol.CD_PRODUTO_MV,
-                            pro.DS_PRODUTO,
-                            (SELECT CASE
-                                    WHEN dur.DIAS < 2 THEN
-                                    dur.DIAS || ' Dia'
-                                    WHEN dur.DIAS >= 2 THEN
-                                    dur.DIAS || ' Dias'
-                                    ELSE
-                                    ''
-                                    END
-                            FROM portal_sesmt.DURABILIDADE dur
-                            WHERE dur.CD_PRODUTO_MV = sol.CD_PRODUTO_MV) AS DT_DURABILIDADE,
-                            (SELECT csa.CA_SOL FROM portal_sesmt.VW_CA_SOL_ATUAL csa WHERE csa.CD_SOLICITACAO = sol.CD_SOLICITACAO
-                            ) AS CA_MV,
-                            CASE
-                                WHEN COUNT(sol.DS_JUST_DUR) > 0 THEN 'Excesso'
-                                ELSE
-                                '-'
-                            END AS EX_SOL,
-                            sol.QUANTIDADE,
-                            (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
-                            (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
-                            ) AS EDITADO_SN,
-                            (SELECT ass.BLOB_ASS 
-                                     FROM portal_sesmt.ASSINATURA ass
-                                     INNER JOIN portal_sesmt.SOLICITACAO_MV sm
-                                     ON sm.CD_SOLSAI_PRO = ass.CD_SOLICITACAO_MV
-                                     WHERE sm.CD_SOLICITACAO = sol.CD_SOLICITACAO ) AS BLOB_ASS 
-                            FROM portal_sesmt.SOLICITACAO sol
-                            INNER JOIN dbamv.PRODUTO pro
-                            ON pro.CD_PRODUTO = sol.CD_PRODUTO_MV
-                            WHERE TRUNC(sol.HR_CADASTRO) BETWEEN
-                            TRUNC(TO_DATE('$data_inial_ex', 'YYYY-MM-DD')) AND
-                            TRUNC(TO_DATE('$data_final_ex', 'YYYY-MM-DD'))
-                            AND sol.DS_JUST_DUR IS NOT NULL
-                            GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_PRODUTO_MV, pro.DS_PRODUTO, sol.QUANTIDADE, sol.HR_CADASTRO, sol.CD_USUARIO_MV, sol.CD_DURABILIDADE,
-                                     sol.CD_USUARIO_CADASTRO
-                            ORDER BY sol.CD_SOLICITACAO DESC";
-
-if($centro_custo_ex <> 'all'){
-
-    $consulta_excel_oracle .= " AND sol.CD_SETOR_MV = '$centro_custo_ex'";
+    $consulta_excel_oracle .= " AND sol.DS_JUST_DUR IS NOT NULL";
 
 }
 
-if($cd_usuario_relatorio_ex <> 'all'){
-
-    $consulta_excel_oracle .= " AND sol.CD_USUARIO_MV = UPPER('$cd_usuario_relatorio_ex')";
-
-}
-
-
-}
+$consulta_excel_oracle .= " GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_PRODUTO_MV, pro.DS_PRODUTO, sol.QUANTIDADE, sol.HR_CADASTRO, sol.CD_USUARIO_MV, sol.CD_DURABILIDADE,
+                                    sol.CD_USUARIO_CADASTRO
+                           ORDER BY sol.CD_SOLICITACAO DESC";
 
 $rest_cons_excel = oci_parse($conn_ora, $consulta_excel_oracle);
 
 oci_execute($rest_cons_excel);
+
 ?>
 
 <!--ESTRUTURA DA TABELA-->
-
-
 
 <?php
 
@@ -201,7 +142,6 @@ oci_execute($rest_cons_excel);
     while($row_tabela_excel = oci_fetch_array($rest_cons_excel)){
     
         $html .= '<tbody align="center">';
-       // $html .= '<tr>';
         $html .= '<tr><td>' . $row_tabela_excel['CD_SOLICITACAO'] . "</td>";
         $html .= '<td>' . $row_tabela_excel['NM_USU'] . "</td>" ;
         $html .= '<td>' . $row_tabela_excel['NM_SETOR'] . "</td>" ;
@@ -212,7 +152,6 @@ oci_execute($rest_cons_excel);
         $html .= '<td>' . $row_tabela_excel['CA_MV'] . "</td>" ;
         $html .= '<td>' . $row_tabela_excel['EX_SOL'] . "</td>" ;
         $html .= '<td>' . $row_tabela_excel['QUANTIDADE'] . "</td>" ;
-        //$html .= '<td>' . $row_tabela_excel['NM_USUARIO_CADASTRO'] . "</td></tr>" ;
 
         if(isset($row_tabela_excel['BLOB_ASS'])){
 

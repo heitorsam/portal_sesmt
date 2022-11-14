@@ -98,7 +98,7 @@ if($cd_usuario_relatorio <> 'all'){
 
 if($tp_rel == 'S'){
 
-    $consulta_tabela_rel .= "AND sol.DS_JUST_DUR IS NOT NULL";
+   $consulta_tabela_rel .= "AND sol.DS_JUST_DUR IS NOT NULL";
 
 }
 
