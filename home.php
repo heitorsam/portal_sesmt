@@ -49,7 +49,7 @@
     </div>
 
     </br>
-    <h11><i class="fas fa-chart-line"></i> Dashboard</h11>
+    <h11><i class="fas fa-chart-line efeito-zoom"></i> Dashboard</h11>
     <span class="espaco_pequeno" style="width: 6px"></span>
     <div class="div_br"></div>
     <div class="row">
