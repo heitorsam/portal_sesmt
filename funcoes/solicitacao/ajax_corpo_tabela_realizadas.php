@@ -163,7 +163,7 @@
                 
             ?>
 
-            <input id="check_<?php echo $row_tabela['CD_SOLICITACAO'];?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR'];?>)"></input>
+            <input id="check_<?php echo $row_tabela['CD_SOLICITACAO'];?>" type="checkbox" onclick="ajax_pre_sol_mv(<?php echo $row_tabela['CD_SOLICITACAO']; ?>,<?php echo $row_tabela['CD_SETOR'];?>)" class="check_box"></input>
 
             <?php
 
