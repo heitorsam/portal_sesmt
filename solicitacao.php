@@ -128,10 +128,84 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exibe_modal_img" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+
+                        <?php
+                            echo "<div class='alert_pers_amarelo' style='width: 165%; align: center !important;'>
+                            <strong><i class='fa-solid fa-triangle-exclamation'></i></strong> 
+                            ATENÇÃO, ZACALAURO NA SUA TELA!
+                            </div>";
+                        ?>
+
+                </h5>
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+        <div class="modal-body">
+
+        <?php
+
+            echo '<div style=" width: 50%; margin: 0 auto !important;"><img alt="imagem" src="img/outros/ZACALAURO.jpeg"</div>';
+
+        ?>
+
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <!--<button type="button" class="btn btn-primary">Fechar</button>-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!--FUNÇÕES AJAX E JAVASCRIPT-->
 
 <script>
+
+    var_contador = 0;
+    var_contador_menu = 0;
+
+    function conta_click(opc){
+
+        if(opc == '1'){
+
+            var_contador = var_contador + 1;
+
+        } else if(opc == '2'){
+
+            var_contador_menu = var_contador_menu + 1;
+
+        }
+
+        if(var_contador >= '10' && var_contador_menu >= 3 ){
+
+            var_promt = prompt('Digite o valor!');
+
+            if(var_promt =='ZACALAURO'){
+
+                //alert('ZACALAURO');
+                
+                $('#exibe_modal_img').modal('show');
+
+            } else if(var_promt =='PIUI'){
+
+                alert('PIUI');
+                
+                $('#exibe_modal_img').modal('show');
+            }
+
+        }
+
+    }
+
 
     /*FUNÇÃO PESQUISA USUARIO PELO BEEP*/
 

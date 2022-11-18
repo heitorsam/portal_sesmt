@@ -60,12 +60,12 @@ session_start();
                 </li>
                 <div class="menu_azul_claro">
                     <li class="nav-item">
-                        <h10><a class="nav-link" href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Faq</a></h10>
+                        <h10><a class="nav-link" onclick="conta_click('1')"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Faq</a></h10>
                     </li>
                 </div>
                 <div class="menu_preto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="conta_click('2')">
                         <i class="fa fa-bars" aria-hidden="true"></i> Menu</a></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
 
@@ -102,3 +102,4 @@ session_start();
 
         <div class="conteudo">
             <div class="container">
+
