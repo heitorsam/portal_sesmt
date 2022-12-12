@@ -7,6 +7,8 @@ GRANT CREATE VIEW TO portal_sesmt;
 GRANT UNLIMITED TABLESPACE TO portal_sesmt;
 GRANT CREATE SEQUENCE TO portal_sesmt;
 
+GRANT INSERT ON portal_projetos.ACESSO TO portal_sesmt;
+
 GRANT EXECUTE ON dbasgu.FNC_MV2000_HMVPEP TO portal_sesmt;
 
 GRANT SELECT ON dbasgu.USUARIOS TO portal_sesmt;
