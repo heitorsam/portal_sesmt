@@ -66,8 +66,9 @@
 			if(isset($resultado)){
 				
 				if($resultado[0] == 'Login efetuado com sucesso') {
-					echo $cons_acesso_login="INSERT INTO portal_projetos.ACESSO
+					$cons_acesso_login="INSERT INTO portal_projetos.ACESSO
 										SELECT portal_projetos.SEQ_CD_ACESSO.NEXTVAL AS CD_ACESSO,
+										11 AS CD_PORTFOLIO,
 										'PORTAL SESMT' AS DS_PROJETO,
 										'$usuario' AS CD_USUARIO_ACESSO,
 										SYSDATE AS HR_ACESSO
