@@ -19,12 +19,12 @@
                                     ELSE '000000' || func.CHAPA || '00'
                                     END AS CD_USUARIO
                                 FROM dbamv.STA_TB_FUNCIONARIO aux
-                                WHERE aux.TP_SITUACAO = 'A'
+                                WHERE aux.TP_SITUACAO IN ('A','F')
                                 AND aux.CD_FUNCIONARIO = func.CD_FUNCIONARIO) AS CD_USUARIO,
                             func.NM_FUNCIONARIO,
                             func.DS_FUNCAO
                             FROM dbamv.STA_TB_FUNCIONARIO func
-                            WHERE func.TP_SITUACAO = 'A') res
+                            WHERE func.TP_SITUACAO IN ('A','F')) res
                         WHERE res.CD_USUARIO = $var_usu";
 
 
