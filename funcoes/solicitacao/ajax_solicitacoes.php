@@ -82,19 +82,26 @@
         <div class = "col-md-2">
             Durabilidade:
             </br>
-            <input type = "text" id="frm_id_durabilidade" class="form-control" autocomplete="off" disabled></input>
+            <input type ="text" id="frm_id_durabilidade" class="form-control" autocomplete="off" disabled></input>
         </div>
-
+       
       
          <!--UNIDADE-->
         <div class="col-md-2" id="unidade" style="display: none;"></div>     
+        
 
+         <!--ESTOQUE-->
+         <div class ="col-md-1">
+            Estoque:
+            </br>
+            <input type ="text" id="frm_id_estoque" class="form-control" autocomplete="off" disabled></input>
+        </div>
 
         <!--QUANTIDADE-->
-        <div class = "col-md-2">
+        <div class = "col-md-1">
             Quantidade:
             </br>
-            <input type = "number" type="number" min="0" id="frm_qtd_sol" class="form-control" autocomplete="off"></input>
+            <input type ="number" type="number" min="0" id="frm_qtd_sol" class="form-control" autocomplete="off"></input>
         </div>
 
 

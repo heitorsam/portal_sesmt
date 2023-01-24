@@ -242,6 +242,7 @@
         var cd_produto = document.getElementById('frm_id_produtos').value;
         var quantidade = document.getElementById('frm_qtd_sol').value;
         var uni_pro = document.getElementById('frm_id_unid_pro').value;
+        var qt_est = document.getElementById('frm_id_estoque').value;
 
         if(tipo == 'N'){
 
@@ -275,7 +276,8 @@
                     data: data,
                     tipo: tipo,
                     cd_uni_pro: uni_pro,
-                    ds_just: ds_justificativa
+                    ds_just: ds_justificativa,
+                    qtd_estoque: qt_est
                     },
                 cache: false,
                 success: function(dataResult){
@@ -401,6 +403,9 @@
 
             ajax_exibe_alert_durabilidade(); 
             ajax_selecionar_unidade();
+
+            //Chama encontra estoque
+            ajax_encontrar_estoque();
            
     }
 
@@ -577,6 +582,30 @@
 
         }
 
+    }
+
+    function ajax_encontrar_estoque(){
+
+            var select_prod = document.getElementById('frm_id_produtos').value;
+
+            //alert(select_prod);
+        
+            $.ajax({
+                url: "funcoes/solicitacao/ajax_encontrar_estoque.php",
+                type: "POST",
+                data: {
+                    produto: select_prod
+                
+                    },
+                cache: false,
+                success: function(dataResult){
+
+                    document.getElementById('frm_id_estoque').value = dataResult;
+                    
+                }
+            }); 
+
+        
     }
 
 </script>

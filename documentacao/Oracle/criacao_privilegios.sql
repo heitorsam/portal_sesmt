@@ -17,6 +17,7 @@ GRANT SELECT ON dbasgu.PAPEL_USUARIOS TO portal_sesmt;
 GRANT SELECT ON dbamv.PRODUTO TO portal_sesmt;
 GRANT SELECT ON dbamv.SETOR TO portal_sesmt;
 GRANT SELECT ON dbamv.UNI_PRO TO portal_sesmt;
+GRANT SELECT ON dbamv.EST_PRO TO portal_sesmt;
 
 GRANT SELECT ON dbamv.SOLSAI_PRO TO portal_sesmt;
 GRANT INSERT ON dbamv.SOLSAI_PRO TO portal_sesmt;
