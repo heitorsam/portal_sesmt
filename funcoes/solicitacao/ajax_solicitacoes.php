@@ -24,7 +24,7 @@
                             func.NM_FUNCIONARIO,
                             func.DS_FUNCAO
                             FROM dbamv.STA_TB_FUNCIONARIO func
-                            WHERE func.TP_SITUACAO IN ('A','F')) res
+                            WHERE func.TP_SITUACAO IN ('A','F','Z')) res
                         WHERE res.CD_USUARIO = $var_usu";
 
 
