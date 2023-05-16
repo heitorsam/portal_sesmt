@@ -1,8 +1,7 @@
 <?php 
 
     include '../../conexao.php';
-
-    $cons_filtro = "SELECT res.QTD
+     $cons_filtro = "SELECT res.QTD
     FROM (SELECT *
             FROM (SELECT '01' AS MES
                     FROM DUAL

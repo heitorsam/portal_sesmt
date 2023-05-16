@@ -12,6 +12,7 @@ $cons_cc_relatorio= "SELECT st.CD_SETOR,
                             st.NM_SETOR
                      FROM dbamv.SETOR st
                      WHERE st.SN_ATIVO = 'S'
+                     AND st.CD_MULTI_EMPRESA = 1    
                      ORDER BY st.NM_SETOR ASC";
 
 $rest_cons_cc_relatorio = oci_parse($conn_ora, $cons_cc_relatorio);
