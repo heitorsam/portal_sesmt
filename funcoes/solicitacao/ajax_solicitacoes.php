@@ -96,7 +96,15 @@ $res_verifica_assinatura = oci_fetch_array($res_cons_assinatura);
 
                 </div>
 
-                <button onclick="abrir_modal_assinatura()" style="float: right;" class="btn btn-primary">Assinar</button>
+                <?php if(!empty($res_verifica_assinatura)) {?>
+
+                    <img id="mostra_assinatura" style="width: 90%;">
+
+                <?php } else { ?>
+
+                    <button onclick="abrir_modal_assinatura()" style="float: right;" class="btn btn-primary">Assinar</button>
+
+                <?php } ?>
 
             </div>
 
@@ -236,7 +244,7 @@ $res_verifica_assinatura = oci_fetch_array($res_cons_assinatura);
 
             <?php if (!empty($res_verifica_assinatura)) {?>
 
-                <button disabled type="submit" class="btn btn-secondary"><i class="fa-solid fa-file"></i> Termo</button>
+                <button onclick="abrir_modal_termo(), puxa_assinatura()" type="submit" class="btn btn-secondary"><i class="fa-solid fa-file"></i> Termo</button>
 
             <?php } else {?>
 
@@ -285,6 +293,7 @@ $res_verifica_assinatura = oci_fetch_array($res_cons_assinatura);
 </div>
 
 <script>
+
     function abrir_modal_termo() {
 
         $('#modal_termo').modal();
@@ -298,6 +307,27 @@ $res_verifica_assinatura = oci_fetch_array($res_cons_assinatura);
         $('#modal_assinatura_termo').modal();
 
         inicializar_canvas_assinatura()
+
+    }
+
+    function puxa_assinatura() {
+
+        var usuario_busca = document.getElementById('valor_beep').value;
+        var mostra_assinatura = document.getElementById('mostra_assinatura');
+
+        $.ajax({
+            url: "funcoes/termos/busca_assinatura.php",
+            method: "GET",  
+            data: {
+                usuario_busca
+            },
+            cache: false,
+            success(res) {
+
+                mostra_assinatura.src = 'data:image;base64,' + res;
+
+            }
+        })
 
     }
 
@@ -358,7 +388,8 @@ $res_verifica_assinatura = oci_fetch_array($res_cons_assinatura);
         var scale = window.devicePixelRatio || 1;
         canvas.width *= scale;
         canvas.height *= scale;
-        context.strokeStyle = "#5b79b4";
+        //context.strokeStyle = "#5b79b4";
+        context.strokeStyle = "#000000";
         context.scale(scale, scale);
 
         function getMousePos(canvas, event) {
