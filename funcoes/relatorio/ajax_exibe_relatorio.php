@@ -14,7 +14,11 @@ $varfontawaeson = '<i class="fa-solid fa-triangle-exclamation"></i>';
 $fontawaeson = '<i class="fa-solid fa-triangle-exclamation"></i>';
 
  $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
-                                    (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
+                                    CASE 
+                                        WHEN (SELECT usu.SN_ATIVO FROM dbasgu.usuarios usu WHERE usu.CD_USUARIO = sol.CD_USUARIO_MV) = 'S'
+                                        THEN (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) || ' <i class=\"fa-solid fa-circle-user\" style=\"color: green;\"></i>'
+                                        ELSE (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV)
+                                    END AS NM_USU,
                                     TO_CHAR(sol.HR_CADASTRO, 'DD/MM/YYYY') AS HR_CADASTRO,
                                     sol.CD_SETOR_MV,
                                     (SELECT st.NM_SETOR
@@ -106,6 +110,7 @@ $consulta_tabela_rel .= " GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_P
                            sol.CD_USUARIO_CADASTRO, sol.DS_JUST_DUR
                            ORDER BY 1 DESC";
 
+//echo $consulta_tabela_rel;
 
 $resultado_tabela_relatorio = oci_parse($conn_ora, $consulta_tabela_rel);
 

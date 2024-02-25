@@ -9,7 +9,7 @@ $con_usu_oracle=   "SELECT  DISTINCT usu.CD_USUARIO,
                     FROM portal_sesmt.SOLICITACAO sol
                     INNER JOIN dbasgu.USUARIOS usu
                        ON usu.CD_USUARIO = sol.CD_USUARIO_MV
-                    WHERE usu.SN_ATIVO = 'S'";
+                    WHERE 1 = 1";
 
                     if($var_centro_cust <> 'all'){
 
