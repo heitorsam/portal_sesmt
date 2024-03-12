@@ -6,7 +6,7 @@
 
 
     $consulta_tabela = "SELECT sol.CD_SOLICITACAO,
-                            (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
+                            (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = LPAD(sol.CD_USUARIO_MV,11)) AS NM_USU,
 
                             (SELECT st.CD_SETOR
                              FROM dbamv.SETOR st

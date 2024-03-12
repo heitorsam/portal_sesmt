@@ -30,7 +30,7 @@ $html = '';
 
 //FAZ O SELECT SEM O PARAMETRO DS_JUST IS NOT NULL
 $consulta_excel_oracle = "SELECT sol.CD_SOLICITACAO,
-                            (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) AS NM_USU,
+                            (SELECT usu.NM_FUNCIONARIO FROM dbamv.STA_TB_FUNCIONARIO usu WHERE RPAD(('00000' || TO_CHAR(CHAPA)), 11, 0) = LPAD(sol.CD_USUARIO_MV,11)) AS NM_USU,
                             TO_CHAR(sol.HR_CADASTRO, 'DD/MM/YYYY') AS HR_CADASTRO,
                             sol.CD_SETOR_MV,
                             (SELECT st.NM_SETOR

@@ -15,9 +15,9 @@ $fontawaeson = '<i class="fa-solid fa-triangle-exclamation"></i>';
 
  $consulta_tabela_rel = "SELECT sol.CD_SOLICITACAO,
                                     CASE 
-                                        WHEN (SELECT usu.SN_ATIVO FROM dbasgu.usuarios usu WHERE usu.CD_USUARIO = sol.CD_USUARIO_MV) = 'S'
-                                        THEN (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV) || ' <i class=\"fa-solid fa-circle-user\" style=\"color: green;\"></i>'
-                                        ELSE (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_MV)
+                                        WHEN (SELECT usu.TP_SITUACAO FROM dbamv.STA_TB_FUNCIONARIO usu WHERE RPAD(('00000' || TO_CHAR(CHAPA)), 11, 0) = LPAD(sol.CD_USUARIO_MV,11)) = 'A'
+                                        THEN (SELECT usu.NM_FUNCIONARIO FROM dbamv.STA_TB_FUNCIONARIO usu WHERE RPAD(('00000' || TO_CHAR(CHAPA)), 11, 0) = LPAD(sol.CD_USUARIO_MV,11)) || ' <i class=\"fa-solid fa-circle-user\" style=\"color: green;\"></i>'
+                                        ELSE (SELECT usu.NM_FUNCIONARIO FROM dbamv.STA_TB_FUNCIONARIO usu WHERE RPAD(('00000' || TO_CHAR(CHAPA)), 11, 0) = LPAD(sol.CD_USUARIO_MV,11))
                                     END AS NM_USU,
                                     TO_CHAR(sol.HR_CADASTRO, 'DD/MM/YYYY') AS HR_CADASTRO,
                                     sol.CD_SETOR_MV,
@@ -77,7 +77,7 @@ $fontawaeson = '<i class="fa-solid fa-triangle-exclamation"></i>';
                                     END AS EX_SOL,
                                     sol.DS_JUST_DUR,
                                     sol.QUANTIDADE,
-                                    (SELECT usu.nm_usuario FROM dbasgu.usuarios usu WHERE usu.cd_usuario = sol.CD_USUARIO_CADASTRO) NM_USUARIO_CADASTRO,
+                                    (SELECT usu.NM_FUNCIONARIO FROM dbamv.STA_TB_FUNCIONARIO usu WHERE RPAD(('00000' || TO_CHAR(CHAPA)), 11, 0) = LPAD(sol.CD_USUARIO_CADASTRO,11)) NM_USUARIO_CADASTRO,
                                     (SELECT edc.EDITADO_SN FROM portal_sesmt.EDITAR_CA edc WHERE edc.CD_SOLICITACAO = sol.CD_SOLICITACAO
                                     ) AS EDITADO_SN,
                                     (SELECT ass.BLOB_ASS 
@@ -110,7 +110,7 @@ $consulta_tabela_rel .= " GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_P
                            sol.CD_USUARIO_CADASTRO, sol.DS_JUST_DUR
                            ORDER BY 1 DESC";
 
-//echo $consulta_tabela_rel;
+$consulta_tabela_rel;
 
 $resultado_tabela_relatorio = oci_parse($conn_ora, $consulta_tabela_rel);
 

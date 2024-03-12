@@ -4,11 +4,10 @@
 
 $var_centro_cust = $_GET['get_var_cc'];
 
-$con_usu_oracle=   "SELECT  DISTINCT usu.CD_USUARIO,
-                                     usu.NM_USUARIO 
+$con_usu_oracle=   "SELECT  DISTINCT usu.CHAPA AS CD_USUARIO, usu.NM_FUNCIONARIO AS NM_USUARIO
                     FROM portal_sesmt.SOLICITACAO sol
-                    INNER JOIN dbasgu.USUARIOS usu
-                       ON usu.CD_USUARIO = sol.CD_USUARIO_MV
+                    INNER JOIN dbamv.STA_TB_FUNCIONARIO usu
+                      ON RPAD(('00000' || TO_CHAR(CHAPA)), 11, 0) = LPAD(sol.CD_USUARIO_MV,11)
                     WHERE 1 = 1";
 
                     if($var_centro_cust <> 'all'){
@@ -17,7 +16,7 @@ $con_usu_oracle=   "SELECT  DISTINCT usu.CD_USUARIO,
 
                     }
 
-                    $con_usu_oracle .= " ORDER BY usu.NM_USUARIO ASC";
+                    $con_usu_oracle .= " ORDER BY usu.NM_FUNCIONARIO ASC";
 
 
 $resultado_usu_oracle = oci_parse($conn_ora, $con_usu_oracle);
