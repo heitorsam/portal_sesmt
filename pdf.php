@@ -80,7 +80,7 @@ if($centro_custo_ex <> 'all'){
 
 if($cd_usuario_relatorio_ex <> 'all'){
 
-    $consulta_excel_oracle .= " AND sol.CD_USUARIO_MV = $cd_usuario_relatorio_ex";
+    $consulta_tabela_rel .= " AND LPAD(sol.CD_USUARIO_MV,11) = RPAD(('00000' || TO_CHAR($cd_usuario_relatorio_ex)), 11, 0)";
 
 }
 

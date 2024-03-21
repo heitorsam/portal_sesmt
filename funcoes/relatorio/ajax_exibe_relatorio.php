@@ -97,7 +97,7 @@ if($cd_centro_custo <> 'all'){
 }
      
 if($cd_usuario_relatorio <> 'all'){
-     $consulta_tabela_rel .= " AND sol.CD_USUARIO_MV = $cd_usuario_relatorio";
+     $consulta_tabela_rel .= " AND LPAD(sol.CD_USUARIO_MV,11) = RPAD(('00000' || TO_CHAR($cd_usuario_relatorio)), 11, 0)";
 }
 
 if($tp_rel == 'S'){
@@ -110,7 +110,7 @@ $consulta_tabela_rel .= " GROUP BY sol.CD_SOLICITACAO, sol.CD_SETOR_MV, sol.CD_P
                            sol.CD_USUARIO_CADASTRO, sol.DS_JUST_DUR
                            ORDER BY 1 DESC";
 
-$consulta_tabela_rel;
+//echo $consulta_tabela_rel;
 
 $resultado_tabela_relatorio = oci_parse($conn_ora, $consulta_tabela_rel);
 
